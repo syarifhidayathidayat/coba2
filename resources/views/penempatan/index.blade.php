@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Data Jurusan</h1>
+    <h1 class="h3 mb-4 text-gray-800">Data Penempatan Barang</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('jurusan.create') }}" class="btn btn-primary mb-3">+ Tambah Jurusan</a>
+    <a href="{{ route('penempatan.create') }}" class="btn btn-primary mb-3">+ Tambah Penempatan</a>
 
     <div class="card shadow">
         <div class="card-body">
@@ -16,18 +16,18 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Nama Jurusan</th>
+                        <th>Nama Penempatan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($jurusans as $i => $jurusan)
+                    @foreach ($jurusans as $i => $penempatan)
                         <tr>
                             <td>{{ $i+1 }}</td>
-                            <td>{{ $jurusan->nama }}</td>
+                            <td>{{ $penempatan->nama }}</td>
                             <td>
-                                <a href="{{ route('jurusan.edit', $jurusan) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('jurusan.destroy', $jurusan) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus jurusan ini?')">
+                                <a href="{{ route('penempatan.edit', $penempatan) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ route('penempatan.destroy', $penempatan) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus penempatan ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger">Hapus</button>

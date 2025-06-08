@@ -24,7 +24,7 @@
 
        <!-- Heading -->
        <div class="sidebar-heading">
-           Master Data
+           USER
        </div>
 
        <!-- Menu Pegawai -->
@@ -33,8 +33,15 @@
                <i class="fas fa-fw fa-user-tie"></i>
                <span>Pegawai</span></a>
        </li>
+       <!-- Menu Penyedia -->
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('penyedia.index') }}">
+               <i class="fas fa-fw fa-user-tie"></i>
+               <span>Penyedia</span></a>
+       </li>
 
-
+ <!-- Divider -->
+ <hr class="sidebar-divider">
 
        <!-- Nav Item - Pengaturan Collapse Menu -->
        <li class="nav-item">
@@ -46,7 +53,7 @@
            <div id="collapsePengaturan" class="collapse" aria-labelledby="headingPengaturan"
                data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                   <a class="collapse-item" href="{{ route('jurusan.index') }}">Jurusan</a>
+                   <a class="collapse-item" href="{{ route('penempatan.index') }}">Penempatan Barang</a>
                    {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
 
                </div>

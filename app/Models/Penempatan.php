@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class jurusan extends Model
+class penempatan extends Model
 {
     protected $fillable = [
         'nama',

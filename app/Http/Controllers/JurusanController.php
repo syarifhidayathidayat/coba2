@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jurusan;
+use App\Models\Penempatan;
 use Illuminate\Http\Request;
 
 class JurusanController extends Controller
 {
     public function index()
     {
-        $jurusans = Jurusan::all();
-        return view('jurusan.index', compact('jurusans'));
+        $jurusans = Penempatan::all();
+        return view('penempatan.index', compact('jurusans'));
     }
 
     public function create()
     {
-        return view('jurusan.create');
+        return view('penempatan.create');
     }
 
     public function store(Request $request)
@@ -24,28 +24,28 @@ class JurusanController extends Controller
             'nama' => 'required|unique:jurusans,nama',
         ]);
 
-        Jurusan::create($request->all());
-        return redirect()->route('jurusan.index')->with('success', 'Data jurusan berhasil disimpan.');
+        Penempatan::create($request->all());
+        return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil disimpan.');
     }
 
-    public function edit(Jurusan $jurusan)
+    public function edit(Penempatan $penempatan)
     {
-        return view('jurusan.edit', compact('jurusan'));
+        return view('penempatan.edit', compact('penempatan'));
     }
 
-    public function update(Request $request, Jurusan $jurusan)
+    public function update(Request $request, Penempatan $penempatan)
     {
         $request->validate([
-            'nama' => 'required|unique:jurusans,nama,' . $jurusan->id,
+            'nama' => 'required|unique:jurusans,nama,' . $penempatan->id,
         ]);
 
-        $jurusan->update($request->all());
-        return redirect()->route('jurusan.index')->with('success', 'Data jurusan berhasil diperbarui.');
+        $penempatan->update($request->all());
+        return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil diperbarui.');
     }
 
-    public function destroy(Jurusan $jurusan)
+    public function destroy(Penempatan $penempatan)
     {
-        $jurusan->delete();
-        return redirect()->route('jurusan.index')->with('success', 'Data jurusan berhasil dihapus.');
+        $penempatan->delete();
+        return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil dihapus.');
     }
 }

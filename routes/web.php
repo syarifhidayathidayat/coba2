@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\PenyediaController;
 
 
 Route::get('/', function () {
@@ -21,7 +22,12 @@ Route::middleware('auth')->group(function () {
     
 });
 Route::resource('pegawai', PegawaiController::class);
-Route::resource('jurusan', JurusanController::class);
+Route::resource('penempatan', JurusanController::class);
+
+
+Route::resource('penyedia', PenyediaController::class)->parameters([
+    'penyedia' => 'penyedia'
+]);
 
 
 require __DIR__.'/auth.php';
