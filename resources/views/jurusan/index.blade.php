@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Data Pegawai</h1>
+    <h1 class="h3 mb-4 text-gray-800">Data Jurusan</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('pegawai.create') }}" class="btn btn-primary mb-3">+ Tambah Pegawai</a>
+    <a href="{{ route('jurusan.create') }}" class="btn btn-primary mb-3">+ Tambah Jurusan</a>
 
     <div class="card shadow">
         <div class="card-body">
@@ -16,24 +16,18 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>NIP</th>
-                        <th>Jabatan</th>
-                        <th>Email</th>
+                        <th>Nama Jurusan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pegawais as $i => $pegawai)
+                    @foreach ($jurusans as $i => $jurusan)
                         <tr>
                             <td>{{ $i+1 }}</td>
-                            <td>{{ $pegawai->nama }}</td>
-                            <td>{{ $pegawai->nip }}</td>
-                            <td>{{ $pegawai->jabatan }}</td>
-                            <td>{{ $pegawai->email }}</td>
+                            <td>{{ $jurusan->nama }}</td>
                             <td>
-                                <a href="{{ route('pegawai.edit', $pegawai) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('pegawai.destroy', $pegawai) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pegawai ini?')">
+                                <a href="{{ route('jurusan.edit', $jurusan) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ route('jurusan.destroy', $jurusan) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus jurusan ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger">Hapus</button>
@@ -41,8 +35,8 @@
                             </td>
                         </tr>
                     @endforeach
-                    @if($pegawais->isEmpty())
-                        <tr><td colspan="6" class="text-center">Data kosong</td></tr>
+                    @if($jurusans->isEmpty())
+                        <tr><td colspan="3" class="text-center">Data kosong</td></tr>
                     @endif
                 </tbody>
             </table>

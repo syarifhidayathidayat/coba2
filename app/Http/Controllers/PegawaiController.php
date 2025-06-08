@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $data = Pegawai::all();
-        return view('pegawai.index', compact('data'));
+        $pegawais = Pegawai::all();
+        return view('pegawai.index', compact('pegawais'));
     }
 
     public function create()
@@ -25,29 +22,42 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nip' => 'required|unique:pegawais',
+            'nip' => 'nullable|unique:pegawais',
             'jabatan' => 'required',
+            'email' => 'nullable|email'
         ]);
+
         Pegawai::create($request->all());
-        return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambah');
+        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil disimpan.');
     }
 
-    public function edit($id)
+    public function show(Pegawai $pegawai)
     {
-        $pegawai = Pegawai::findOrFail($id);
+        return view('pegawai.show', compact('pegawai'));
+    }
+
+    public function edit(Pegawai $pegawai)
+    {
         return view('pegawai.edit', compact('pegawai'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Pegawai $pegawai)
     {
-        $pegawai = Pegawai::findOrFail($id);
+        $request->validate([
+            'nama' => 'required',
+            'nip' => 'nullable|unique:pegawais,nip,' . $pegawai->id,
+            'jabatan' => 'required',
+            'email' => 'nullable|email'
+        ]);
+
         $pegawai->update($request->all());
-        return redirect()->route('pegawai.index')->with('success', 'Data berhasil diupdate');
+        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function destroy(Pegawai $pegawai)
     {
-        Pegawai::destroy($id);
-        return back()->with('success', 'Data dihapus');
+        $pegawai->delete();
+        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
     }
 }
+

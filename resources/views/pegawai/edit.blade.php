@@ -1,22 +1,35 @@
 @extends('layouts.app')
-@section('content')
-<h1 class="h3 mb-4">{{ isset($pegawai) ? 'Edit' : 'Tambah' }} Pegawai</h1>
 
-<form method="POST" action="{{ isset($pegawai) ? route('pegawai.update', $pegawai->id) : route('pegawai.store') }}">
-    @csrf
-    @if(isset($pegawai)) @method('PUT') @endif
-    <div class="mb-3">
-        <label>Nama</label>
-        <input type="text" name="nama" class="form-control" value="{{ old('nama', $pegawai->nama ?? '') }}">
-    </div>
-    <div class="mb-3">
-        <label>NIP</label>
-        <input type="text" name="nip" class="form-control" value="{{ old('nip', $pegawai->nip ?? '') }}">
-    </div>
-    <div class="mb-3">
-        <label>Jabatan</label>
-        <input type="text" name="jabatan" class="form-control" value="{{ old('jabatan', $pegawai->jabatan ?? '') }}">
-    </div>
-    <button class="btn btn-success">Simpan</button>
-</form>
+@section('content')
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Edit Pegawai</h1>
+
+    <form action="{{ route('pegawai.update', $pegawai) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label>Nama</label>
+            <input type="text" name="nama" class="form-control" value="{{ $pegawai->nama }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>NIP</label>
+            <input type="text" name="nip" class="form-control" value="{{ $pegawai->nip }}">
+        </div>
+
+        <div class="form-group">
+            <label>Jabatan</label>
+            <input type="text" name="jabatan" class="form-control" value="{{ $pegawai->jabatan }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" value="{{ $pegawai->email }}">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="{{ route('pegawai.index') }}" class="btn btn-secondary">Kembali</a>
+    </form>
+</div>
 @endsection
