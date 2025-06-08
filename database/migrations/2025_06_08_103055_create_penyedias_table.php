@@ -13,10 +13,17 @@ return new class extends Migration
     {
         Schema::create('penyedias', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_penyedia');
-            $table->string('npwp');
-            $table->string('rekening');
-            $table->text('alamat');
+            $table->string('nama_penyedia')->nullable();
+            $table->string('nama_direktur_penyedia')->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('website')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('email')->nullable();
+            $table->string('rekening_bank')->nullable();
+            $table->string('cabang_bank')->nullable();
+            $table->string('rekening_atas_nama')->nullable();
+            $table->string('npwp')->nullable();
             $table->string('dokumen_npwp')->nullable();
             $table->string('dokumen_ktp')->nullable();
             $table->string('dokumen_rekening_koran')->nullable();

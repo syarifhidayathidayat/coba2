@@ -22,14 +22,22 @@ class PenyediaController extends Controller
     {
         $validated = $request->validate([
             'nama_penyedia' => 'required|string|max:255',
+            'nama_direktur_penyedia' => 'required|string|max:50',
+            'alamat' => 'required|string|max:255',
+            'telepon' => 'required|string|max:30',
+            'website' => 'required|string|max:50',
+            'fax' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'rekening_bank' => 'required|string',
+            'cabang_bank' => 'required|string',
+            'rekening_atas_nama' => 'required|string',
             'npwp' => 'required|string',
-            'rekening' => 'required|string',
-            'alamat' => 'required|string',
-            'dokumen_npwp' => 'file|mimes:pdf,jpg,png|max:2048',
-            'dokumen_ktp' => 'file|mimes:pdf,jpg,png|max:2048',
-            'dokumen_rekening_koran' => 'file|mimes:pdf,jpg,png|max:2048',
+            'dokumen_npwp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'dokumen_ktp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'dokumen_rekening_koran' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ]);
 
+        // Upload dokumen jika ada
         if ($request->hasFile('dokumen_npwp')) {
             $validated['dokumen_npwp'] = $request->file('dokumen_npwp')->store('dokumen_penyedia', 'public');
         }
@@ -53,14 +61,22 @@ class PenyediaController extends Controller
     {
         $validated = $request->validate([
             'nama_penyedia' => 'required|string|max:255',
+            'nama_direktur_penyedia' => 'required|string|max:50',
+            'alamat' => 'required|string|max:255',
+            'telepon' => 'required|string|max:30',
+            'website' => 'required|string|max:50',
+            'fax' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'rekening_bank' => 'required|string',
+            'cabang_bank' => 'required|string',
+            'rekening_atas_nama' => 'required|string',
             'npwp' => 'required|string',
-            'rekening' => 'required|string',
-            'alamat' => 'required|string',
             'dokumen_npwp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             'dokumen_ktp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             'dokumen_rekening_koran' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ]);
 
+        // Upload ulang jika file baru dikirim
         if ($request->hasFile('dokumen_npwp')) {
             $validated['dokumen_npwp'] = $request->file('dokumen_npwp')->store('dokumen_penyedia', 'public');
         }

@@ -10,14 +10,21 @@
 
     <a href="{{ route('penyedia.create') }}" class="btn btn-primary mb-3">Tambah Penyedia</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered datatable table-responsive">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Penyedia</th>
-                <th>NPWP</th>
-                <th>Rekening</th>
+                <th>Nama Direktur</th>
                 <th>Alamat</th>
+                <th>Telp</th>
+                <th>Website</th>
+                <th>Fax</th>
+                <th>Email</th>
+                <th>Rekening</th>
+                <th>Cabang Bank</th>
+                <th>Rekening A/n</th>
+                <th>NPWP</th>
                 <th>NPWP Doc</th>
                 <th>KTP Doc</th>
                 <th>Rek. Koran Doc</th>
@@ -29,9 +36,16 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $penyedia->nama_penyedia }}</td>
-                <td>{{ $penyedia->npwp }}</td>
-                <td>{{ $penyedia->rekening }}</td>
+                <td>{{ $penyedia->nama_direktur_penyedia }}</td>
                 <td>{{ $penyedia->alamat }}</td>
+                <td>{{ $penyedia->telepon }}</td>
+                <td>{{ $penyedia->website }}</td>
+                <td>{{ $penyedia->fax }}</td>
+                <td>{{ $penyedia->email }}</td>
+                <td>{{ $penyedia->rekening_bank }}</td>
+                <td>{{ $penyedia->cabang_bank }}</td>
+                <td>{{ $penyedia->rekening_atas_nama }}</td>
+                <td>{{ $penyedia->npwp }}</td>
 
                 {{-- Tampilkan link file jika tersedia --}}
                 <td>
@@ -75,4 +89,19 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true, // opsional, untuk responsif otomatis
+            
+        });
+    });
+</script>
 @endsection
