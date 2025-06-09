@@ -21,13 +21,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($jurusans as $i => $penempatan)
+                    @foreach ($penempatans as $i => $penempatan)
                         <tr>
                             <td>{{ $i+1 }}</td>
                             <td>{{ $penempatan->nama }}</td>
                             <td>
-                                <a href="{{ route('penempatan.edit', $penempatan) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('penempatan.destroy', $penempatan) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus penempatan ini?')">
+                                <a href="{{ route('penempatan.edit', $penempatans) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ route('penempatan.destroy', $penempatans) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus penempatan ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger">Hapus</button>
@@ -35,7 +35,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    @if($jurusans->isEmpty())
+                    @if($penempatans->isEmpty())
                         <tr><td colspan="3" class="text-center">Data kosong</td></tr>
                     @endif
                 </tbody>

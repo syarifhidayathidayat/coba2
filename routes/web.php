@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\PenempatanController  ;
 use App\Http\Controllers\PenyediaController;
 
 
@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     
 });
 Route::resource('pegawai', PegawaiController::class);
-Route::resource('penempatan', JurusanController::class);
+Route::resource('penempatan', PenempatanController::class);
 
 
 Route::resource('penyedia', PenyediaController::class)->parameters([

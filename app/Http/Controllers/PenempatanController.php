@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Penempatan;
 use Illuminate\Http\Request;
 
-class JurusanController extends Controller
+class PenempatanController extends Controller
 {
     public function index()
     {
-        $jurusans = Penempatan::all();
-        return view('penempatan.index', compact('jurusans'));
+        $penempatans = Penempatan::all();
+        return view('penempatan.index', compact('penempatans'));
     }
 
     public function create()
@@ -21,31 +21,31 @@ class JurusanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|unique:jurusans,nama',
+            'nama' => 'required|unique:penempatans,nama',
         ]);
 
         Penempatan::create($request->all());
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil disimpan.');
     }
 
-    public function edit(Penempatan $penempatan)
+    public function edit(Penempatan $penempatans)
     {
-        return view('penempatan.edit', compact('penempatan'));
+        return view('penempatan.edit', compact('penempatans'));
     }
 
-    public function update(Request $request, Penempatan $penempatan)
+    public function update(Request $request, Penempatan $penempatans)
     {
         $request->validate([
-            'nama' => 'required|unique:jurusans,nama,' . $penempatan->id,
+            'nama' => 'required|unique:penempatans,nama,' . $penempatans->id,
         ]);
 
-        $penempatan->update($request->all());
+        $penempatans->update($request->all());
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil diperbarui.');
     }
 
-    public function destroy(Penempatan $penempatan)
+    public function destroy(Penempatan $penempatans)
     {
-        $penempatan->delete();
+        $penempatans->delete();
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil dihapus.');
     }
 }
