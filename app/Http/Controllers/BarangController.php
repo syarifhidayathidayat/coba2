@@ -33,4 +33,9 @@ class BarangController extends Controller
 
         return redirect()->route('sp.index')->with('success', 'Data barang berhasil disimpan.');
     }
+    public function indexSemuaBarang()
+    {
+        $barangs = Barang::with('sp')->get(); // pastikan relasi `sp` ada di model Barang
+        return view('barang.semua', compact('barangs'));
+    }
 }

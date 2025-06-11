@@ -12,4 +12,5 @@ class Barang extends Model
     {
         return $this->belongsTo(Sp::class);
     }
+    
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-fluid">
     <h3 class="mb-4">Tambah Penyedia</h3>
 
     <form action="{{ route('penyedia.store') }}" method="POST" enctype="multipart/form-data">

@@ -9,6 +9,11 @@
         @endif
 
         <a href="{{ route('sp.create') }}" class="btn btn-primary mb-3">Tambah SP</a>
+        <a href="{{ route('barang.semua') }}" class="btn btn-primary mb-3">
+            <i class="fas fa-box"></i> Lihat Semua Barang
+        </a>
+        
+        
 
         <table class="table table-bordered table-striped">
             <thead>
@@ -30,53 +35,48 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($sp as $index => $item)
+                @foreach ($sps as $index => $sp)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nomor_sp }}</td>
-                        <td>{{ $item->penyedia->nama_penyedia ?? '-' }}</td>
-                        <td>{{ $item->nama_paket }}</td>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ number_format($item->total_kontrak, 0, ',', '.') }}</td>
-                        <td>{{ $item->mulai_pekerjaan }}</td>
-                        <td>{{ $item->masa }} hari</td>
-                        <td>{{ $item->akhir_pekerjaan }}</td>
-                        <td>{{ $item->metode }}</td>
-                        <td>{{ number_format($item->total_pagu, 0, ',', '.') }}</td>
-                        <td>{{ $item->akun }}</td>
+                        <td>{{ $sp->nomor_sp }}</td>
+                        <td>{{ $sp->penyedia->nama_penyedia ?? '-' }}</td>
+                        <td>{{ $sp->nama_paket }}</td>
+                        <td>{{ $sp->tanggal }}</td>
+                        <td>{{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
+                        <td>{{ $sp->mulai_pekerjaan }}</td>
+                        <td>{{ $sp->masa }} hari</td>
+                        <td>{{ $sp->akhir_pekerjaan }}</td>
+                        <td>{{ $sp->metode }}</td>
+                        <td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>
+                        <td>{{ $sp->akun }}</td>
                         <td>
-                            @if ($item->barangs->isEmpty())
-                                <em>Belum ada</em>
-                            @else
-                                <ul class="mb-0">
-                                    @foreach ($item->barangs as $barang)
-                                        <li>{{ $barang->nama_barang }} ({{ $barang->qty }})</li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                            {{ $sp->barangs->count() }} 
+                            <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-info ms-2" title="Lihat Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>
                         </td>
+            
                         <td class="text-nowrap">
-                            <a href="{{ route('sp.edit', $item->id) }}" class="btn btn-sm btn-warning" title="Edit">
+                            <a href="{{ route('sp.edit', $sp->id) }}" class="btn btn-sm btn-warning" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                        
-                            <form action="{{ route('sp.destroy', $item->id) }}" method="POST" style="display:inline;">
+            
+                            <form action="{{ route('sp.destroy', $sp->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Yakin hapus SP?')" class="btn btn-sm btn-danger" title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
-                        
-                            <a href="{{ route('barang.create', $item->id) }}" class="btn btn-sm btn-info" title="Tambah Barang">
+            
+                            <a href="{{ route('barang.create', $sp->id) }}" class="btn btn-sm btn-info" title="Tambah Barang">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </td>
-                        
                     </tr>
                 @endforeach
-
             </tbody>
+            
         </table>
     </div>
 @endsection

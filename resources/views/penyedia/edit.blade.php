@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-fluid">
     <h2>Edit Penyedia</h2>
 
     <form action="{{ route('penyedia.update', $penyedia) }}" method="POST" enctype="multipart/form-data">

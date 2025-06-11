@@ -11,10 +11,11 @@ class SpController extends Controller
 {
     public function index()
     {
-        $sp = Sp::with(['penyedia', 'barangs'])->get(); // atau paginate jika ingin pagination
-
-        return view('sp.index', compact('sp'));
+        $sps = Sp::with('penyedia', 'barangs')->get(); // Ambil semua SP beserta penyedia & barangs
+        return view('sp.index', compact('sps')); // Kirim ke view dengan nama variabel $sps
     }
+
+
 
     public function create()
     {
@@ -43,5 +44,16 @@ class SpController extends Controller
         Sp::create($validated);
 
         return redirect()->route('sp.index')->with('success', 'Data SP berhasil disimpan.');
+    }
+    public function show($id)
+    {
+        $sp = Sp::with('barangs')->findOrFail($id);
+        return view('sp.show', compact('sp'));
+    }
+
+    public function indexSemuaBarang()
+    {
+        $barangs = Barang::with('sp')->get(); // include data SP-nya juga
+        return view('barang.semua', compact('barangs'));
     }
 }
