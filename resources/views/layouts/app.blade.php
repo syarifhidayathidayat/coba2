@@ -12,7 +12,8 @@
     <link href="{{ asset('sb-admin-2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- fitur cari pada dropdown --}}
 
 </head>
 
@@ -40,6 +41,17 @@
     <script src="{{ asset('sb-admin-2/js/sb-admin-2.min.js') }}"></script>
     <!-- DataTables JS global -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Pilih Penyedia",
+            allowClear: true
+        });
+    });
+</script>

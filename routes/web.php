@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PenempatanController  ;
 use App\Http\Controllers\PenyediaController;
+use App\Http\Controllers\SpController;
+
 
 
 Route::get('/', function () {
@@ -28,6 +30,9 @@ Route::resource('penempatan', PenempatanController::class);
 Route::resource('penyedia', PenyediaController::class)->parameters([
     'penyedia' => 'penyedia'
 ]);
+Route::resource('sp', SpController::class);
 
+Route::get('sp/{id}/barang/create', [App\Http\Controllers\BarangController::class, 'create'])->name('barang.create');
+Route::post('sp/{id}/barang', [App\Http\Controllers\BarangController::class, 'store'])->name('barang.store');
 
 require __DIR__.'/auth.php';
