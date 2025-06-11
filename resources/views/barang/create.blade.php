@@ -9,21 +9,22 @@
         <div id="barang-list">
             <div class="row mb-2 barang-item">
                 <div class="col-md-6">
+                    <input type="hidden" name="sp_id" value="{{ $sp->id }}">
                     <input type="text" name="nama_barang[]" class="form-control" placeholder="Nama Barang" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <input type="number" name="qty[]" class="form-control" placeholder="Qty" required>
                 </div>
-                <div class="col-md-2 d-flex">
-                    <button type="button" class="btn btn-sm btn-danger btn-remove me-10" title="Hapus">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-success btn-add" title="Tambah">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                <div class="col-md-4">
+                    <select name="penempatan_id[]" class="form-control" required>
+                        <option value="">-- Pilih Penempatan --</option>
+                        @foreach ($penempatans as $penempatan)
+                            <option value="{{ $penempatan->id }}">{{ $penempatan->nama }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                
             </div>
+            
         </div>
     
         <button type="submit" class="btn btn-primary mt-3">Simpan Barang</button>

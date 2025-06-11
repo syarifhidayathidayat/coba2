@@ -25,7 +25,7 @@
                     <th>Tanggal</th>
                     <th>Total Kontrak</th>
                     <th>Mulai</th>
-                    <th>Masa</th>
+                    <th>Masa(Day)</th>
                     <th>Akhir</th>
                     <th>Metode</th>
                     <th>Total Pagu</th>
@@ -44,7 +44,7 @@
                         <td>{{ $sp->tanggal }}</td>
                         <td>{{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
                         <td>{{ $sp->mulai_pekerjaan }}</td>
-                        <td>{{ $sp->masa }} hari</td>
+                        <td>{{ $sp->masa }} </td>
                         <td>{{ $sp->akhir_pekerjaan }}</td>
                         <td>{{ $sp->metode }}</td>
                         <td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>
