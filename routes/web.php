@@ -9,8 +9,6 @@ use App\Http\Controllers\SpController;
 use App\Http\Controllers\BarangController;
 
 
-
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,9 +34,6 @@ Route::resource('sp', SpController::class);
 Route::get('/sp/{id}', [SpController::class, 'show'])->name('sp.show');
 Route::get('/barang/semua', [BarangController::class, 'indexSemuaBarang'])->name('barang.semua');
 Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
-
-
-
 
 Route::get('sp/{id}/barang/create', [App\Http\Controllers\BarangController::class, 'create'])->name('barang.create');
 Route::post('sp/{id}/barang', [App\Http\Controllers\BarangController::class, 'store'])->name('barang.store');
