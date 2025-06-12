@@ -27,24 +27,24 @@ class SpController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_sp' => 'required|string',
-            'penyedia_id' => 'required|exists:penyedias,id',
-            'nama_paket' => 'required|string',
+            'nomor_sp' => 'required',
+            'penyedia_id' => 'required',
+            'nama_paket' => 'required',
             'tanggal' => 'required|date',
-            'total_kontrak' => 'required|numeric',
             'mulai_pekerjaan' => 'required|date',
-            'masa' => 'required|integer|min:1',
-            'metode' => 'required|string',
+            'masa' => 'required|integer',
             'total_pagu' => 'required|numeric',
+            'metode' => 'required|string',
             'akun' => 'required|string',
+            'akhir_pekerjaan' => 'nullable|date', // pastikan ini ada
         ]);
 
-        $validated['akhir_pekerjaan'] = Carbon::parse($validated['mulai_pekerjaan'])->addDays((int) $validated['masa']);
+        $sp = Sp::create($validated); // hanya sekali create
 
-        Sp::create($validated);
-
-        return redirect()->route('sp.index')->with('success', 'Data SP berhasil disimpan.');
+        return redirect()->route('barang.create', ['id' => $sp->id])
+            ->with('success', 'Data SP berhasil disimpan. Silakan masukkan detail barang.');
     }
+
     public function show($id)
     {
         $sp = Sp::with('barangs')->findOrFail($id);

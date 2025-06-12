@@ -10,6 +10,7 @@
                 <th>Nama Barang</th>
                 <th>Qty</th>
                 <th>SP</th>
+            
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                     <td>{{ $barang->nama_barang }}</td>
                     <td>{{ $barang->qty }}</td>
                     <td>{{ $barang->sp->nomor_sp ?? '-' }}</td>
+                   
                 </tr>
             @endforeach
         </tbody>

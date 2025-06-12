@@ -35,6 +35,8 @@ Route::resource('penyedia', PenyediaController::class)->parameters([
 Route::resource('sp', SpController::class);
 Route::get('/sp/{id}', [SpController::class, 'show'])->name('sp.show');
 Route::get('/barang/semua', [BarangController::class, 'indexSemuaBarang'])->name('barang.semua');
+Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+
 
 
 

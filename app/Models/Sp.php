@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
 
 class Sp extends Model
 {
@@ -29,5 +31,18 @@ class Sp extends Model
     public function barangs()
     {
         return $this->hasMany(Barang::class);
+    }
+    public function updateTotalKontrak()
+    {
+        $total = $this->barangs()->sum('total') + $this->barangs()->sum('ongkos_kirim');
+        $this->total_kontrak = $total;
+        $this->save();
+    }
+    public function hitungAkhirPekerjaan()
+    {
+        if ($this->mulai_pekerjaan && $this->masa) {
+            $this->akhir_pekerjaan = Carbon::parse($this->mulai_pekerjaan)->addDays($this->masa);
+            $this->save();
+        }
     }
 }

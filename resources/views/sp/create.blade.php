@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <h3>Form Input SP</h3>
         <form action="{{ route('sp.store') }}" method="POST">
+
             @csrf
 
             <div class="row">
@@ -42,13 +43,11 @@
                 <div class="col-md-3">
                     <label>Akhir Pekerjaan</label>
                     <input type="text" id="akhir" class="form-control" readonly>
+                    <input type="hidden" name="akhir_pekerjaan" id="akhir_pekerjaan_hidden">
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-md-4">
-                    <label>Total Kontrak</label>
-                    <input type="number" name="total_kontrak" class="form-control" required>
-                </div>
+                {{-- Total Kontrak dihapus --}}
                 <div class="col-md-4">
                     <label>Total Pagu</label>
                     <input type="number" name="total_pagu" class="form-control" required>
@@ -74,12 +73,12 @@
     </div>
 @endsection
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mulaiInput = document.getElementById('mulai');
         const masaInput = document.getElementById('masa');
         const akhirInput = document.getElementById('akhir');
+        const akhirHidden = document.getElementById('akhir_pekerjaan_hidden');
         const submitBtn = document.querySelector('button[type="submit"]');
 
         function hitungTanggalAkhir() {
@@ -88,20 +87,21 @@
 
             if (!isNaN(mulai.getTime()) && !isNaN(masa)) {
                 const akhir = new Date(mulai);
-                akhir.setDate(akhir.getDate() + masa - 1); // Dikurangi 1 agar mulai dihitung sebagai hari ke-1
+                akhir.setDate(akhir.getDate() + masa - 1);
 
-                const hari = akhir.getDay(); // 0 = Minggu, 6 = Sabtu
+                const yyyy = akhir.getFullYear();
+                const mm = String(akhir.getMonth() + 1).padStart(2, '0');
+                const dd = String(akhir.getDate()).padStart(2, '0');
+                const formatted = `${yyyy}-${mm}-${dd}`;
 
-                if (hari === 0 || hari === 6) {
+                if (akhir.getDay() === 0 || akhir.getDay() === 6) {
                     akhirInput.value = '';
+                    akhirHidden.value = '';
                     alert('Tanggal akhir jatuh pada hari Sabtu/Minggu. Silakan ubah masa pekerjaan.');
                     if (submitBtn) submitBtn.disabled = true;
                 } else {
-                    const yyyy = akhir.getFullYear();
-                    const mm = String(akhir.getMonth() + 1).padStart(2, '0');
-                    const dd = String(akhir.getDate()).padStart(2, '0');
-
-                    akhirInput.value = `${yyyy}-${mm}-${dd}`;
+                    akhirInput.value = formatted;
+                    akhirHidden.value = formatted;
                     if (submitBtn) submitBtn.disabled = false;
                 }
             }
@@ -111,3 +111,4 @@
         masaInput.addEventListener('input', hitungTanggalAkhir);
     });
 </script>
+

@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 use App\Models\Penempatan;
 
 
+
 class BarangController extends Controller
 {
-    public function create($sp_id)
+    public function create($id)
     {
-        $sp = Sp::findOrFail($sp_id);
-        $penempatans = Penempatan::all(); // kalau form butuh pilih penempatan
-
+        $sp = Sp::findOrFail($id);
+        $penempatans = Penempatan::all();
         return view('barang.create', compact('sp', 'penempatans'));
     }
+
+
 
 
 
@@ -49,8 +51,12 @@ class BarangController extends Controller
             ]);
         }
 
+        // Tambahkan pemanggilan update total kontrak
+        $sp->updateTotalKontrak();
+
         return redirect()->route('sp.index')->with('success', 'Data barang berhasil disimpan.');
     }
+
 
 
     public function indexSemuaBarang()

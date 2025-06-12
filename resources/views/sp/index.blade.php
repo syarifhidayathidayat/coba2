@@ -12,8 +12,8 @@
         <a href="{{ route('barang.semua') }}" class="btn btn-primary mb-3">
             <i class="fas fa-box"></i> Lihat Semua Barang
         </a>
-        
-        
+
+
 
         <table class="table table-bordered table-striped">
             <thead>
@@ -25,7 +25,7 @@
                     <th>Tanggal</th>
                     <th>Total Kontrak</th>
                     <th>Mulai</th>
-                    <th>Masa(Day)</th>
+                    <th>Day</th>
                     <th>Akhir</th>
                     <th>Metode</th>
                     <th>Total Pagu</th>
@@ -42,41 +42,44 @@
                         <td>{{ $sp->penyedia->nama_penyedia ?? '-' }}</td>
                         <td>{{ $sp->nama_paket }}</td>
                         <td>{{ $sp->tanggal }}</td>
-                        <td>{{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
+                        <td>Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
+
                         <td>{{ $sp->mulai_pekerjaan }}</td>
                         <td>{{ $sp->masa }} </td>
-                        <td>{{ $sp->akhir_pekerjaan }}</td>
+                        <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->format('d-m-Y') }}</td>
                         <td>{{ $sp->metode }}</td>
                         <td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>
                         <td>{{ $sp->akun }}</td>
                         <td>
-                            {{ $sp->barangs->count() }} 
+                            {{ $sp->barangs->count() }}
                             <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-info ms-2" title="Lihat Detail">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>
-            
+
                         <td class="text-nowrap">
                             <a href="{{ route('sp.edit', $sp->id) }}" class="btn btn-sm btn-warning" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-            
+
                             <form action="{{ route('sp.destroy', $sp->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="return confirm('Yakin hapus SP?')" class="btn btn-sm btn-danger" title="Hapus">
+                                <button onclick="return confirm('Yakin hapus SP?')" class="btn btn-sm btn-danger"
+                                    title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
-            
-                            <a href="{{ route('barang.create', $sp->id) }}" class="btn btn-sm btn-info" title="Tambah Barang">
+
+                            <a href="{{ route('barang.create', $sp->id) }}" class="btn btn-sm btn-info"
+                                title="Tambah Barang">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-            
+
         </table>
     </div>
 @endsection
