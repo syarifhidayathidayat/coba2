@@ -7,15 +7,15 @@
         @csrf
     
         <div id="barang-list">
-            <div class="row mb-2 barang-item">
-                <div class="col-md-6">
+            <div class="row mb-2 barang-item align-items-end">
+                <div class="col-md-5">
                     <input type="hidden" name="sp_id" value="{{ $sp->id }}">
                     <input type="text" name="nama_barang[]" class="form-control" placeholder="Nama Barang" required>
                 </div>
                 <div class="col-md-2">
                     <input type="number" name="qty[]" class="form-control" placeholder="Qty" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <select name="penempatan_id[]" class="form-control" required>
                         <option value="">-- Pilih Penempatan --</option>
                         @foreach ($penempatans as $penempatan)
@@ -23,7 +23,16 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2 d-flex gap-2">
+                    <button type="button" class="btn btn-success btn-sm btn-add" title="Tambah">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btn-remove" title="Hapus">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
             </div>
+            
             
         </div>
     
