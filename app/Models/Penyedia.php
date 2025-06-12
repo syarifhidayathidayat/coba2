@@ -22,4 +22,8 @@ class Penyedia extends Model
         'dokumen_ktp',
         'dokumen_rekening_koran',
     ];
+    public function sp()
+    {
+        return $this->hasMany(Sp::class);
+    }
 }

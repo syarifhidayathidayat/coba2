@@ -24,6 +24,31 @@
 
        <!-- Heading -->
        <div class="sidebar-heading">
+           KONTRAK
+       </div>
+
+       <!-- Menu Kontrak -->
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('sp.index') }}">
+               <i class="fas fa-fw fa-pencil"></i>
+               <span>Surat Pesanan</span></a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{{ route('barang.semua') }}">
+            <i class="fas fa-boxes"></i>
+            <span>Semua Barang</span>
+        </a>
+    </li>
+    
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('sp.index') }}">
+               <i class="fas fa-fw fa-pencil"></i>
+               <span>BAST</span></a>
+       </li>
+       <!-- Divider -->
+       <hr class="sidebar-divider">
+       <!-- Heading -->
+       <div class="sidebar-heading">
            USER
        </div>
 
@@ -40,8 +65,8 @@
                <span>Penyedia</span></a>
        </li>
 
- <!-- Divider -->
- <hr class="sidebar-divider">
+       <!-- Divider -->
+       <hr class="sidebar-divider">
 
        <!-- Nav Item - Pengaturan Collapse Menu -->
        <li class="nav-item">

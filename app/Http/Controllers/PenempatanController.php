@@ -9,7 +9,8 @@ class PenempatanController extends Controller
 {
     public function index()
     {
-        $penempatans = Penempatan::all();
+        // dd(Penempatan::all());
+        $penempatans = Penempatan::all(); // Ambil ulang semua data
         return view('penempatan.index', compact('penempatans'));
     }
 
@@ -28,24 +29,26 @@ class PenempatanController extends Controller
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil disimpan.');
     }
 
-    public function edit(Penempatan $penempatans)
+    public function edit($id)
     {
-        return view('penempatan.edit', compact('penempatans'));
+        $penempatan = Penempatan::findOrFail($id);
+        return view('penempatan.edit', compact('penempatan'));
     }
 
-    public function update(Request $request, Penempatan $penempatans)
+
+    public function update(Request $request, Penempatan $penempatan)
     {
         $request->validate([
-            'nama' => 'required|unique:penempatans,nama,' . $penempatans->id,
+            'nama' => 'required|unique:penempatans,nama,' . $penempatan->id,
         ]);
 
-        $penempatans->update($request->all());
+        $penempatan->update($request->all());
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil diperbarui.');
     }
 
-    public function destroy(Penempatan $penempatans)
+    public function destroy(Penempatan $penempatan)
     {
-        $penempatans->delete();
+        $penempatan->delete();
         return redirect()->route('penempatan.index')->with('success', 'Data penempatan berhasil dihapus.');
     }
 }

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Edit Penempatan</h1>
 
-    <form action="{{ route('penempatan.update', $penempatan) }}" method="POST">
+    <form action="{{ route('penempatan.update', $penempatan->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -14,5 +14,6 @@
         <button type="submit" class="btn btn-success">Update</button>
         <a href="{{ route('penempatan.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
+    
 </div>
 @endsection
