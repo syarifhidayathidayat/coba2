@@ -10,8 +10,12 @@ class Barang extends Model
         'sp_id',
         'nama_barang',
         'qty',
+        'harga',
+        'total',
+        'ongkos_kirim',
         'penempatan_id',
     ];
+
 
 
     public function sp()

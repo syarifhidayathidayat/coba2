@@ -23,18 +23,28 @@ class BarangController extends Controller
     public function store(Request $request, $id)
     {
         $request->validate([
-            'nama_barang.*'   => 'required|string',
-            'qty.*'           => 'required|integer|min:1',
-            'penempatan_id.*' => 'required|exists:penempatans,id',
+            'nama_barang.*'    => 'required|string',
+            'qty.*'            => 'required|integer|min:1',
+            'harga.*'          => 'nullable|numeric|min:0',
+            'ongkos_kirim.*'   => 'nullable|numeric|min:0',
+            'penempatan_id.*'  => 'required|exists:penempatans,id',
         ]);
 
         $sp = Sp::findOrFail($id);
 
         foreach ($request->nama_barang as $index => $nama) {
+            $qty           = $request->qty[$index];
+            $harga         = $request->harga[$index] ?? 0;
+            $ongkos_kirim  = $request->ongkos_kirim[$index] ?? 0;
+            $total         = $qty * $harga;
+
             Barang::create([
                 'sp_id'         => $sp->id,
                 'nama_barang'   => $nama,
-                'qty'           => $request->qty[$index],
+                'qty'           => $qty,
+                'harga'         => $harga,
+                'total'         => $total,
+                'ongkos_kirim'  => $ongkos_kirim,
                 'penempatan_id' => $request->penempatan_id[$index],
             ]);
         }
