@@ -41,9 +41,14 @@
     </li>
     
        <li class="nav-item">
-           <a class="nav-link" href="{{ route('sp.index') }}">
+           <a class="nav-link" href="{{ route('bast.index') }}">
                <i class="fas fa-fw fa-pencil"></i>
                <span>BAST</span></a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('paket-pekerjaan.index') }}">
+               <i class="fas fa-fw fa-pencil"></i>
+               <span>Paket Pekerjaan</span></a>
        </li>
        <!-- Divider -->
        <hr class="sidebar-divider">

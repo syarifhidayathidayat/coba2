@@ -2,7 +2,18 @@
 
 @section('content')
 <div class="container-fluid">
-    <h4>Detail SP: {{ $sp->nomor_sp }}</h4>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Detail SP: {{ $sp->nomor_sp }}</h4>
+        <div>
+            <a href="{{ route('sp.index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+            <a href="{{ route('sp.cetak', $sp->id) }}" class="btn btn-primary" target="_blank">
+                <i class="fas fa-print"></i> Tanda Terima Barang
+            </a>
+        </div>
+    </div>
+    
     <p><strong>Nama Paket:</strong> {{ $sp->nama_paket }}</p>
     <p><strong>Penyedia:</strong> {{ $sp->penyedia->nama_penyedia ?? '-' }}</p>
 
@@ -16,6 +27,7 @@
                 <th>Qty</th>
                 <th>Harga</th>
                 <th>Ongkos Kirim</th>
+                <th>Penempatan</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -32,6 +44,7 @@
                     $totalHarga += $subtotal;
                     $totalOngkir += $barang->ongkos_kirim;
                     $totalKontrak += $total;
+                    $penempatan = json_decode($barang->penempatan);
                 @endphp
                 <tr>
                     <td>{{ $index + 1 }}</td>
@@ -39,6 +52,7 @@
                     <td>{{ $barang->qty }}</td>
                     <td>{{ number_format($barang->harga, 0, ',', '.') }}</td>
                     <td>{{ number_format($barang->ongkos_kirim, 0, ',', '.') }}</td>
+                    <td>{{ $penempatan ? $penempatan->nama : '-' }}</td>
                     <td>{{ number_format($total, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
@@ -63,10 +77,6 @@
             </div>
         </div>
     </div>
-
-    <a href="{{ route('sp.index') }}" class="btn btn-secondary mt-3">
-        <i class="fas fa-arrow-left"></i> Kembali
-    </a>
 </div>
 @endsection
 

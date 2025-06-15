@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Form Input SP</h3>
+        <h3>Form Input Surat Pesanan</h3>
         <form action="{{ route('sp.store') }}" method="POST">
 
             @csrf
@@ -23,7 +23,12 @@
                 </div>
                 <div class="col-md-4">
                     <label>Nama Paket</label>
-                    <input type="text" name="nama_paket" class="form-control" required>
+                    <select name="nama_paket" id="nama_paket" class="form-control" required>
+                        <option value="">-- Pilih Paket Pekerjaan --</option>
+                        @foreach ($paketPekerjaan as $paket)
+                            <option value="{{ $paket->nama_paket }}" data-max="{{ $paket->max }}" data-pagu="{{ $paket->pagu }}">{{ $paket->nama_paket }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mt-3">
@@ -50,10 +55,10 @@
                 {{-- Total Kontrak dihapus --}}
                 <div class="col-md-4">
                     <label>Total Pagu</label>
-                    <input type="number" name="total_pagu" class="form-control" required>
+                    <input type="number" name="total_pagu" id="total_pagu" class="form-control" required readonly>
                 </div>
                 <div class="col-md-4">
-                    <label>Metode</label>
+                    <label>Metodes</label>
                     <select name="metode" class="form-control" required>
                         <option value="">-- Pilih Metode --</option>
                         @foreach ($metodes as $metode)
@@ -65,7 +70,7 @@
             <div class="row mt-3">
                 <div class="col-md-4">
                     <label>Akun</label>
-                    <input type="text" name="akun" class="form-control" required>
+                    <input type="text" name="akun" id="akun" class="form-control" required readonly>
                 </div>
             </div>
             <button class="btn btn-primary mt-4">Simpan</button>
@@ -80,6 +85,9 @@
         const akhirInput = document.getElementById('akhir');
         const akhirHidden = document.getElementById('akhir_pekerjaan_hidden');
         const submitBtn = document.querySelector('button[type="submit"]');
+        const namaPaketSelect = document.getElementById('nama_paket');
+        const akunInput = document.getElementById('akun');
+        const totalPaguInput = document.getElementById('total_pagu');
 
         function hitungTanggalAkhir() {
             const mulai = new Date(mulaiInput.value);
@@ -109,6 +117,14 @@
 
         mulaiInput.addEventListener('change', hitungTanggalAkhir);
         masaInput.addEventListener('input', hitungTanggalAkhir);
+
+        namaPaketSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const max = selectedOption.getAttribute('data-max');
+            const pagu = selectedOption.getAttribute('data-pagu');
+            akunInput.value = max || '';
+            totalPaguInput.value = pagu || '';
+        });
     });
 </script>
 

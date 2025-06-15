@@ -41,8 +41,12 @@ class Sp extends Model
     public function hitungAkhirPekerjaan()
     {
         if ($this->mulai_pekerjaan && $this->masa) {
-            $this->akhir_pekerjaan = Carbon::parse($this->mulai_pekerjaan)->addDays($this->masa);
+            $this->akhir_pekerjaan = Carbon::parse($this->mulai_pekerjaan)->addDays((int)$this->masa)->format('Y-m-d');
             $this->save();
         }
+    }
+    public function bast()
+    {
+        return $this->hasOne(\App\Models\Bast::class);
     }
 }

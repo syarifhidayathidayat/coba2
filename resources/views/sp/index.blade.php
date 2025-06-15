@@ -13,9 +13,7 @@
             <i class="fas fa-box"></i> Lihat Semua Barang
         </a>
 
-
-
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered " id="tabel-sp">
             <thead>
                 <tr>
                     <th>No</th>
@@ -28,8 +26,7 @@
                     <th>Day</th>
                     <th>Akhir</th>
                     <th>Metode</th>
-                    <th>Total Pagu</th>
-                    <th>Akun</th>
+                    <!--<th>Total Pagu</th>-->
                     <th>Barang</th>
                     <th>Aksi</th>
                 </tr>
@@ -48,8 +45,7 @@
                         <td>{{ $sp->masa }} </td>
                         <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->format('d-m-Y') }}</td>
                         <td>{{ $sp->metode }}</td>
-                        <td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>
-                        <td>{{ $sp->akun }}</td>
+                        <!--<td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>-->
                         <td>
                             {{ $sp->barangs->count() }}
                             <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-info ms-2" title="Lihat Detail">
@@ -75,6 +71,13 @@
                                 title="Tambah Barang">
                                 <i class="fas fa-plus"></i>
                             </a>
+
+                            @if(!$sp->bast)
+                            <a href="{{ route('bast.create', $sp->id) }}" class="btn btn-sm btn-success"
+                                title="Buat BAST">
+                                <i class="fas fa-file-alt"></i> BAST
+                            </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -83,3 +86,18 @@
         </table>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#tabel-sp').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100]
+        });
+    });
+</script>
+@endpush
