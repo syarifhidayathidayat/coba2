@@ -50,26 +50,75 @@
 </head>
 <body>
     <div class="header">
-        <h2>BERITA ACARA SERAH TERIMA BARANG</h2>
-        <p>Nomor: {{ $bast->nomor_bast }}</p>
+        <img src="/sb-admin-2/img/KOP_2025.jpg" alt="Kop Surat" style="width:100%;max-width:900px;margin-bottom:20px;">
+        <h3>BERITA ACARA SERAH TERIMA BARANG</h3>
     </div>
-
+    <table style="width:100%; margin-bottom: 20px;">
+        <tr>
+            <td style="width:50%; vertical-align:top;">
+                <strong>Pekerjaan</strong> : {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}<br>
+                <strong>Lokasi</strong>    : Banjarbaru
+            </td>
+            <td style="width:50%; vertical-align:top; text-align:right;">
+                <strong>Nomor</strong>   : {{ $bast->nomor_bast }}<br>
+                <strong>Tanggal</strong> : {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}
+            </td>
+        </tr>
+    </table>
     <div class="content">
-        <p>Yang bertanda tangan di bawah ini:</p>
+        <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
+        
         <ol>
-            <li>Nama: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}<br>
-                Jabatan: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
-                Dalam hal ini bertindak untuk dan atas nama {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
-                Selanjutnya disebut sebagai "PIHAK PERTAMA"</li>
             <li>Nama: [Nama Penerima]<br>
                 Jabatan: [Jabatan Penerima]<br>
                 Dalam hal ini bertindak untuk dan atas nama [Nama Instansi]<br>
+                Selanjutnya disebut sebagai "PIHAK PERTAMA"</li>
+            <li>Nama: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}<br>
+                Jabatan: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
+                Dalam hal ini bertindak untuk dan atas nama {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
                 Selanjutnya disebut sebagai "PIHAK KEDUA"</li>
+            
         </ol>
+<p>
+PIHAK PERTAMA dengan ini menyatakan :<br>
+1.   Telah mengadakan Pemeriksaan Pekerjaan :
+    <ol type="a" style="margin-left: 0; padding-left: 20px;">
+        <li><strong>Pekerjaan</strong> : {{ $bast->sp->nama_paket ?? '-' }}</li>
+        <li><strong>Lokasi</strong> : Banjarbaru</li>
+        <li><strong>Instansi</strong> : Kementerian Kesehatan R.I.</li>
+        <li><strong>DIPA</strong> : </li>
+        <li><strong>Penyedia</strong> : {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</li>
+        <li><strong>No SP</strong> : {{ $bast->sp->nomor_sp ?? '-' }}</li>
+        <li><strong>Hasil Pemeriksaan</strong> : Terlampir</li>
+    </ol>
+2.  Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.<br><br>
+3.  Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}<br><br>
+Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut diatas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.
+        
 
-        <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, telah dilakukan serah terima barang dengan ketentuan sebagai berikut:</p>
+    </div>
 
-        <table>
+    <div class="footer">
+        <div class="signature">
+            <p>PIHAK PERTAMA</p>
+            <br><br><br>
+            <p>( {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }} )</p>
+        </div>
+        <div class="signature">
+            <p>PIHAK KEDUA</p>
+            <br><br><br>
+            <p>( [Nama Penerima] )</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div style="page-break-before: always;"></div>
+    <p style="margin-top:40px;">Lampiran : Berita Acara Pemeriksaan Hasil Pekerjaan</p>
+    <p>Nomor    : KN.01.04/5.2/01907/2023</p>
+    <p>Tanggal  : 21 Maret 2023</p>
+
+    
+    <table>
             <thead>
                 <tr>
                     <th>No</th>
@@ -92,10 +141,7 @@
             </tbody>
         </table>
 
-        <p>Demikian Berita Acara Serah Terima Barang ini dibuat dengan sebenarnya dan ditandatangani oleh kedua belah pihak.</p>
-    </div>
-
-    <div class="footer">
+        <div class="footer">
         <div class="signature">
             <p>PIHAK PERTAMA</p>
             <br><br><br>
@@ -108,5 +154,6 @@
         </div>
         <div class="clear"></div>
     </div>
+        
 </body>
 </html> 
