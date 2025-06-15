@@ -2,11 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>BAST - {{ $bast->nomor_bast }}</title>
+    <title>BAST  {{ $bast->sp->penyedia->nama_penyedia }} No.SP {{ $bast->sp->nomor_sp }}</title>
     <style>
+        @page {
+            size: 215mm 330mm;
+            margin: 20mm 20mm 20mm 20mm;
+        }
         body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
+            font-family: Calibri, sans-serif;
+            margin: 10px;
+            text-align: justify;
         }
         .header {
             text-align: center;
@@ -20,23 +25,23 @@
             margin: 5px 0;
         }
         .content {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            /* margin-bottom: 10px; */
         }
         th, td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
         th {
             background-color: #f0f0f0;
         }
         .footer {
-            margin-top: 50px;
+            /* margin-top: 50px; */
         }
         .signature {
             float: left;
@@ -45,6 +50,23 @@
         }
         .clear {
             clear: both;
+        } .info-item {
+            /* margin: 5px 0; */
+        }
+        .info-label {
+            display: inline-block;
+            width: 170px;
+        }
+        .info-value {
+            display: inline-block;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid red;
+            background-color: #fff0f0;
         }
     </style>
 </head>
@@ -53,7 +75,7 @@
         <img src="/sb-admin-2/img/KOP_2025.jpg" alt="Kop Surat" style="width:100%;max-width:900px;margin-bottom:20px;">
         <h3>BERITA ACARA SERAH TERIMA BARANG</h3>
     </div>
-    <table style="width:100%; margin-bottom: 20px;">
+    <table style="width:100%; ">
         <tr>
             <td style="width:50%; vertical-align:top;">
                 <strong>Pekerjaan</strong> : {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}<br>
@@ -66,35 +88,62 @@
         </tr>
     </table>
     <div class="content">
-        <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
-        
-        <ol>
-            <li>Nama: [Nama Penerima]<br>
-                Jabatan: [Jabatan Penerima]<br>
-                Dalam hal ini bertindak untuk dan atas nama [Nama Instansi]<br>
-                Selanjutnya disebut sebagai "PIHAK PERTAMA"</li>
-            <li>Nama: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}<br>
-                Jabatan: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
-                Dalam hal ini bertindak untuk dan atas nama {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}<br>
-                Selanjutnya disebut sebagai "PIHAK KEDUA"</li>
-            
-        </ol>
-<p>
-PIHAK PERTAMA dengan ini menyatakan :<br>
-1.   Telah mengadakan Pemeriksaan Pekerjaan :
-    <ol type="a" style="margin-left: 0; padding-left: 20px;">
-        <li><strong>Pekerjaan</strong> : {{ $bast->sp->nama_paket ?? '-' }}</li>
-        <li><strong>Lokasi</strong> : Banjarbaru</li>
-        <li><strong>Instansi</strong> : Kementerian Kesehatan R.I.</li>
-        <li><strong>DIPA</strong> : </li>
-        <li><strong>Penyedia</strong> : {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</li>
-        <li><strong>No SP</strong> : {{ $bast->sp->nomor_sp ?? '-' }}</li>
-        <li><strong>Hasil Pemeriksaan</strong> : Terlampir</li>
-    </ol>
-2.  Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.<br><br>
-3.  Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}<br><br>
-Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut diatas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.
-        
+    <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
+
+<ol>
+    <li>
+        <div class="info-item">
+            <span class="info-label">Nama</span>
+            <span class="info-value">: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Jabatan</span>
+            <span class="info-value">: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Alamat</span>
+            <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
+        </div>
+        <p>Selanjutnya disebut sebagai <strong>PIHAK PERTAMA</strong></p>
+    </li>
+    <li>
+        <div class="info-item">
+            <span class="info-label">Nama</span>
+            <span class="info-value">: [Nama Penerima]</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Jabatan</span>
+            <span class="info-value">: [Jabatan Penerima]</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Alamat</span>
+            <span class="info-value">: [Alamat Penerima]</span>
+        </div>
+      <p>Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></p>
+    </li>
+</ol>
+
+<p>PIHAK PERTAMA dengan ini menyatakan :</p>
+<ol style="padding-left: 20px;">
+    <li>
+        Telah mengadakan Pemeriksaan Pekerjaan:
+        <div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">: {{ $bast->sp->nama_paket ?? '-' }}</span></div>
+        <div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">: Banjarbaru</span></div>
+        <div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div>
+        <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: </span></div>
+        <div class="info-item"><span class="info-label">Penyedia</span><span class="info-value">: {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span></div>
+        <div class="info-item"><span class="info-label">No SP</span><span class="info-value">: {{ $bast->sp->nomor_sp ?? '-' }}</span></div>
+        <div class="info-item"><span class="info-label">Hasil Pemeriksaan</span><span class="info-value">: Terlampir</span></div>
+    </li>
+    <li style="margin-top: 10px;">
+        Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.
+    </li>
+    <li style="margin-top: 10px;">
+        Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}.
+    </li>
+</ol>
+<p>Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut di atas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.</p>
+ 
 
     </div>
 
