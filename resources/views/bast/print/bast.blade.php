@@ -21,8 +21,8 @@
             margin: 0;
             padding: 0;
         }
-        .header p {
-            margin: 5px 0;
+        .po {
+            margin: 2px 0;
         }
         .content {
             margin-bottom: 10px;
@@ -45,8 +45,8 @@
         }
         .signature {
             float: left;
-            width: 45%;
-            text-align: center;
+            width: 70%;
+            text-align: left;
         }
         .clear {
             clear: both;
@@ -68,6 +68,7 @@
             border: 1px solid red;
             background-color: #fff0f0;
         }
+        
     </style>
 </head>
 <body>
@@ -135,10 +136,10 @@
         <div class="info-item"><span class="info-label">No SP</span><span class="info-value">: {{ $bast->sp->nomor_sp ?? '-' }}</span></div>
         <div class="info-item"><span class="info-label">Hasil Pemeriksaan</span><span class="info-value">: Terlampir</span></div>
     </li>
-    <li style="margin-top: 10px;">
+    <li style="margin-top: 2px;">
         Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.
     </li>
-    <li style="margin-top: 10px;">
+    <li style="margin-top: 2px;">
         Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}.
     </li>
 </ol>
@@ -148,25 +149,41 @@
     </div>
 
     <div class="footer">
-        <div class="signature">
+    <div class="signature">
             <p>PIHAK PERTAMA</p>
+            <p>PEJABAT PEMBUAT KOMITMEN</p>
             <br><br><br>
-            <p>( {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }} )</p>
+            <p> <strong>Nama Penerima</strong> </p>
+            <p>NIP. 19630310 198803 1 001</p>
         </div>
         <div class="signature">
             <p>PIHAK KEDUA</p>
+            <p>{{ $bast->sp->penyedia->nama_penyedia }}</p>
             <br><br><br>
-            <p>( [Nama Penerima] )</p>
+            <p><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </p>
+            <p>Dirrektur</p>
         </div>
         <div class="clear"></div>
     </div>
 
     <div style="page-break-before: always;"></div>
-    <p style="margin-top:40px;">Lampiran : Berita Acara Pemeriksaan Hasil Pekerjaan</p>
-    <p>Nomor    : KN.01.04/5.2/01907/2023</p>
-    <p>Tanggal  : 21 Maret 2023</p>
+   
 
-    
+    <div class="info-item">
+        <span class="info-label">Lampiran</span>
+        <span class="info-value">: Berita Acara Pemeriksaan Hasil Pekerjaan</span>
+    </div>
+ 
+    <div class="info-item">
+        <span class="info-label">Nomor</span>
+        <span class="info-value">: {{ $bast->nomor_bast ?? '-' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label">Tanggal</span>
+        <span class="info-value">: {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}</span>
+    </div>
+
+    <p style="margin-bottom: 20px;"></p>
     <table>
             <thead>
                 <tr>
@@ -191,15 +208,20 @@
         </table>
 
         <div class="footer">
+        
         <div class="signature">
             <p>PIHAK PERTAMA</p>
+            <p>PEJABAT PEMBUAT KOMITMEN</p>
             <br><br><br>
-            <p>( {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }} )</p>
+            <p> <strong>Nama Penerima</strong> </p>
+            <p>NIP. 19630310 198803 1 001</p>
         </div>
         <div class="signature">
             <p>PIHAK KEDUA</p>
+            <p>{{ $bast->sp->penyedia->nama_penyedia }}</p>
             <br><br><br>
-            <p>( [Nama Penerima] )</p>
+            <p><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </p>
+            <p>Dirrektur</p>
         </div>
         <div class="clear"></div>
     </div>
