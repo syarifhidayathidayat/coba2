@@ -6,26 +6,27 @@
     <style>
         @page {
             size: 215mm 330mm;
-            margin: 20mm 20mm 20mm 20mm;
+            margin: 20mm 20mm 20mm 30mm;
         }
         body {
-            font-family: Calibri, sans-serif;
+            font-family: Times New Roman, sans-serif;
             margin: 10px;
             text-align: justify;
+            font-size: 13px;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px 10px 10px 10px;
         }
         .header h2 {
             margin: 0;
             padding: 0;
         }
-        .po {
-            margin: 2px 0;
-        }
+        
         .content {
             margin-bottom: 10px;
+            line-height: 1.5;
+            
         }
         table {
             width: 100%;
@@ -57,8 +58,16 @@
             display: inline-block;
             width: 170px;
         }
+        .info-label2 {
+            display: inline-block;
+            width: 100px;
+        }
         .info-value {
             display: inline-block;
+        }
+        .info-value2 {
+            /* display: inline-block; */
+            width: 100px;
         }
         .error-message {
             color: red;
@@ -68,6 +77,7 @@
             border: 1px solid red;
             background-color: #fff0f0;
         }
+   
         
     </style>
 </head>
@@ -79,19 +89,31 @@
     <table style="width:100%; ">
         <tr>
             <td style="width:50%; vertical-align:top;">
-                <strong>Pekerjaan</strong> : {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}<br>
-                <strong>Lokasi</strong>    : Banjarbaru
+                <div class="info-item">
+                    <span class="info-label2">Pekerjaan</span>
+                    <span class="info-value2">: {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label2">Lokasi</span>
+                    <span class="info-value">: Banjarbaru</span>
+                </div>
             </td>
-            <td style="width:50%; vertical-align:top; text-align:right;">
-                <strong>Nomor</strong>   : {{ $bast->nomor_bast }}<br>
-                <strong>Tanggal</strong> : {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}
+            <td style="width:50%; vertical-align:top; ">
+                <div class="info-item">
+                    <span class="info-label2">Nomor</span>
+                    <span class="info-value">: {{ $bast->nomor_bast }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label2">Tanggal</span>
+                    <span class="info-value">: {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}</span>
+                </div>
             </td>
         </tr>
     </table>
     <div class="content">
     <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
 
-<ol>
+    <ol style="padding-left: 20px;">
     <li>
         <div class="info-item">
             <span class="info-label">Nama</span>
@@ -105,7 +127,7 @@
             <span class="info-label">Alamat</span>
             <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
         </div>
-        <p>Selanjutnya disebut sebagai <strong>PIHAK PERTAMA</strong></p>
+        <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK PERTAMA</strong></div>
     </li>
     <li>
         <div class="info-item">
@@ -120,7 +142,7 @@
             <span class="info-label">Alamat</span>
             <span class="info-value">: [Alamat Penerima]</span>
         </div>
-      <p>Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></p>
+      <div>Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
     </li>
 </ol>
 
@@ -144,24 +166,24 @@
     </li>
 </ol>
 <p>Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut di atas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.</p>
- 
+ <p style="margin-top: 20px;"></p>
 
     </div>
 
     <div class="footer">
     <div class="signature">
-            <p>PIHAK PERTAMA</p>
-            <p>PEJABAT PEMBUAT KOMITMEN</p>
-            <br><br><br>
-            <p> <strong>Nama Penerima</strong> </p>
-            <p>NIP. 19630310 198803 1 001</p>
+            <div>PIHAK PERTAMA</div>
+            <div>PEJABAT PEMBUAT KOMITMEN</div>
+            <br><br><br><br>
+            <div> <strong>Nama Penerima</strong> </div>
+            <div>NIP. 19630310 198803 1 001</div>
         </div>
         <div class="signature">
-            <p>PIHAK KEDUA</p>
-            <p>{{ $bast->sp->penyedia->nama_penyedia }}</p>
-            <br><br><br>
-            <p><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </p>
-            <p>Dirrektur</p>
+            <div>PIHAK KEDUA</div>
+            <div>{{ $bast->sp->penyedia->nama_penyedia }}</div>
+            <br><br><br><br>
+            <div><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </div>
+            <div>Direktur</div>
         </div>
         <div class="clear"></div>
     </div>
@@ -206,22 +228,22 @@
                 @endforeach
             </tbody>
         </table>
-
+<p style="margin-top: 20px;"></p>
         <div class="footer">
         
         <div class="signature">
-            <p>PIHAK PERTAMA</p>
-            <p>PEJABAT PEMBUAT KOMITMEN</p>
-            <br><br><br>
-            <p> <strong>Nama Penerima</strong> </p>
-            <p>NIP. 19630310 198803 1 001</p>
+            <div>PIHAK PERTAMA</div>
+            <div>PEJABAT PEMBUAT KOMITMEN</div>
+            <br><br><br><br>
+            <div> <strong>Nama Penerima</strong> </div>
+            <div>NIP. 19630310 198803 1 001</div>
         </div>
         <div class="signature">
-            <p>PIHAK KEDUA</p>
-            <p>{{ $bast->sp->penyedia->nama_penyedia }}</p>
-            <br><br><br>
-            <p><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </p>
-            <p>Dirrektur</p>
+            <div>PIHAK KEDUA</div>
+            <div>{{ $bast->sp->penyedia->nama_penyedia }}</div>
+            <br><br><br><br>
+            <div><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </div>
+            <div>Direktur</div>
         </div>
         <div class="clear"></div>
     </div>
