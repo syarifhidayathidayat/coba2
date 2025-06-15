@@ -145,27 +145,23 @@
       <div>Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
     </li>
 </ol>
+<p>Kedua belah pihak berdasarkan Surat Pesanan Nomor : {{ $bast->sp->nomor_sp ?? '-' }} tanggal {{ \Carbon\Carbon::parse($bast->sp->tanggal_sp)->format('d-m-Y') }} dan Berita Acara Pemeriksaan Hasil Pekerjaan  No  : {{ $bast->nomor_bast ?? '-' }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }} </p>
+<p>Dengan ini telah setuju dan sepakat untuk melakukan Serah Terima Pelaksanaan Pengadaan {{ $bast->sp->nama_paket ?? '-' }} pada Poltekkes Kemenkes Banjarmasin Tahun anggaran {{ date('Y') }}.</p>
 
-<p>PIHAK PERTAMA dengan ini menyatakan :</p>
+<p>PIHAK KEDUA menyerahkan kepada PIHAK PERTAMA dan PIHAK PERTAMA menerima dari PIHAK KEDUA seluruh hasil pekerjaan tersebut untuk :</p>
 <ol style="padding-left: 20px;">
-    <li>
-        Telah mengadakan Pemeriksaan Pekerjaan:
-        <div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">: {{ $bast->sp->nama_paket ?? '-' }}</span></div>
-        <div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">: Banjarbaru</span></div>
-        <div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div>
-        <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: </span></div>
-        <div class="info-item"><span class="info-label">Penyedia</span><span class="info-value">: {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span></div>
-        <div class="info-item"><span class="info-label">No SP</span><span class="info-value">: {{ $bast->sp->nomor_sp ?? '-' }}</span></div>
-        <div class="info-item"><span class="info-label">Hasil Pemeriksaan</span><span class="info-value">: Terlampir</span></div>
-    </li>
-    <li style="margin-top: 2px;">
-        Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.
-    </li>
-    <li style="margin-top: 2px;">
-        Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}.
-    </li>
-</ol>
-<p>Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut di atas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.</p>
+    
+        
+        <li><div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">: {{ $bast->sp->nama_paket ?? '-' }}</span></div></li>
+        <li><div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">: Banjarbaru</span></div></li>    
+        <li><div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div></li>
+        <li><div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: </span></div></li>
+        
+        </ol>
+   <p>
+    Demikian Berita Acara ini dibuat dan ditandatangani di Banjarbaru pada tanggal tersebut diatas oleh kedua belah pihak dalam rangkap 3 (tiga) untuk dipergunakan seperlunya.    </li>
+   
+
  <p style="margin-top: 20px;"></p>
 
     </div>
@@ -188,65 +184,7 @@
         <div class="clear"></div>
     </div>
 
-    <div style="page-break-before: always;"></div>
-   
-
-    <div class="info-item">
-        <span class="info-label">Lampiran</span>
-        <span class="info-value">: Berita Acara Pemeriksaan Hasil Pekerjaan</span>
-    </div>
- 
-    <div class="info-item">
-        <span class="info-label">Nomor</span>
-        <span class="info-value">: {{ $bast->nomor_bast ?? '-' }}</span>
-    </div>
-    <div class="info-item">
-        <span class="info-label">Tanggal</span>
-        <span class="info-value">: {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}</span>
-    </div>
-
-    <p style="margin-bottom: 20px;"></p>
-    <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Barang</th>
-                    <th>Jumlah</th>
-                    <th>Kondisi</th>
-                    <th>Keterangan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($bast->barangs as $index => $barang)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->pivot->jumlah_serah_terima }}</td>
-                    <td>{{ $barang->pivot->kondisi }}</td>
-                    <td>{{ $barang->pivot->keterangan ?? '-' }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-<p style="margin-top: 20px;"></p>
-        <div class="footer">
-        
-        <div class="signature">
-            <div>PIHAK PERTAMA</div>
-            <div>PEJABAT PEMBUAT KOMITMEN</div>
-            <br><br><br><br>
-            <div> <strong>Nama Penerima</strong> </div>
-            <div>NIP. 19630310 198803 1 001</div>
-        </div>
-        <div class="signature">
-            <div>PIHAK KEDUA</div>
-            <div>{{ $bast->sp->penyedia->nama_penyedia }}</div>
-            <br><br><br><br>
-            <div><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </div>
-            <div>Direktur</div>
-        </div>
-        <div class="clear"></div>
-    </div>
+    
         
 </body>
 </html> 

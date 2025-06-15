@@ -105,17 +105,24 @@ class BastController extends Controller
         $filename = 'BAST-' . str_replace('/', '-', $bast->nomor_bast) . '.pdf';
         return $pdf->stream($filename);
     }
-
-    public function printBap(Bast $bast)
+    public function printBap($id)
     {
-        $bast->load([
-            'sp.penyedia',
-            'barangs' => function($query) {
-                $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
-            }
-        ]);
-        return view('bast.print.bap', compact('bast'));
+        $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
+        $pdf = PDF::loadView('bast.print.bap', compact('bast'));
+        $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bap) . '.pdf';
+        return $pdf->stream($filename);
     }
+
+    // public function printBap(Bast $bast)
+    // {
+    //     $bast->load([
+    //         'sp.penyedia',
+    //         'barangs' => function($query) {
+    //             $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
+    //         }
+    //     ]);
+    //     return view('bast.print.bap', compact('bast'));
+    // }
 
     public function printBapem(Bast $bast)
     {
