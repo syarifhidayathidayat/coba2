@@ -12,8 +12,12 @@ class SpController extends Controller
 {
     public function index()
     {
-        $sps = Sp::with('penyedia', 'barangs')->get(); // Ambil semua SP beserta penyedia & barangs
-        return view('sp.index', compact('sps')); // Kirim ke view dengan nama variabel $sps
+        if (request('belum_bast')) {
+            $sps = Sp::with('penyedia', 'barangs')->doesntHave('bast')->get();
+        } else {
+            $sps = Sp::with('penyedia', 'barangs')->get();
+        }
+        return view('sp.index', compact('sps'));
     }
 
 

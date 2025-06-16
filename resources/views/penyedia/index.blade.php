@@ -13,7 +13,7 @@
         <table class="table table-bordered datatable table-responsive">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <!-- <th>No</th> -->
                     <th>Nama Penyedia</th>
                     <th>Nama Direktur</th>
                     <th>Alamat</th>
@@ -34,7 +34,7 @@
             <tbody>
                 @foreach ($penyedias as $index => $penyedia)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <!-- <td>{{ $index + 1 }}</td> -->
                         <td>{{ $penyedia->nama_penyedia }}</td>
                         <td>{{ $penyedia->nama_direktur_penyedia }}</td>
                         <td>{{ $penyedia->alamat }}</td>
@@ -100,17 +100,16 @@
     </div>
 @endsection
 
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.table').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                responsive: true, // opsional, untuk responsif otomatis
-
-            });
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.datatable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true, // opsional, untuk responsif otomatis
+            order: [[0, 'desc']], // urutkan berdasarkan kolom No (indeks 0) secara descending
         });
-    </script>
-@endsection
+    });
+</script>
+@endpush
