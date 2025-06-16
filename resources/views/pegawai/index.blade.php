@@ -20,6 +20,7 @@
                         <th>NIP</th>
                         <th>Jabatan</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -31,6 +32,11 @@
                             <td>{{ $pegawai->nip }}</td>
                             <td>{{ $pegawai->jabatan }}</td>
                             <td>{{ $pegawai->email }}</td>
+                            <td>
+                                @foreach($pegawai->roles as $role)
+                                    <span class="badge badge-info">{{ $role->name }}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 <a href="{{ route('pegawai.edit', $pegawai) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('pegawai.destroy', $pegawai) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pegawai ini?')">

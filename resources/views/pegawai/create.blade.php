@@ -27,6 +27,16 @@
             <input type="email" name="email" class="form-control">
         </div>
 
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" class="form-control" required>
+                <option value="">-- Pilih Role --</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role }}">{{ $role }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('pegawai.index') }}" class="btn btn-secondary">Kembali</a>
     </form>

@@ -10,6 +10,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PaketPekerjaanController;
 use App\Http\Controllers\BastController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuController;
 
 
 Route::get('/', function () {
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pegawai', PegawaiController::class);
     Route::resource('penempatan', PenempatanController::class);
+    // Route::resource('penempatan', PenempatanController::class)->middleware('role:direktur');
+
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
@@ -37,14 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('sp/{id}/barang/create', [App\Http\Controllers\BarangController::class, 'create'])->name('barang.create');
     Route::post('sp/{id}/barang', [App\Http\Controllers\BarangController::class, 'store'])->name('barang.store');
     
-    // Routes untuk BAST
-    // Route::get('sp/{sp_id}/bast/create', [App\Http\Controllers\BastController::class, 'create'])->name('bast.create');
-    // Route::post('sp/{sp_id}/bast', [App\Http\Controllers\BastController::class, 'store'])->name('bast.store');
-    // Route::get('bast/{id}', [App\Http\Controllers\BastController::class, 'show'])->name('bast.show');
-    // Route::get('bast/{id}/print/bast', [App\Http\Controllers\BastController::class, 'printBast'])->name('bast.print.bast');
-    // Route::get('bast/{id}/print/bap', [App\Http\Controllers\BastController::class, 'printBap'])->name('bast.print.bap');
-    // Route::get('bast/{id}/print/bapem', [App\Http\Controllers\BastController::class, 'printBapem'])->name('bast.print.bapem');
-    // Route::get('bast/{id}/print/kwitansi', [App\Http\Controllers\BastController::class, 'printKwitansi'])->name('bast.print.kwitansi');
+    
     
     Route::resource('paket-pekerjaan', PaketPekerjaanController::class);
 
@@ -61,6 +57,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('sp/{sp_id}/barang/{nama_barang}/edit', [App\Http\Controllers\BarangController::class, 'edit'])->name('barang.edit');
     Route::put('sp/{sp_id}/barang/{nama_barang}', [App\Http\Controllers\BarangController::class, 'update'])->name('barang.update');
+
+    // Menu Management Routes
+    Route::middleware(['auth', 'role:admin'])->group(function () {
+        Route::resource('menu', MenuController::class);
+    });
 });
 
 
