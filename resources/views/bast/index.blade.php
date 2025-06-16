@@ -15,8 +15,9 @@
                     <tr>
                         <th>No</th>
                         <th>Nomor SP</th>
-                        <th>Nomor BAST</th>
                         <th>Nomor BAP</th>
+                        <th>Nomor BAST</th>
+                        
                         <th>Nomor BAPEM</th>
                         <th>Nomor Kwitansi</th>
                         <th>Tanggal</th>
@@ -29,8 +30,9 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $bast->sp->nomor_sp }}</td>
-                        <td>{{ $bast->nomor_bast }}</td>
                         <td>{{ $bast->nomor_bap }}</td>
+                        <td>{{ $bast->nomor_bast }}</td>
+                        
                         <td>{{ $bast->nomor_bapem }}</td>
                         <td>{{ $bast->no_kwitansi }}</td>
                         <td>{{ $bast->tanggal_bast->format('d-m-Y') }}</td>
@@ -39,7 +41,7 @@
                             <a href="{{ route('bast.show', $bast->id) }}" class="btn btn-sm btn-info" title="Detail">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-sm btn-primary" target="_blank" title="Cetak BAST">
+                            <!-- <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-sm btn-primary" target="_blank" title="Cetak BAST">
                                 <i class="fas fa-print"></i> BAST
                             </a>
                             <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-sm btn-info" target="_blank" title="Cetak BAP">
@@ -50,7 +52,7 @@
                             </a>
                             <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-sm btn-warning" target="_blank" title="Cetak Kwitansi">
                                 <i class="fas fa-print"></i> Kwitansi
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                     @endforeach

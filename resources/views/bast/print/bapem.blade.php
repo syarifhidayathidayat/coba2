@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>BAPEM - {{ $bast->nomor_bapem }}</title>
+    <title>Berita Acara Pembayaran - {{ $bast->sp->penyedia->nama_penyedia }} No.SP {{ $bast->sp->nomor_sp }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;

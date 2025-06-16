@@ -10,8 +10,9 @@
                 <div class="col-md-6">
                     <p><strong>Nomor SP:</strong> {{ $bast->sp->nomor_sp }}</p>
                     <p><strong>Tanggal BAST:</strong> {{ $bast->tanggal_bast->format('d-m-Y') }}</p>
-                    <p><strong>Nomor BAST:</strong> {{ $bast->nomor_bast }}</p>
                     <p><strong>Nomor BAP:</strong> {{ $bast->nomor_bap }}</p>
+                    <p><strong>Nomor BAST:</strong> {{ $bast->nomor_bast }}</p>
+                   
                     <p><strong>Nomor BAPEM:</strong> {{ $bast->nomor_bapem }}</p>
                     <div class="info-item">
                         <div class="info-label">Nomor Kwitansi</div>
@@ -57,11 +58,13 @@
     </div>
 
     <div class="mt-3">
-        <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-primary" target="_blank">
-            <i class="fas fa-print"></i> Cetak BAST
-        </a>
+        
+        
         <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-info" target="_blank">
             <i class="fas fa-print"></i> Cetak BAP
+        </a>
+        <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-primary" target="_blank">
+            <i class="fas fa-print"></i> Cetak BAST
         </a>
         <a href="{{ route('bast.print.bapem', $bast->id) }}" class="btn btn-success" target="_blank">
             <i class="fas fa-print"></i> Cetak BAPEM
@@ -69,7 +72,7 @@
         <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-warning" target="_blank">
             <i class="fas fa-print"></i> Cetak Kwitansi
         </a>
-        <a href="{{ route('sp.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('bast.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
 @endsection 
