@@ -29,31 +29,47 @@
                 <th>Ongkos Kirim</th>
                 <th>Penempatan</th>
                 <th>Total</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @php
-                $totalHarga = 0;
-                $totalOngkir = 0;
-                $totalKontrak = 0;
+                // Group barangs by nama_barang
+                $groupedBarangs = $sp->barangs->groupBy('nama_barang');
+                $totalHarga = $groupedBarangs->sum(function($barangs) {
+                    return $barangs->sum(function($b) { return $b->qty * $b->harga; });
+                });
+                $totalOngkir = $groupedBarangs->sum(function($barangs) {
+                    return $barangs->first()->ongkos_kirim ?? 0;
+                });
+                $totalKontrak = $groupedBarangs->sum(function($barangs) {
+                    $harga = $barangs->first()->harga;
+                    $ongkir = $barangs->first()->ongkos_kirim ?? 0;
+                    $qtyTotal = $barangs->sum('qty');
+                    return ($qtyTotal * $harga) + $ongkir;
+                });
             @endphp
-            @foreach($sp->barangs as $index => $barang)
+            @foreach($groupedBarangs as $namaBarang => $barangs)
                 @php
-                    $subtotal = $barang->qty * $barang->harga;
-                    $total = $subtotal + $barang->ongkos_kirim;
-                    $totalHarga += $subtotal;
-                    $totalOngkir += $barang->ongkos_kirim;
-                    $totalKontrak += $total;
-                    $penempatan = json_decode($barang->penempatan);
+                    $qtyTotal = $barangs->sum('qty');
+                    $harga = $barangs->first()->harga;
+                    $ongkos_kirim = $barangs->first()->ongkos_kirim;
+                    $total = ($qtyTotal * $harga) + $ongkos_kirim;
+                    $penempatanList = $barangs->map(function($b) {
+                        return ($b->penempatan ? $b->penempatan->nama : '-') . ' (' . $b->qty . ')';
+                    })->implode(', ');
                 @endphp
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->qty }}</td>
-                    <td>{{ number_format($barang->harga, 0, ',', '.') }}</td>
-                    <td>{{ number_format($barang->ongkos_kirim, 0, ',', '.') }}</td>
-                    <td>{{ $penempatan ? $penempatan->nama : '-' }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $namaBarang }}</td>
+                    <td>{{ $qtyTotal }}</td>
+                    <td>{{ number_format($harga, 0, ',', '.') }}</td>
+                    <td>{{ number_format($ongkos_kirim, 0, ',', '.') }}</td>
+                    <td>{{ $penempatanList }}</td>
                     <td>{{ number_format($total, 0, ',', '.') }}</td>
+                    <td>
+                        <a href="{{ route('barang.edit', ['nama_barang' => $namaBarang, 'sp_id' => $sp->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -61,7 +77,7 @@
 
     {{-- Ringkasan --}}
     <div class="mt-4 p-3 border rounded bg-light">
-        <h6>Ringkasan:</h6>
+        <h6>Ringkasanss:</h6>
         <div class="row">
             <div class="col-md-4">
                 <label>Total Harga Barang</label>

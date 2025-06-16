@@ -14,13 +14,23 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($barangs as $index => $barang)
+            @php
+                $groupedBarangs = $barangs->groupBy('nama_barang');
+            @endphp
+            @foreach ($groupedBarangs as $namaBarang => $barangsGroup)
+                @php
+                    $qtyTotal = $barangsGroup->sum('qty');
+                    $sp = $barangsGroup->first()->sp;
+                    $penempatanList = $barangsGroup->map(function($b) {
+                        return ($b->penempatan ? $b->penempatan->nama : '-') . ' (' . $b->qty . ')';
+                    })->implode(', ');
+                @endphp
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->qty }}</td>
-                    <td>{{ $barang->sp->nomor_sp ?? '-' }}</td>
-                    <td>{{ $barang->penempatan ? (is_string($barang->penempatan) ? json_decode($barang->penempatan)->nama ?? '-' : $barang->penempatan->nama ?? '-') : '-' }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $namaBarang }}</td>
+                    <td>{{ $qtyTotal }}</td>
+                    <td>{{ $sp->nomor_sp ?? '-' }}</td>
+                    <td>{{ $penempatanList }}</td>
                 </tr>
             @endforeach
         </tbody>

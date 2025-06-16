@@ -34,12 +34,22 @@
                 </div>
 
                 <div class="col-md-2">
-                    <select name="penempatan_id[]" class="form-control" required>
-                        <option value="">-- Penempatan --</option>
-                        @foreach ($penempatans as $penempatan)
-                            <option value="{{ $penempatan->id }}">{{ $penempatan->nama }}</option>
-                        @endforeach
-                    </select>
+                    <div class="penempatan-list">
+                        <div class="row penempatan-item align-items-center mb-1">
+                            <div class="col-8 pe-0">
+                                <select name="penempatan_id[0][]" class="form-control" required>
+                                    <option value="">-- Penempatan --</option>
+                                    @foreach ($penempatans as $penempatan)
+                                        <option value="{{ $penempatan->id }}">{{ $penempatan->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-4 ps-1">
+                                <input type="number" name="qty_penempatan[0][]" class="form-control" placeholder="Qty" min="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-secondary btn-add-penempatan mt-1">Tambah Penempatan</button>
                 </div>
 
                 <div class="col-md-12 mt-1 d-flex gap-2">
@@ -54,7 +64,7 @@
         </div>
 
         {{-- Ringkasan --}}
-        <div class="mt-4 p-3 border rounded bg-light">
+        <div class="mt-4 p-3 border rounded">
             <h6>Ringkasan:</h6>
             <div class="row">
                 <div class="col-md-4">
@@ -156,6 +166,35 @@
                 } else {
                     alert('Minimal harus ada satu barang.');
                 }
+            }
+
+            // Tambah Penempatan per Barang
+            if (e.target.classList.contains('btn-add-penempatan')) {
+                const barangItem = e.target.closest('.barang-item');
+                const penempatanList = barangItem.querySelector('.penempatan-list');
+                const barangIndex = Array.from(barangList.querySelectorAll('.barang-item')).indexOf(barangItem);
+                // Template penempatan baru
+                const penempatanHTML = `
+                    <div class=\"row penempatan-item align-items-center mb-1\">
+                        <div class=\"col-8 pe-0\">
+                            <select name=\"penempatan_id[${barangIndex}][]\" class=\"form-control\" required>
+                                <option value=\"\">-- Penempatan --</option>
+                                ${@json($penempatans).map(p => `<option value=\"${p.id}\">${p.nama}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class=\"col-4 ps-1\">
+                            <input type=\"number\" name=\"qty_penempatan[${barangIndex}][]\" class=\"form-control\" placeholder=\"Qty\" min=\"1\" required>
+                        </div>
+                        <div class=\"col-auto\">
+                            <button type=\"button\" class=\"btn btn-sm btn-danger btn-remove-penempatan\">&times;</button>
+                        </div>
+                    </div>
+                `;
+                penempatanList.insertAdjacentHTML('beforeend', penempatanHTML);
+            }
+            if (e.target.classList.contains('btn-remove-penempatan')) {
+                const penempatanItem = e.target.closest('.penempatan-item');
+                penempatanItem.remove();
             }
         });
 
