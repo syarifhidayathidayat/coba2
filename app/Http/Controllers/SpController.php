@@ -26,7 +26,7 @@ class SpController extends Controller
     {
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
-        $paketPekerjaan = PaketPekerjaan::all();
+        $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
         return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan'));
     }
 
@@ -62,7 +62,7 @@ class SpController extends Controller
         $sp = Sp::findOrFail($id);
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
-        $paketPekerjaan = PaketPekerjaan::all();
+        $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
         return view('sp.edit', compact('sp', 'penyedias', 'metodes', 'paketPekerjaan'));
     }
 

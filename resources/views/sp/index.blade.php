@@ -8,13 +8,15 @@
             <h4 class="mb-0">Daftar SP dan Barang</h4>
             <div>
                 @if(request('belum_bast'))
-                    <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary me-2">Tampilkan Semua</a>
+                    <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
                 @else
-                    <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-outline-primary me-2">Tampilkan SP Belum BAST</a>
+                    <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP Belum BAST</a>
                 @endif
-                <a href="{{ route('sp.create') }}" class="btn btn-primary me-2">Tambah SP</a>
-                <a href="{{ route('barang.semua') }}" class="btn btn-primary">
-                    <i class="fas fa-box"></i> Lihat Semua Barang
+                <a href="{{ route('sp.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Tambah SP
+                </a>
+                <a href="{{ route('barang.semua') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-shopping-cart"></i> Lihat Semua Barang
                 </a>
             </div>
         </div>

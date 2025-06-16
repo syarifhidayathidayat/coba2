@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Tambah Paket Pekerjaan</h5>
+                    <a href="{{ route('paket-pekerjaan.index') }}" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
                 </div>
 
                 <div class="card-body">
@@ -48,6 +49,18 @@
                                     <label for="kode_rup">Kode RUP</label>
                                     <input type="text" class="form-control @error('kode_rup') is-invalid @enderror" id="kode_rup" name="kode_rup" value="{{ old('kode_rup') }}" required>
                                     @error('kode_rup')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="jenis_akun">Jenis Akun</label>
+                                    <select class="form-control @error('jenis_akun') is-invalid @enderror" id="jenis_akun" name="jenis_akun" required>
+                                        <option value="">-- Pilih Jenis Akun --</option>
+                                        <option value="52">52 | Belanja Barang</option>
+                                        <option value="53">53 | Belanja Modal</option>
+                                        <option value="lainnya">Lainnya</option>
+                                    </select>
+                                    @error('jenis_akun')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -97,8 +110,7 @@
                             </div>
                         </div>
                         <div class="form-group text-end mt-4">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ route('paket-pekerjaan.index') }}" class="btn btn-secondary">Kembali</a>
+                            <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                         </div>
                     </form>
                 </div>

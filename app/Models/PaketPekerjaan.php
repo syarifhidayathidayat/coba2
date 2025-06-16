@@ -20,6 +20,7 @@ class PaketPekerjaan extends Model
         'qty',
         'outstanding_kontrak',
         'realisasi',
-        'sisa_pagu'
+        'sisa_pagu',
+        'jenis_akun',
     ];
 }

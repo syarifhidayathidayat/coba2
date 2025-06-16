@@ -42,6 +42,7 @@ class PaketPekerjaanController extends Controller
             'pagu' => 'required|numeric',
             'qty' => 'required|numeric',
             'outstanding_kontrak' => 'required|numeric',
+            'jenis_akun' => 'required',
         ]);
 
         // Hitung realisasi dari total kontrak di tabel SP
@@ -81,6 +82,7 @@ class PaketPekerjaanController extends Controller
             'outstanding_kontrak' => 'required|numeric',
             'realisasi' => 'required|numeric',
             'sisa_pagu' => 'required|numeric',
+            'jenis_akun' => 'required',
         ]);
 
         $paketPekerjaan->update($request->all());

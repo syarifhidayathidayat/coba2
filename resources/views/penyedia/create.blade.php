@@ -96,8 +96,8 @@
 
         <!-- Tombol Aksi -->
         <div class="mt-4">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{ route('penyedia.index') }}" class="btn btn-secondary">Kembali</a>
+            <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+            <a href="{{ route('penyedia.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
         </div>
     </form>
 </div>

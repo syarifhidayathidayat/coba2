@@ -5,10 +5,10 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4>Detail SP: {{ $sp->nomor_sp }}</h4>
         <div>
-            <a href="{{ route('sp.index') }}" class="btn btn-secondary">
+            <a href="{{ route('sp.index') }}" class="btn btn-secondary btn-sm">
                 <i class="fas fa-arrow-left"></i> Kembali
             </a>
-            <a href="{{ route('sp.cetak', $sp->id) }}" class="btn btn-primary" target="_blank">
+            <a href="{{ route('sp.cetak', $sp->id) }}" class="btn btn-primary btn-sm" target="_blank">
                 <i class="fas fa-print"></i> Tanda Terima Barang
             </a>
         </div>

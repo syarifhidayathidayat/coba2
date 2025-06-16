@@ -73,7 +73,7 @@
                     <input type="text" name="akun" id="akun" class="form-control" required readonly>
                 </div>
             </div>
-            <button class="btn btn-primary mt-4">Simpan</button>
+            <button class="btn btn-success btn-sm mt-4">Simpan</button>
         </form>
     </div>
 @endsection

@@ -49,14 +49,14 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-secondary btn-add-penempatan mt-1">Tambah Penempatan</button>
+                    <button type="button" class="btn btn-sm btn-secondary btn-add-penempatan mt-1" ><i class="fas fa-plus"></i>Penempatan</button>
                 </div>
 
                 <div class="col-md-12 mt-1 d-flex gap-2">
                     <button type="button" class="btn btn-sm btn-danger btn-remove" title="Hapus">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-success btn-add" title="Tambah">
+                    <button type="button" class="btn btn-sm btn-success btn-sm btn-add" title="Tambah">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Simpan Barang</button>
+        <button type="submit" class="btn btn-primary btn-sm mt-3">Simpan Barang</button>
     </form>
 </div>
 @endsection

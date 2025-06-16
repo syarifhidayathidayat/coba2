@@ -9,7 +9,9 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Daftar Paket Pekerjaan</h5>
-                    <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">Tambah Paket Pekerjaan</a>
+                    <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -48,13 +50,15 @@
                                     <td>Rp {{ number_format($paket->realisasi, 0, ',', '.') }}</td>
                                     <td>Rp {{ number_format($paket->sisa_pagu, 0, ',', '.') }}</td>
                                     <td>
-                                        <a href="{{ route('paket-pekerjaan.show', $paket->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                        <a href="{{ route('paket-pekerjaan.edit', $paket->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('paket-pekerjaan.destroy', $paket->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
-                                        </form>
+                                        <div class="d-flex gap-4">
+                                            <a href="{{ route('paket-pekerjaan.show', $paket->id) }}" class="btn btn-info btn-sm" title="Detail"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('paket-pekerjaan.edit', $paket->id) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('paket-pekerjaan.destroy', $paket->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
