@@ -20,19 +20,28 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create roles
-        $adminRole = Role::create(['name' => 'admin']);
-        $direkturRole = Role::create(['name' => 'direktur']);
-        $staffRole = Role::create(['name' => 'staff']);
+        $roles = [
+            'admin',
+            'Direktur',
+            'PPK',
+            'Pejabat-Pengadaan53',
+            'Pejabat-Pengadaan52',
+            'Staff',
+            'Keuangan',
+            'Kasubag',
+        ];
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => $role]);
+        }
 
         // Create admin user
-        $admin = User::create([
-            'name' => 'Admin',
+        $admin = User::firstOrCreate([
             'email' => 'admin@admin.com',
+        ], [
+            'name' => 'Admin',
             'password' => Hash::make('password'),
         ]);
-
-        // Assign admin role to admin user
-        $admin->assignRole($adminRole);
+        $admin->assignRole('admin');
 
         // Create default menus
         $menus = [
@@ -41,7 +50,7 @@ class RoleSeeder extends Seeder
                 'icon' => 'fas fa-tachometer-alt',
                 'route' => 'dashboard',
                 'order' => 1,
-                'roles' => ['admin', 'direktur', 'staff']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Staff', 'Keuangan', 'Kasubag']
             ],
             [
                 'name' => 'Manajemen Menu',
@@ -53,7 +62,7 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Manajemen User',
                 'icon' => 'fas fa-users',
-                'route' => 'pegawai.index',
+                'route' => 'user.index',
                 'order' => 3,
                 'roles' => ['admin']
             ],
@@ -62,22 +71,23 @@ class RoleSeeder extends Seeder
                 'icon' => 'fas fa-file-alt',
                 'route' => 'sp.index',
                 'order' => 4,
-                'roles' => ['admin', 'direktur']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Kasubag']
             ],
             [
                 'name' => 'BAST',
                 'icon' => 'fas fa-file-signature',
                 'route' => 'bast.index',
                 'order' => 5,
-                'roles' => ['admin', 'direktur']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Kasubag']
             ],
         ];
 
         foreach ($menus as $menuData) {
-            $menu = \App\Models\Menu::create([
+            $menu = \App\Models\Menu::firstOrCreate([
                 'name' => $menuData['name'],
-                'icon' => $menuData['icon'],
                 'route' => $menuData['route'],
+            ], [
+                'icon' => $menuData['icon'],
                 'order' => $menuData['order'],
                 'is_active' => true
             ]);

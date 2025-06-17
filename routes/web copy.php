@@ -27,9 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pegawai', PegawaiController::class);
-    Route::middleware(['role:admin|PPK'])->group(function () {
-        Route::resource('penempatan', PenempatanController::class);
-    });
+    Route::resource('penempatan', PenempatanController::class);
+    // Route::resource('penempatan', PenempatanController::class)->middleware('role:direktur');
+
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
