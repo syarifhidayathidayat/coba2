@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -33,16 +33,23 @@ Route::middleware('auth')->group(function () {
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
-    Route::resource('sp', SpController::class);
-    Route::get('/sp/{id}', [SpController::class, 'show'])->name('sp.show');
+
+
+
+    Route::middleware(['role:admin|Pejabat-Pengadaan52'])->group(function () {
+        Route::get('/sp/{id}', [SpController::class, 'show'])->name('sp.show');
+        });
+
+    Route::middleware(['role:admin|PPK|Pejabat-Pengadaan53'])->group(function () {
+    Route::resource('sp', SpController::class); 
     Route::get('/barang/semua', [BarangController::class, 'indexSemuaBarang'])->name('barang.semua');
     Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
-
     Route::get('sp/{id}/barang/create', [App\Http\Controllers\BarangController::class, 'create'])->name('barang.create');
     Route::post('sp/{id}/barang', [App\Http\Controllers\BarangController::class, 'store'])->name('barang.store');
-    
-    
-    
+    });
+
+ 
+
     Route::resource('paket-pekerjaan', PaketPekerjaanController::class);
 
     // BAST Routes

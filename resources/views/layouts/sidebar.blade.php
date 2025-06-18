@@ -92,6 +92,11 @@
                    {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
 
                </div>
+                <div class="bg-white py-2 collapse-inner rounded">
+                   <a class="collapse-item" href="{{ route('user.index') }}">User</a>
+                   {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
+
+               </div>
            </div>
        </li>
    </ul>
