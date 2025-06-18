@@ -94,6 +94,8 @@ class InstitusiController extends Controller
             'nama_bendahara' => $data['nama_bendahara'] ?? null,
             'nip_bendahara' => $data['nip_bendahara'] ?? null,
             'dipa' => $data['dipa'] ?? null,
+            'tanggal_mulai' => $data['tanggal_mulai'] ?? null,
+            'tanggal_selesai' => $data['tanggal_selesai'] ?? null,
         ]);
         return redirect()->route('institusi.index')->with('success', 'Data institusi berhasil diupdate');
     }

@@ -20,5 +20,7 @@ class Institusi extends Model
         'nama_bendahara',
         'nip_bendahara',
         'dipa',
+        'tanggal_mulai',
+        'tanggal_selesai',
     ];
 }

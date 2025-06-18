@@ -21,6 +21,7 @@
                         <th>Pejabat Pengadaan 53</th>
                         <th>Bendahara</th>
                         <th>DIPA</th>
+                        <th>Periode</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -36,6 +37,13 @@
                         <td>{{ $institusi->nama_pejabat_pengadaan_53 }}<br><small>{{ $institusi->nip_pejabat_pengadaan_53 }}</small></td>
                         <td>{{ $institusi->nama_bendahara }}<br><small>{{ $institusi->nip_bendahara }}</small></td>
                         <td>{{ $institusi->dipa }}</td>
+                        <td>
+                            @if($institusi->tanggal_mulai && $institusi->tanggal_selesai)
+                                {{ \Carbon\Carbon::parse($institusi->tanggal_mulai)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($institusi->tanggal_selesai)->format('d-m-Y') }}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('institusi.edit', $institusi) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('institusi.destroy', $institusi) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus data ini?')">

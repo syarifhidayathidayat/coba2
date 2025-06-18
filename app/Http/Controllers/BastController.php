@@ -102,7 +102,10 @@ class BastController extends Controller
     public function printBast($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-        $institusi = Institusi::first();
+        $tanggal = $bast->tanggal_bast;
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
         $pdf = PDF::loadView('bast.print.bast', compact('bast', 'institusi'));
         $filename = 'BAST-' . str_replace('/', '-', $bast->nomor_bast) . '.pdf';
         return $pdf->stream($filename);
@@ -110,22 +113,26 @@ class BastController extends Controller
     public function printBap($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-        $institusi = Institusi::first();
+        $tanggal = $bast->tanggal_bast;
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
         $pdf = PDF::loadView('bast.print.bap', compact('bast', 'institusi'));
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bap) . '.pdf';
         return $pdf->stream($filename);
     }
 
-    public function printBapem($id)
+     public function printBapem($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-        $institusi = Institusi::first();
+        $tanggal = $bast->tanggal_bast;
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
         $pdf = PDF::loadView('bast.print.bapem', compact('bast', 'institusi'));
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bapem) . '.pdf';
         return $pdf->stream($filename);
     }
-
-
 
     // public function printBapem(Bast $bast)
     // {
@@ -135,7 +142,11 @@ class BastController extends Controller
     //             $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
     //         }
     //     ]);
-    //     return view('bast.print.bapem', compact('bast'));
+    //     $tanggal = $bast->tanggal_bast;
+    //     $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+    //         ->where('tanggal_selesai', '>=', $tanggal)
+    //         ->first();
+    //     return view('bast.print.bapem', compact('bast', 'institusi'));
     // }
 
     public function printKwitansi(Bast $bast)
@@ -146,15 +157,16 @@ class BastController extends Controller
                 $query->withPivot('jumlah_serah_terima');
             }
         ]);
-
+        $tanggal = $bast->tanggal_bast;
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
         if (!$bast->sp) {
             return 'Data SP tidak ditemukan';
         }
-
         if (!$bast->barangs || count($bast->barangs) === 0) {
             return 'Data barang tidak ditemukan';
         }
-
-        return view('bast.print.kwitansi', compact('bast'));
+        return view('bast.print.kwitansi', compact('bast', 'institusi'));
     }
 }

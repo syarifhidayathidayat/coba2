@@ -68,6 +68,16 @@
             <label>DIPA</label>
             <input type="text" name="dipa" class="form-control" value="{{ old('dipa', $institusi->dipa) }}">
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Periode Mulai (Tanggal SK Pejabat Mulai)</label>
+                <input type="date" name="tanggal_mulai" class="form-control" value="{{ old('tanggal_mulai', $institusi->tanggal_mulai) }}">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Periode Selesai (Tanggal SK Pejabat Selesai)</label>
+                <input type="date" name="tanggal_selesai" class="form-control" value="{{ old('tanggal_selesai', $institusi->tanggal_selesai) }}">
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('institusi.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
