@@ -6,7 +6,7 @@
     <style>
         @page {
             size: 215mm 330mm;
-            margin: 20mm 20mm 20mm 30mm;
+            margin: 10mm 20mm 20mm 30mm;
         }
         body {
             font-family: Times New Roman, sans-serif;
@@ -76,15 +76,12 @@
             padding: 10px;
             border: 1px solid red;
             background-color: #fff0f0;
-        }
-   
-        
+        }      
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="/sb-admin-2/img/KOP_2025.jpg" alt="Kop Surat" style="width:100%;max-width:900px;margin-bottom:20px;">
-        <h3>BERITA ACARA PEMERIKSAAN HASIL PEKERJAAN</h3>
+<img src="{{ public_path('sb-admin-2/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:110%;max-width:900px;margin-bottom:0px;">        <h3>BERITA ACARA PEMERIKSAAN HASIL PEKERJAAN</h3>
     </div>
     <table style="width:100%; ">
         <tr>
@@ -111,40 +108,47 @@
         </tr>
     </table>
     <div class="content">
-    <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
+              @php
+            $tanggal = \Carbon\Carbon::parse($bast->tanggal_bast);
+            $hari = $tanggal->locale('id')->isoFormat('dddd');
+            $tgl = trim(terbilang((int)$tanggal->format('d')));
+            $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
+            $tahun = trim(terbilang((int)$tanggal->format('Y')));
+        @endphp
+        <p>Pada hari ini {{ $hari }} tanggal {{ $tgl }} bulan {{ $bulan }} tahun {{ $tahun }}, kami yang bertanda tangan di bawah ini:</p>
 
     <ol style="padding-left: 20px;">
-    <li>
-        <div class="info-item">
-            <span class="info-label">Nama</span>
-            <span class="info-value">: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Jabatan</span>
-            <span class="info-value">: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Alamat</span>
-            <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
-        </div>
-        <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK PERTAMA</strong></div>
-    </li>
-    <li>
-        <div class="info-item">
-            <span class="info-label">Nama</span>
-            <span class="info-value">: [Nama Penerima]</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Jabatan</span>
-            <span class="info-value">: [Jabatan Penerima]</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Alamat</span>
-            <span class="info-value">: [Alamat Penerima]</span>
-        </div>
-      <div>Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
-    </li>
-</ol>
+            <li>
+                <div class="info-item">
+                    <span class="info-label">Namas</span>
+                    <span class="info-value">: {{ $institusi->nama_ppk_53 ?? '-' }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Jabatan</span>
+                    <span class="info-value">: Pejabat Pembuat Komitmen</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Alamat</span>
+                    <span class="info-value">: {{ $institusi->alamat ?? '-' }}</span>
+                </div>
+                <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK PERTAMA</strong></div>
+            </li>
+            <li>
+                <div class="info-item">
+                    <span class="info-label">Nama</span>
+                    <span class="info-value">: {{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Jabatan</span>
+                    <span class="info-value">: Direktur {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Alamat</span>
+                    <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
+                </div>
+                <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
+            </li>
+        </ol>
 
 <p>PIHAK PERTAMA dengan ini menyatakan :</p>
 <ol style="padding-left: 20px;">
@@ -153,7 +157,7 @@
         <div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">: {{ $bast->sp->nama_paket ?? '-' }}</span></div>
         <div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">: Banjarbaru</span></div>
         <div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div>
-        <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: </span></div>
+        <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: {{ $institusi->dipa ?? '-'}} </span></div>
         <div class="info-item"><span class="info-label">Penyedia</span><span class="info-value">: {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</span></div>
         <div class="info-item"><span class="info-label">No SP</span><span class="info-value">: {{ $bast->sp->nomor_sp ?? '-' }}</span></div>
         <div class="info-item"><span class="info-label">Hasil Pemeriksaan</span><span class="info-value">: Terlampir</span></div>
@@ -175,8 +179,8 @@
             <div>PIHAK PERTAMA</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>Nama Penerima</strong> </div>
-            <div>NIP. 19630310 198803 1 001</div>
+            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
         </div>
         <div class="signature">
             <div>PIHAK KEDUA</div>
@@ -235,8 +239,8 @@
             <div>PIHAK PERTAMA</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>Nama Penerima</strong> </div>
-            <div>NIP. 19630310 198803 1 001</div>
+            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
         </div>
         <div class="signature">
             <div>PIHAK KEDUA</div>

@@ -85,7 +85,7 @@ class SpController extends Controller
         $sp->update($request->all());
         $sp->hitungAkhirPekerjaan();
 
-        return redirect()->route('sp.index')->with('success', 'SP berhasil diperbarui');
+        return redirect()->route('sp.index')->with('success', 'Surat Pesanan  berhasil diperbarui');
     }
 
     public function destroy($id)

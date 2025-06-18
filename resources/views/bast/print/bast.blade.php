@@ -128,7 +128,14 @@
         </tr>
     </table>
     <div class="content">
-        <p>Pada hari ini {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('dddd') }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d') }} bulan {{ \Carbon\Carbon::parse($bast->tanggal_bast)->locale('id')->isoFormat('MMMM') }} tahun {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('Y') }}, kami yang bertanda tangan di bawah ini:</p>
+        @php
+            $tanggal = \Carbon\Carbon::parse($bast->tanggal_bast);
+            $hari = $tanggal->locale('id')->isoFormat('dddd');
+            $tgl = trim(terbilang((int)$tanggal->format('d')));
+            $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
+            $tahun = trim(terbilang((int)$tanggal->format('Y')));
+        @endphp
+        <p>Pada hari ini {{ $hari }} tanggal {{ $tgl }} bulan {{ $bulan }} tahun {{ $tahun }}, kami yang bertanda tangan di bawah ini:</p>
 
         <ol style="padding-left: 20px;">
             <li>

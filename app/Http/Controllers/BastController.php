@@ -110,12 +110,24 @@ class BastController extends Controller
     public function printBap($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-        $pdf = PDF::loadView('bast.print.bap', compact('bast'));
+        $institusi = Institusi::first();
+        $pdf = PDF::loadView('bast.print.bap', compact('bast', 'institusi'));
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bap) . '.pdf';
         return $pdf->stream($filename);
     }
 
-    // public function printBap(Bast $bast)
+    public function printBapem($id)
+    {
+        $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
+        $institusi = Institusi::first();
+        $pdf = PDF::loadView('bast.print.bapem', compact('bast', 'institusi'));
+        $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bapem) . '.pdf';
+        return $pdf->stream($filename);
+    }
+
+
+
+    // public function printBapem(Bast $bast)
     // {
     //     $bast->load([
     //         'sp.penyedia',
@@ -123,19 +135,8 @@ class BastController extends Controller
     //             $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
     //         }
     //     ]);
-    //     return view('bast.print.bap', compact('bast'));
+    //     return view('bast.print.bapem', compact('bast'));
     // }
-
-    public function printBapem(Bast $bast)
-    {
-        $bast->load([
-            'sp.penyedia',
-            'barangs' => function($query) {
-                $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
-            }
-        ]);
-        return view('bast.print.bapem', compact('bast'));
-    }
 
     public function printKwitansi(Bast $bast)
     {
