@@ -12,6 +12,7 @@ use App\Http\Controllers\BastController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 
 Route::get('/', function () {
@@ -72,6 +73,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('institusi', App\Http\Controllers\InstitusiController::class);
     });
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
 });
 
 

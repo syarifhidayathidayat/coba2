@@ -13,15 +13,16 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Nama Institusi</th>
-                        <th>Alamat</th>
+                        <!-- <th>Nama Institusi</th> -->
+                        <!-- <th>Alamat</th> -->
+                        <th>Periode</th>
                         <th>PPK 52</th>
                         <th>PPK 53</th>
                         <th>Pejabat Pengadaan 52</th>
                         <th>Pejabat Pengadaan 53</th>
                         <th>Bendahara</th>
                         <th>DIPA</th>
-                        <th>Periode</th>
+                        
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -29,21 +30,22 @@
                     @foreach ($institusis as $i => $institusi)
                     <tr>
                         <td>{{ $i+1 }}</td>
-                        <td>{{ $institusi->nama_institusi }}</td>
-                        <td>{{ $institusi->alamat }}</td>
-                        <td>{{ $institusi->nama_ppk_52 }}<br><small>{{ $institusi->nip_ppk_52 }}</small></td>
-                        <td>{{ $institusi->nama_ppk_53 }}<br><small>{{ $institusi->nip_ppk_53 }}</small></td>
-                        <td>{{ $institusi->nama_pejabat_pengadaan_52 }}<br><small>{{ $institusi->nip_pejabat_pengadaan_52 }}</small></td>
-                        <td>{{ $institusi->nama_pejabat_pengadaan_53 }}<br><small>{{ $institusi->nip_pejabat_pengadaan_53 }}</small></td>
-                        <td>{{ $institusi->nama_bendahara }}<br><small>{{ $institusi->nip_bendahara }}</small></td>
-                        <td>{{ $institusi->dipa }}</td>
-                        <td>
+                        <!-- <td>{{ $institusi->nama_institusi }}</td> -->
+                        <!-- <td>{{ $institusi->alamat }}</td> -->
+                         <td>
                             @if($institusi->tanggal_mulai && $institusi->tanggal_selesai)
                                 {{ \Carbon\Carbon::parse($institusi->tanggal_mulai)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($institusi->tanggal_selesai)->format('d-m-Y') }}
                             @else
                                 -
                             @endif
                         </td>
+                        <td>{{ $institusi->nama_ppk_52 }}<br><small>{{ $institusi->nip_ppk_52 }}</small></td>
+                        <td>{{ $institusi->nama_ppk_53 }}<br><small>{{ $institusi->nip_ppk_53 }}</small></td>
+                        <td>{{ $institusi->nama_pejabat_pengadaan_52 }}<br><small>{{ $institusi->nip_pejabat_pengadaan_52 }}</small></td>
+                        <td>{{ $institusi->nama_pejabat_pengadaan_53 }}<br><small>{{ $institusi->nip_pejabat_pengadaan_53 }}</small></td>
+                        <td>{{ $institusi->nama_bendahara }}<br><small>{{ $institusi->nip_bendahara }}</small></td>
+                        <td>{{ $institusi->dipa }}</td>
+                        
                         <td>
                             <a href="{{ route('institusi.edit', $institusi) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('institusi.destroy', $institusi) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus data ini?')">
