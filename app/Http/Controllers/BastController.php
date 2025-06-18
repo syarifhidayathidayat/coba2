@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bast;
 use App\Models\Sp;
 use App\Models\Barang;
+use App\Models\Institusi;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -101,7 +102,8 @@ class BastController extends Controller
     public function printBast($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-        $pdf = PDF::loadView('bast.print.bast', compact('bast'));
+        $institusi = Institusi::first();
+        $pdf = PDF::loadView('bast.print.bast', compact('bast', 'institusi'));
         $filename = 'BAST-' . str_replace('/', '-', $bast->nomor_bast) . '.pdf';
         return $pdf->stream($filename);
     }

@@ -1,29 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+@section('content')
+<div class="container">
+    <h1>Edit Profil</h1>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        <div class="form-group">
+            <label>Nama</label>
+            <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
         </div>
-    </div>
-</x-app-layout>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+        </div>
+        <div class="form-group">
+            <label>Password Baru (kosongkan jika tidak ingin mengubah)</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Konfirmasi Password Baru</label>
+            <input type="password" name="password_confirmation" class="form-control">
+        </div>
+        <button class="btn btn-primary">Simpan</button>
+    </form>
+</div>
+@endsection

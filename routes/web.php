@@ -24,7 +24,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pegawai', PegawaiController::class);
     Route::middleware(['role:admin|PPK'])->group(function () {
@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('user', UserController::class);
+        Route::resource('institusi', App\Http\Controllers\InstitusiController::class);
     });
 });
 
