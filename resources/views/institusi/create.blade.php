@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Create Institusi & Pejabat')
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Tambah Institusi & Pejabat</h1>
-    <form action="{{ route('institusi.store') }}" method="POST">
+    <form action="{{ route('institusi.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>Nama Institusi</label>
@@ -66,6 +67,15 @@
         <div class="form-group">
             <label>DIPA</label>
             <input type="text" name="dipa" class="form-control" value="{{ old('dipa') }}">
+        </div>
+        <div class="form-group">
+            <label>Upload SP DIPA (PDF)</label>
+            <input type="file" name="sp_dipa" class="form-control-file" accept="application/pdf">
+            @if(isset($institusi) && $institusi->sp_dipa)
+                <small class="form-text text-muted">File saat ini: 
+                    <a href="{{ asset('storage/' . $institusi->sp_dipa) }}" target="_blank">Lihat SP DIPA</a>
+                </small>
+            @endif
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">

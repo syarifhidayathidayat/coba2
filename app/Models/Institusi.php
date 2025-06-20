@@ -20,6 +20,7 @@ class Institusi extends Model
         'nama_bendahara',
         'nip_bendahara',
         'dipa',
+        'sp_dipa',
         'tanggal_mulai',
         'tanggal_selesai',
     ];

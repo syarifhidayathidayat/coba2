@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('title', 'Edit Paket Pekerjaan')
-
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">

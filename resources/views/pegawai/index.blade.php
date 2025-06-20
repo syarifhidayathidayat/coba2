@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Daftar Pegawai')
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Data Pegawai</h1>

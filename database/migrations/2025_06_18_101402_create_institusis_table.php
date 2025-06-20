@@ -26,7 +26,11 @@ return new class extends Migration
             $table->string('nama_bendahara')->nullable();
             $table->string('nip_bendahara')->nullable();
             $table->string('dipa')->nullable();
+            $table->string('sp_dipa')->nullable();
+            $table->string('kode_institusi')->unique();           
             $table->timestamps();
+            $table->string('tanggal_mulai')->nullable();
+            $table->string('tanggal_selesai')->nullable();
         });
     }
 

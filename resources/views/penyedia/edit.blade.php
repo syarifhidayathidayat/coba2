@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Penyedia')
 @section('content')
 <div class="container-fluid">
     <h2>Edit Penyedia</h2>

@@ -28,6 +28,7 @@ class InstitusiTableSeeder extends Seeder
             'nama_bendahara' => 'Linda Pujiastuti, SKM',
             'nip_bendahara' => '198109162002122001',
             'dipa' => 'DIPA-1234567890',
+            'sp_dipa' => '',
             'tanggal_mulai' => '2024-01-01',
             'tanggal_selesai' => '2027-12-31'
         ]

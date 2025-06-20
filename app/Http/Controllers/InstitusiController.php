@@ -16,9 +16,6 @@ class InstitusiController extends Controller
         return view('institusi.index', compact('institusis'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('institusi.create');
@@ -29,9 +26,11 @@ class InstitusiController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'nama_institusi' => 'required',
             'alamat' => 'required',
+            'sp_dipa' => 'nullable|file|mimes:pdf|max:2048',
         ]);
         $data = $request->all();
         $institusi = \App\Models\Institusi::create([
@@ -48,21 +47,25 @@ class InstitusiController extends Controller
             'nama_bendahara' => $data['nama_bendahara'] ?? null,
             'nip_bendahara' => $data['nip_bendahara'] ?? null,
             'dipa' => $data['dipa'] ?? null,
+            'sp_dipa' => $data['sp_dipa'] ?? null,
         ]);
+        // Upload file jika ada
+        if ($request->hasFile('sp_dipa')) {
+            $data['sp_dipa'] = $request->file('sp_dipa')->store('sp_dipa_files', 'public');
+        }
+
+        Institusi::create($data);
+
         return redirect()->route('institusi.index')->with('success', 'Data institusi berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Institusi $institusi)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id)
     {
         $institusi = \App\Models\Institusi::findOrFail($id);
@@ -74,9 +77,11 @@ class InstitusiController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'nama_institusi' => 'required',
             'alamat' => 'required',
+            'sp_dipa' => 'nullable|file|mimes:pdf|max:2048',
         ]);
         $institusi = \App\Models\Institusi::findOrFail($id);
         $data = $request->all();
@@ -94,18 +99,34 @@ class InstitusiController extends Controller
             'nama_bendahara' => $data['nama_bendahara'] ?? null,
             'nip_bendahara' => $data['nip_bendahara'] ?? null,
             'dipa' => $data['dipa'] ?? null,
+            'sp_dipa' => $data['sp_dipa'] ?? null,
             'tanggal_mulai' => $data['tanggal_mulai'] ?? null,
             'tanggal_selesai' => $data['tanggal_selesai'] ?? null,
         ]);
+        // Upload file baru jika ada
+        if ($request->hasFile('sp_dipa')) {
+            // Hapus file lama jika ada
+            if ($institusi->sp_dipa && \Storage::disk('public')->exists($institusi->sp_dipa)) {
+                \Storage::disk('public')->delete($institusi->sp_dipa);
+            }
+
+            // Simpan file baru
+            $data['sp_dipa'] = $request->file('sp_dipa')->store('sp_dipa_files', 'public');
+        }
+
+        $institusi->update($data);
+
         return redirect()->route('institusi.index')->with('success', 'Data institusi berhasil diupdate');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         $institusi = \App\Models\Institusi::findOrFail($id);
+        // Hapus file dari storage jika ada
+        if ($institusi->sp_dipa && \Storage::disk('public')->exists($institusi->sp_dipa)) {
+            \Storage::disk('public')->delete($institusi->sp_dipa);
+        }
         $institusi->delete();
         return redirect()->route('institusi.index')->with('success', 'Data institusi berhasil dihapus');
     }
