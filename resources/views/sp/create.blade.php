@@ -62,7 +62,7 @@
                     <select name="metode" class="form-control" required>
                         <option value="">-- Pilih Metode --</option>
                         @foreach ($metodes as $metode)
-                            <option value="{{ $metode }}">{{ $metode }}</option>
+                            <option value="{{ $metode }}" {{ $metode == 'E-Purchasing' ? 'selected' : '' }}>{{ $metode }}</option>
                         @endforeach
                     </select>
                 </div>

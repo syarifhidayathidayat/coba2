@@ -49,4 +49,25 @@ class Sp extends Model
     {
         return $this->hasOne(\App\Models\Bast::class);
     }
+    // status SP
+    public function getStatusLabelAttribute()
+    {
+        if (!$this->bast) {
+            return 'SP Dibuat';
+        }
+
+        if ($this->bast && !$this->bast->dicetak) {
+            return 'BAST Dibuat';
+        }
+
+        // if ($this->bast && $this->bast->dicetak && !$this->pembayaran) {
+        //     return 'BAST Dicetak';
+        // }
+
+        // if ($this->pembayaran) {
+        //     return 'Sudah Dibayar';
+        // }
+
+        return 'Tidak diketahui';
+    }
 }
