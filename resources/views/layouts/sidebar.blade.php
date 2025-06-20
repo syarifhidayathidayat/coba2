@@ -73,36 +73,30 @@
        <!-- Divider -->
        <hr class="sidebar-divider">
 
-       <!-- Nav Item - Pengaturan Collapse Menu -->
-       <li class="nav-item">
-           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaturan"
-               aria-expanded="true" aria-controls="collapsePengaturan">
-               <i class="fas fa-fw fa-wrench"></i>
-               <span>Pengaturan</span>
-           </a>
-           <div id="collapsePengaturan" class="collapse" aria-labelledby="headingPengaturan"
-               data-parent="#accordionSidebar">
-               <div class="bg-white py-2 collapse-inner rounded">
-                   <a class="collapse-item" href="{{ route('penempatan.index') }}">Penempatan Barang</a>
-                   {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
+   
+       
 
-               </div>
-               <div class="bg-white py-2 collapse-inner rounded">
-                   <a class="collapse-item" href="{{ route('menu.index') }}">Role User</a>
-                   {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
-               </div>
-               <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('institusi.index') }}">Institusi</a>
-                {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
-            </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                   <a class="collapse-item" href="{{ route('user.index') }}">User</a>
-                   {{-- <a class="collapse-item" href="utilities-border.html">Borders</a> --}}
-
-               </div>
-           </div>
-       </li>
+        <!-- Nav Item - Pengaturan-->
+   <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaturan"
+        aria-expanded="true" aria-controls="collapsePengaturan">
+        <i class="fas fa-fw fa-wrench"></i>
+        <span>Pengaturan</span>
+    </a>
+    <div id="collapsePengaturan" class="collapse" aria-labelledby="headingPengaturan"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Utilities:</h6>
+            <a class="collapse-item" href="{{ route('penempatan.index') }}">Penempatan Barang</a>
+            <a class="collapse-item" href="{{ route('menu.index') }}">Role User</a>
+            <a class="collapse-item" href="{{ route('institusi.index') }}">Institusi</a>
+            <a class="collapse-item" href="{{ route('user.index') }}">User</a>
+        </div>
+    </div>
+    </li>
    </ul>
+
+  
 
    <div class="text-center d-none d-md-inline">
        <button class="rounded-circle border-0" id="sidebarToggle"></button>

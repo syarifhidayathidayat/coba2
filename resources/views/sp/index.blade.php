@@ -13,26 +13,27 @@
                         ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
                     ]" />
                 </div>
-        
+
                 <div class="btn-group mt-3 mt-md-0" role="group">
                     @if (request('belum_bast'))
                         <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
                     @else
-                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP Belum BAST</a>
+                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP
+                            Belum BAST</a>
                     @endif
-        
+
                     <a href="{{ route('sp.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Tambah SP
                     </a>
-        
+
                     <a href="{{ route('barang.semua') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-shopping-cart"></i> Lihat Semua Barang
                     </a>
                 </div>
             </div>
         </div>
-        
-        
+
+
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -81,13 +82,20 @@
                         <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->format('d-m-Y') }}</td>
                         <td>{{ $sp->metode }}</td>
                         <!--<td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>-->
-                        <td>
-                            {{ $sp->barangs->sum('qty') }} ({{ $sp->barangs->groupBy('nama_barang')->count() }} jenis)
-                            <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-info ms-2"
-                                title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                        <td class="align-top">
+                            <div>
+                                <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-outline-info"><i class="fas fa-eye"></i>
+                                     {{ $sp->barangs->sum('qty') }} Qty {{ $sp->barangs->groupBy('nama_barang')->count() }} Jenis
+                                </a>                              
+                            </div>
+                        
+                            {{-- <div class="mt-1">
+                                <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-outline-info" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i> Detail
+                                </a>
+                            </div> --}}
                         </td>
+                        
 
                         <td class="text-nowrap">
                             <a href="{{ route('sp.edit', $sp->id) }}" class="btn btn-sm btn-warning" title="Edit">
@@ -140,3 +148,6 @@
         });
     </script>
 @endpush
+
+
+
