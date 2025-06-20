@@ -12,9 +12,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>No</th>
-                        <!-- <th>Nama Institusi</th> -->
-                        <!-- <th>Alamat</th> -->
+                        <th>No</th>       
                         <th>Periode</th>
                         <th>PPK 52</th>
                         <th>PPK 53</th>
