@@ -2,7 +2,19 @@
 {{-- coba --}}
 @section('content')
     <div class="container-fluid">
-        <h3>Form Input Surat Pesanan</h3>
+
+
+        <div>
+            <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Buat Surat Pesanan' }}</h1>
+            <x-breadcrumb :items="[
+                ['label' => 'Dashboard', 'url' => route('dashboard')],
+                ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+                ['label' => 'Tambah SP'],
+            ]" />
+        </div>
+
+
+
         <form action="{{ route('sp.store') }}" method="POST">
 
             @csrf
@@ -26,7 +38,8 @@
                     <select name="nama_paket" id="nama_paket" class="form-control" required>
                         <option value="">-- Pilih Paket Pekerjaan --</option>
                         @foreach ($paketPekerjaan as $paket)
-                            <option value="{{ $paket->nama_paket }}" data-max="{{ $paket->max }}" data-pagu="{{ $paket->pagu }}">{{ $paket->nama_paket }}</option>
+                            <option value="{{ $paket->nama_paket }}" data-max="{{ $paket->max }}"
+                                data-pagu="{{ $paket->pagu }}">{{ $paket->nama_paket }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -62,7 +75,8 @@
                     <select name="metode" class="form-control" required>
                         <option value="">-- Pilih Metode --</option>
                         @foreach ($metodes as $metode)
-                            <option value="{{ $metode }}" {{ $metode == 'E-Purchasing' ? 'selected' : '' }}>{{ $metode }}</option>
+                            <option value="{{ $metode }}" {{ $metode == 'E-Purchasing' ? 'selected' : '' }}>
+                                {{ $metode }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -127,4 +141,3 @@
         });
     });
 </script>
-

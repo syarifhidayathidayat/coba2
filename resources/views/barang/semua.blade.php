@@ -2,7 +2,15 @@
 
 @section('content')
 <div class="container-fluid">
-    <h3>Daftar Semua Barang</h3>
+ 
+    <div>
+        <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Daftar Semua Barang' }}</h1>
+        <x-breadcrumb :items="[
+            ['label' => 'Dashboard', 'url' => route('dashboard')],
+            ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+            ['label' => 'Barang', 'url' => route('barang.semua')],
+        ]" />
+    </div>
     <table class="table table-bordered table-striped" id="tabel-barang">
         <thead>
             <tr>

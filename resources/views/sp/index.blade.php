@@ -4,23 +4,35 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Daftar SP dan Barang</h4>
-            <div>
-                @if (request('belum_bast'))
-                    <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
-                @else
-                    <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP Belum
-                        BAST</a>
-                @endif
-                <a href="{{ route('sp.create') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus"></i> Tambah SP
-                </a>
-                <a href="{{ route('barang.semua') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-shopping-cart"></i> Lihat Semua Barang
-                </a>
+        <div class="mb-3">
+            <div class="d-flex justify-content-between flex-wrap align-items-center">
+                <div>
+                    <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Judul Halaman' }}</h1>
+                    <x-breadcrumb :items="[
+                        ['label' => 'Dashboard', 'url' => route('dashboard')],
+                        ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+                    ]" />
+                </div>
+        
+                <div class="btn-group mt-3 mt-md-0" role="group">
+                    @if (request('belum_bast'))
+                        <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
+                    @else
+                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP Belum BAST</a>
+                    @endif
+        
+                    <a href="{{ route('sp.create') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Tambah SP
+                    </a>
+        
+                    <a href="{{ route('barang.semua') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-shopping-cart"></i> Lihat Semua Barang
+                    </a>
+                </div>
             </div>
         </div>
+        
+        
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -48,17 +60,17 @@
             <tbody>
                 @foreach ($sps as $index => $sp)
                     <tr>
-                        <!-- <td>{{ $index + 1 }}</td> -->                        
-                            @php
-                                $color = match ($sp->status_label) {
-                                    'SP Dibuat' => 'success',
-                                    'BAST Dibuat' => 'warning',
-                                    'BAST Dicetak' => 'info',
-                                    'Sudah Dibayar' => 'danger',
-                                    default => 'dark',
-                                };
-                            @endphp
-                        <td><span class="badge bg-{{ $color }} text-white">{{ $sp->status_label }}</span></td>                                             
+                        <!-- <td>{{ $index + 1 }}</td> -->
+                        @php
+                            $color = match ($sp->status_label) {
+                                'SP Dibuat' => 'success',
+                                'BAST Dibuat' => 'warning',
+                                'BAST Dicetak' => 'info',
+                                'Sudah Dibayar' => 'danger',
+                                default => 'dark',
+                            };
+                        @endphp
+                        <td><span class="badge bg-{{ $color }} text-white">{{ $sp->status_label }}</span></td>
                         <td>{{ $sp->nomor_sp }}</td>
                         <td>{{ $sp->penyedia->nama_penyedia ?? '-' }}</td>
                         <td>{{ $sp->nama_paket }}</td>
