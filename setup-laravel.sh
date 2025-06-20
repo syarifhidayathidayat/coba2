@@ -31,6 +31,17 @@ php artisan key:generate
 echo -e "${GREEN}🧱 Menjalankan migrate...${NC}"
 php artisan migrate
 
+# 6. Install dan build frontend assets
+if [ -f "package.json" ]; then
+    echo -e "${GREEN}📦 Menjalankan npm install...${NC}"
+    npm install
+
+    echo -e "${GREEN}🛠️  Menjalankan build Vite...${NC}"
+    npm run build
+else
+    echo -e "${RED}⚠️  package.json tidak ditemukan, skip build frontend.${NC}"
+fi
+
 # 5. Jalankan Laravel di localhost
 echo -e "${GREEN}🌐 Menjalankan server Laravel di http://localhost:8000 ...${NC}"
 php artisan serve
