@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Buat BAST untuk SP')
 @section('content')
 <div class="container-fluid">
     <h4>Buat BAST untuk SP: {{ $sp->nomor_sp }}</h4>

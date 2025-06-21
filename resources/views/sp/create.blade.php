@@ -1,9 +1,8 @@
 @extends('layouts.app')
-{{-- coba --}}
+@section('title', 'Tambah Surat Pesanan')
+
 @section('content')
     <div class="container-fluid">
-
-
         <div>
             <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Buat Surat Pesanan' }}</h1>
             <x-breadcrumb :items="[

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Detail SP: ' . $sp->nomor_sp)
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">

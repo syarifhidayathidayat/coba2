@@ -3,11 +3,19 @@
 @section('title', 'Daftar Paket Pekerjaan')
 @section('content')
 <div class="container-fluid">
+    <div>
+        <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h1>
+        <x-breadcrumb :items="[
+            ['label' => 'Dashboard', 'url' => route('dashboard')],
+            ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+            ['label' => 'Paket Pekerjaan', 'active' => true],
+        ]" />
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Daftar Paket Pekerjaan</h5>
+                    
                     <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
                     </a>

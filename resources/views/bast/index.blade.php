@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+@section('title', 'Daftar BAST')
 @section('content')
 <div class="container-fluid">
     <h4>Daftar BAST</h4>

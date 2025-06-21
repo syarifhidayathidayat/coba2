@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Edit Barang untuk SP: ' . $sp->nomor_sp)
 
 @section('content')
 <div class="container-fluid">

@@ -1,8 +1,20 @@
 @extends('layouts.app')
 
+@section('title', 'Tambah Barang SP' . $sp->nomor_sp)
 @section('content')
 <div class="container-fluid">
-    <h4>Tambah Barang untuk SP: {{ $sp->nomor_sp }}</h4>
+
+
+
+    <div>
+        <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Tambah Barang untuk SP No. ' .$sp->nomor_sp }}</h1>
+        <x-breadcrumb :items="[
+            ['label' => 'Dashboard', 'url' => route('dashboard')],
+            ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+            ['label' => 'Tambah Barang untuk SP'],
+        ]" />
+    </div>
+ 
     <form action="{{ route('barang.store', $sp->id) }}" method="POST">
         @csrf
 

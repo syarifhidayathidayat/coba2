@@ -7,10 +7,10 @@
         <div class="mb-3">
             <div class="d-flex justify-content-between flex-wrap align-items-center">
                 <div>
-                    <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Judul Halaman' }}</h1>
+                    <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Surat Pesanan' }}</h1>
                     <x-breadcrumb :items="[
                         ['label' => 'Dashboard', 'url' => route('dashboard')],
-                        ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+                        ['label' => 'Semua Surat Pesanan', 'active' => true],
                     ]" />
                 </div>
 
@@ -84,18 +84,20 @@
                         <!--<td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>-->
                         <td class="align-top">
                             <div>
-                                <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-outline-info"><i class="fas fa-eye"></i>
-                                     {{ $sp->barangs->sum('qty') }} Qty {{ $sp->barangs->groupBy('nama_barang')->count() }} Jenis
-                                </a>                              
+                                <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-outline-info"><i
+                                        class="fas fa-eye"></i>
+                                    {{ $sp->barangs->sum('qty') }} Qty {{ $sp->barangs->groupBy('nama_barang')->count() }}
+                                    Jenis
+                                </a>
                             </div>
-                        
+
                             {{-- <div class="mt-1">
                                 <a href="{{ route('sp.show', $sp->id) }}" class="btn btn-sm btn-outline-info" title="Lihat Detail">
                                     <i class="fas fa-eye"></i> Detail
                                 </a>
                             </div> --}}
                         </td>
-                        
+
 
                         <td class="text-nowrap">
                             <a href="{{ route('sp.edit', $sp->id) }}" class="btn btn-sm btn-warning" title="Edit">
@@ -148,6 +150,3 @@
         });
     </script>
 @endpush
-
-
-

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Semua Barang')
 @section('content')
 <div class="container-fluid">
  
@@ -8,7 +8,7 @@
         <x-breadcrumb :items="[
             ['label' => 'Dashboard', 'url' => route('dashboard')],
             ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
-            ['label' => 'Barang', 'url' => route('barang.semua')],
+            ['label' => 'Semua Barang', 'active' => true],
         ]" />
     </div>
     <table class="table table-bordered table-striped" id="tabel-barang">
