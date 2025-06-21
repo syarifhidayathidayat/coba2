@@ -134,39 +134,27 @@ class BastController extends Controller
         return $pdf->stream($filename);
     }
 
-    // public function printBapem(Bast $bast)
-    // {
-    //     $bast->load([
-    //         'sp.penyedia',
-    //         'barangs' => function($query) {
-    //             $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
-    //         }
-    //     ]);
-    //     $tanggal = $bast->tanggal_bast;
-    //     $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
-    //         ->where('tanggal_selesai', '>=', $tanggal)
-    //         ->first();
-    //     return view('bast.print.bapem', compact('bast', 'institusi'));
-    // }
-
-    public function printKwitansi(Bast $bast)
+    public function printKwitansi($id)
     {
-        $bast->load([
-            'sp.penyedia',
-            'barangs' => function($query) {
-                $query->withPivot('jumlah_serah_terima');
-            }
-        ]);
+        $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
         $tanggal = $bast->tanggal_bast;
         $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
             ->where('tanggal_selesai', '>=', $tanggal)
             ->first();
-        if (!$bast->sp) {
-            return 'Data SP tidak ditemukan';
-        }
-        if (!$bast->barangs || count($bast->barangs) === 0) {
-            return 'Data barang tidak ditemukan';
-        }
-        return view('bast.print.kwitansi', compact('bast', 'institusi'));
+        $pdf = PDF::loadView('bast.print.kwitansi', compact('bast', 'institusi'));
+        $filename = 'Kwitansi -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
+        return $pdf->stream($filename);
+    }
+    
+    public function printSsp($id)
+    {
+        $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
+        $tanggal = $bast->tanggal_bast;
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
+        $pdf = PDF::loadView('bast.print.ssp', compact('bast', 'institusi'));
+        $filename = 'SSP -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
+        return $pdf->stream($filename);
     }
 }

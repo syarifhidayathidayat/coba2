@@ -72,6 +72,9 @@
         <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-warning" target="_blank">
             <i class="fas fa-print"></i> Cetak Kwitansi
         </a>
+        <a href="{{ route('bast.print.ssp', $bast->id) }}" class="btn btn-warning" target="_blank">
+            <i class="fas fa-print"></i> Cetak SSP
+        </a>
         <a href="{{ route('bast.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>

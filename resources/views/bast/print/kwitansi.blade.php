@@ -4,70 +4,103 @@
     <meta charset="utf-8">
     <title>Kwitansi - {{ $bast->no_kwitansi }}</title>
     <style>
+        @page {
+            size: 215mm 330mm;
+            margin: 10mm 20mm 20mm 30mm;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
+            font-family: Times New Roman, sans-serif;
+            margin: 10px;
+            text-align: justify;
+            font-size: 13px;
         }
+
         .header {
-            margin-bottom: 30px;
-        }
-        .header p {
-            margin: 5px 0;
-        }
-        .title {
             text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 20px 0;
+            margin-bottom: 10px 10px 10px 10px;
         }
+
+        .header h2 {
+            margin: 0;
+            padding: 0;
+        }
+
         .content {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+
         }
-        .content p {
-            margin: 8px 0;
-        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            /* margin-bottom: 10px; */
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
+
         th {
             background-color: #f0f0f0;
         }
+
         .footer {
-            margin-top: 50px;
+            /* margin-top: 50px; */
         }
+
         .signature {
             float: left;
-            width: 45%;
-            text-align: center;
+            width: 70%;
+            text-align: left;
         }
+        .signature2 {
+            float: center;
+            width: 70%;
+            text-align: left;
+        }
+        .signature3 {
+            float: left;
+            width: 50%;
+            text-align: left;
+        }
+
         .clear {
             clear: both;
         }
-        .terbilang {
-            font-style: italic;
-            margin: 10px 0;
-        }
+
         .info-item {
-            margin: 5px 0;
+            /* margin: 5px 0; */
         }
+       
+
         .info-label {
             display: inline-block;
             width: 170px;
         }
+
+        .info-label2 {
+            display: inline-block;
+            width: 100px;
+        }
+
         .info-value {
             display: inline-block;
         }
+
+        .info-value2 {
+            /* display: inline-block; */
+            width: 100px;
+        }
+
         .error-message {
             color: red;
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0;
             padding: 10px;
             border: 1px solid red;
             background-color: #fff0f0;
@@ -76,22 +109,27 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ public_path('sb-admin-2/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
+        
+    </div>
+    <div class="info">
         <div class="info-item">
-            <span class="info-label">TA</span>
+            <span class="info-label2">TA</span>
             <span class="info-value">: {{ date('Y') }}</span>
         </div>
         <div class="info-item">
-            <span class="info-label">No Bukti</span>
+            <span class="info-label2">No Bukti</span>
             <span class="info-value">: {{ $bast->no_kwitansi }}</span>
         </div>
         <div class="info-item">
-            <span class="info-label">Mata Anggaran</span>
+            <span class="info-label2">Mata Anggaran</span>
             <span class="info-value">: {{ $bast->sp->akun ?? '-' }}</span>
         </div>
     </div>
 
-    <div class="title">
-        KUITANSI
+    <p style="margin-top: 30px;"></p>
+    <div class="title" align="center">
+       <h3>KUITANSI</h3>
     </div>
 
     <div class="content">
@@ -106,13 +144,13 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Terbilang</span>
-                <span class="info-value">: {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak )) }} Rupiah</span>
+                <span class="info-value2">: {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak )) }} Rupiah</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Untuk Pembayaran</span>
-                <span class="info-value">: {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}, Sesuai Surat Perjanjian No {{ $bast->sp->nomor_sp }}, Tanggal {{ \Carbon\Carbon::parse($bast->sp->tanggal)->format('d-m-Y') }}</span>
+                <span class="info-value2">: {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}, Sesuai Surat Perjanjian No {{ $bast->sp->nomor_sp }}, Tanggal {{ \Carbon\Carbon::parse($bast->sp->tanggal)->format('d-m-Y') }}</span>
             </div>
-
+            <p style="margin-top: 20px;"></p>
             @if($bast->barangs && count($bast->barangs) > 0)
                 <table>
                     <thead>
@@ -156,24 +194,35 @@
         @endif
     </div>
 
+    
+    <p style="margin-top: 20px;"></p>
+
     <div class="footer">
         <div class="signature">
-            <p>a.n Kuasa Pengguna Anggaran </p>
-            <p>Pejabat Pembuat Komitmen</p>
-            <br><br><br>
-            <p>( [Nama Pembayar] )</p>
-           
-            
+            <div>a.n Kuasa Pengguna Anggaran</div>
+            <div>PEJABAT PEMBUAT KOMITMEN</div>
+            <br><br><br><br>
+            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
         </div>
         <div class="signature">
-            <br><br>
-            <p> {{ $bast->sp->penyedia->nama_penyedia ?? '-' }}</p>
-            <br><br><br>
-            <p> <b>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }} </b> </p>
-            <p> Direktur</p>
+            <div>__________,_____________</div>
+            <div>{{ $bast->sp->penyedia->nama_penyedia }}</div>
+            <br><br><br><br>
+            <div><strong>{{ $bast->sp->penyedia->nama_direktur_penyedia ?? '-' }}</strong> </div>
+            <div>Direktur</div>
+        </div>
+        <div class="clear"></div>
+        <div>_________________________________________________________________________________</div>
+        <p style="margin-top: 10px;"></p>
+        <div class="signature2">
+            <div>Pekerjaan tersebut telah di terima/diselesaikan dengan lengkap dan baik</div>
+            <div>PEJABAT PENGADAAN</div>
+            <br><br><br><br>
+            <div> <strong>{{ $institusi->nama_pejabat_pengadaan_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $institusi->nip_pejabat_pengadaan_53 ?? '-' }}</div>
         </div>
         
-        <div class="clear"></div>
     </div>
 </body>
 </html> 

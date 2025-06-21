@@ -88,6 +88,8 @@ class Bast extends Model
         
         return "BAPEM/{$year}/{$month}/" . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
+
+    
     
     
 }
