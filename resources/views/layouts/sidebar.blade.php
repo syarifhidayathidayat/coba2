@@ -100,7 +100,7 @@
                 <h6 class="collapse-header">Pengaturan Sistem:</h6>
                 @hasanyrole('admin|Pejabat-Pengadaan53')<a class="collapse-item" href="{{ route('penempatan.index') }}">Penempatan Barang</a>@endhasanyrole
                 @hasanyrole('admin')<a class="collapse-item" href="{{ route('menu.index') }}">Role User</a> @endhasanyrole
-                @hasanyrole('admin|Pejabat-Pengadaan53')<a class="collapse-item" href="{{ route('institusi.index') }}">Institusi</a> @endhasanyrole
+                @hasanyrole('admin|Pejabat-Pengadaan53')<a class="collapse-item" href="{{ route('institusi.index') }}">Institusi & Pejabat</a> @endhasanyrole
                 @hasanyrole('admin')<a class="collapse-item" href="{{ route('user.index') }}">User</a> @endhasanyrole
             </div>
         </div>

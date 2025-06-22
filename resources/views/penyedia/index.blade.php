@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <!-- <th>No</th> -->
+                    <th>Show</th>
                     <th>Nama Penyedia</th>
                     <th>Nama Direktur</th>
                     <th>Alamat</th>
@@ -36,6 +37,9 @@
                 @foreach ($penyedias as $index => $penyedia)
                     <tr>
                         <!-- <td>{{ $index + 1 }}</td> -->
+                        <td>
+                            <a href="{{ route('penyedia.show', $penyedia->id) }}"  title="Detail">
+                                <i class="fas fa-eye"></i></th>
                         <td>{{ $penyedia->nama_penyedia }}</td>
                         <td>{{ $penyedia->nama_direktur_penyedia }}</td>
                         <td>{{ $penyedia->alamat }}</td>
@@ -81,19 +85,22 @@
                         </td>
 
                         <td class="text-nowrap">
-                            <a href="{{ route('penyedia.edit', $penyedia->id) }}" class="btn btn-sm btn-warning" title="Edit">
+                            <a href="{{ route('penyedia.edit', $penyedia->id) }}" class="btn btn-sm btn-warning"
+                                title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                        
-                            <form action="{{ route('penyedia.destroy', $penyedia->id) }}" method="POST" style="display:inline;">
+
+                            <form action="{{ route('penyedia.destroy', $penyedia->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="return confirm('Hapus data ini?')" class="btn btn-sm btn-danger" title="Hapus">
+                                <button onclick="return confirm('Hapus data ini?')" class="btn btn-sm btn-danger"
+                                    title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
                         </td>
-                        
+
                     </tr>
                 @endforeach
             </tbody>
@@ -102,15 +109,17 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('.datatable').DataTable({
-            paging: true,
-            searching: true,
-            ordering: true,
-            responsive: true, // opsional, untuk responsif otomatis
-            order: [[0, 'desc']], // urutkan berdasarkan kolom No (indeks 0) secara descending
+    <script>
+        $(document).ready(function() {
+            $('.datatable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                responsive: true, // opsional, untuk responsif otomatis
+                order: [
+                    [0, 'desc']
+                ], // urutkan berdasarkan kolom No (indeks 0) secara descending
+            });
         });
-    });
-</script>
+    </script>
 @endpush

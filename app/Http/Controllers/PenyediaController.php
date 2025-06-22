@@ -96,4 +96,9 @@ class PenyediaController extends Controller
         $penyedia->delete();
         return redirect()->route('penyedia.index')->with('success', 'Data penyedia berhasil dihapus.');
     }
+
+    public function show(Penyedia $penyedia)
+    {
+        return view('penyedia.show', compact('penyedia'));
+    }
 }

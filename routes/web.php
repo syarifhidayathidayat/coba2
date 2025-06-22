@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
+    // Route::resource('penyedia', PenyediaController::class);
+    Route::get('/penyedia/{penyedia}', [PenyediaController::class, 'show'])->name('penyedia.show');
+
 
     // 🚫 DULU DI DALAM MIDDLEWARE ROLE
     // Route::middleware(['role:admin|PPK|Pejabat-Pengadaan53'])->group(function () {
