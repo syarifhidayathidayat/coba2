@@ -165,7 +165,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">Alamat</span>
-                    <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
+                    <span class="info-value2">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
                 </div>
                 <div style="margin-bottom: 12px;">Dalam hal ini bertindak untuk dan atas nama  {{$bast->sp->penyedia->nama_penyedia ?? '-'}} Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
             </li>
@@ -176,7 +176,7 @@
                 <div class="info-item"><span class="info-label">Nomor dan tanggal DIPA</span><span class="info-value">: {{ $institusi->dipa ?? '-' }}</span></div>
             </li>
             <li>
-                <div class="info-item"><span class="info-label">Nomor dan tanggal SP</span><span class="info-value">: Banjarbaru</span></div>
+                <div class="info-item"><span class="info-label">Nomor dan tanggal SP</span><span class="info-value">: {{ $bast->sp->nomor_sp }} tanggal {{ $bast->sp->tanggal }}</span></div>
             </li>
             <li>
                 <div class="info-item"><span class="info-label">Addendum SP</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div>
@@ -188,7 +188,7 @@
         </ol>
         <p>Sesuai Surat Perjanjian tersebut di atas, maka PIHAK KEDUA berhak menerima pembayaran sebesar <strong> Rp {{ number_format($bast->sp->total_kontrak, 0, ',', '.') }} </strong>   dari PIHAK PERTAMA</p>
         <p>PIHAK KEDUA sepakat atas jumlah pembayaran tersebut, dan dibayarkan pada  rekening  
-            <strong>Bank {{ $bast->sp->penyedia->cabang_bank ?? '-' }} </strong>Nomor Rekening <strong>{{ $bast->sp->penyedia->rekening_bank ?? '-' }}</strong> an. <strong>{{ $bast->sp->penyedia->rekening_atas_nama ?? '-' }}</strong> Demikian Berita Acara 
+            <strong>Bank {{ $bast->sp->penyedia->cabang_bank ?? '-' }} </strong>Nomor Rekening <strong>{{ $bast->sp->penyedia->rekening_bank ?? '-' }}</strong> an. <strong>{{ $bast->sp->penyedia->rekening_atas_nama ?? '-' }}</strong>. Demikian Berita Acara 
             Pembayaran ini dibuat dengan sebenarnya dan ditandatangani oleh kedua belah pihak pada hari dan tanggal tersebut di atas untuk dapat dipergunakan sebagaimana mestinya.
 </p>   
 

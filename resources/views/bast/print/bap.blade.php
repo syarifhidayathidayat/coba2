@@ -120,7 +120,7 @@
     <ol style="padding-left: 20px;">
             <li>
                 <div class="info-item">
-                    <span class="info-label">Namas</span>
+                    <span class="info-label">Nama</span>
                     <span class="info-value">: {{ $institusi->nama_ppk_53 ?? '-' }}</span>
                 </div>
                 <div class="info-item">
@@ -144,7 +144,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">Alamat</span>
-                    <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
+                    <span class="info-value2">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
                 </div>
                 <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
             </li>
@@ -166,7 +166,7 @@
         Berdasarkan pemeriksaan tersebut, Penyedia/Pelaksana Pekerjaan yang bersangkutan telah menyelesaikan seluruh pelaksanaan pekerjaan dengan baik, sesuai dengan kontrak pekerjaan dengan segala perubahan dan kelengkapannya seperti dimaksud dalam Surat Pesanan.
     </li>
     <li style="margin-top: 2px;">
-        Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan ({{ $bast->sp->nama_paket ?? '-' }}) Tahun anggaran {{ date('Y') }}.
+        Berdasarkan Surat Pesanan tersebut diatas selanjutnya dapat diadakan Serah Terima atas seluruh pekerjaan {{ $bast->sp->nama_paket ?? '-' }} Tahun anggaran {{ date('Y') }}.
     </li>
 </ol>
 <p>Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut di atas, dalam rangkap 3 (Tiga) untuk dipergunakan seperlunya.</p>

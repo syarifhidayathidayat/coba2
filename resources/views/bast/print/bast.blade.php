@@ -164,7 +164,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">Alamat</span>
-                    <span class="info-value">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
+                    <span class="info-value2">: {{ $bast->sp->penyedia->alamat ?? '-' }}</span>
                 </div>
                 <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
             </li>

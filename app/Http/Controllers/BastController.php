@@ -122,7 +122,7 @@ class BastController extends Controller
         return $pdf->stream($filename);
     }
 
-     public function printBapem($id)
+    public function printBapem($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
         $tanggal = $bast->tanggal_bast;
@@ -145,16 +145,31 @@ class BastController extends Controller
         $filename = 'Kwitansi -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
         return $pdf->stream($filename);
     }
-    
-    public function printSsp($id)
+
+    // public function printSsp($id)
+    // {
+    //     $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
+    //     $tanggal = $bast->tanggal_bast;
+    //     $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+    //         ->where('tanggal_selesai', '>=', $tanggal)
+    //         ->first();
+    //     $pdf = PDF::loadView('bast.print.ssp', compact('bast', 'institusi'));
+    //     $filename = 'SSP -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
+    //     return $pdf->stream($filename);
+    // }
+
+    public function printSsp(Bast $bast)
     {
-        $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
+        $bast->load([
+            'sp.penyedia',
+            'barangs' => function ($query) {
+                $query->withPivot('jumlah_serah_terima', 'kondisi', 'keterangan');
+            }
+        ]);
         $tanggal = $bast->tanggal_bast;
         $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
             ->where('tanggal_selesai', '>=', $tanggal)
             ->first();
-        $pdf = PDF::loadView('bast.print.ssp', compact('bast', 'institusi'));
-        $filename = 'SSP -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
-        return $pdf->stream($filename);
+        return view('bast.print.ssp', compact('bast', 'institusi'));
     }
 }
