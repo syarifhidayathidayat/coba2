@@ -433,8 +433,8 @@
     </style>
 </head>
 
-
-
+{{-- Halaman1 PPN --}}
+{{-- Kolom Header SSP --}}
 <div class="header-ssp">
     <div class="header-cell" style="width: 33%;">
         <div class="logo-box">
@@ -446,19 +446,16 @@
             </div>
         </div>
     </div>
-
     <div class="header-cell title" style="width: 33%;">
         <div>SURAT SETORAN PAJAK</div>
         <div class="ssp">(SSP)</div>
     </div>
-
     <div class="header-cell lembar" style="width: 33%;">
         <div>LEMBAR</div>
         <div class="box-number">1</div>
         <div>Untuk Arsip Wajib Pajak</div>
     </div>
 </div>
-{{-- {{ $bast->sp->penyedia->npwp ?? '-' }} --}}
 <div class="identitas-box">
     @php
         $npwp = preg_replace('/[^0-9]/', '', $bast->sp->penyedia->npwp ?? '');
@@ -472,19 +469,16 @@
             @endfor
         </div>
     </div>
-
     <div class="npwp-note">Diisi sesuai dengan Nomor Pokok Wajib Pajak yang dimiliki</div>
-
     <div class="identitas-line">
         <span class="label">NAMA WP</span>: {{ $bast->sp->penyedia->nama_penyedia }}
     </div>
-
     <div class="identitas-line">
         <span class="label">ALAMAT</span>: {{ $bast->sp->penyedia->alamat }}
     </div>
 </div>
 
-
+{{-- Kolom Kode Akun dan Jenis Setoran --}}
 <div class="kode-pembayaran">
     <div class="kode-cell" style="width: 25%;">
         <span class="label-bold">Kode Akun Pajak</span>
@@ -506,7 +500,6 @@
             <div>0</div>
         </div>
     </div>
-
     <div class="kode-cell" style="width: 50%;">
         <span class="label-bold">Uraian Pembayaran</span>
         <div class="uraian">PPN {{ $bast->sp->nama_paket }} TA {{ date('Y') }} pada
@@ -517,8 +510,9 @@
 </div>
 </div>
 
+{{-- Kolom Masa dan Tahun Pajak --}}
 <div class="masa-tahun">
-    <!-- MASA PAJAK -->
+    <!-- MASA PAJAK -->   
     <div class="masa-cell" style="width: 75%;">
         <div class="masa-title">Masa Pajak</div>
         <div class="bulan-grid">
@@ -543,7 +537,6 @@
         @php
             $tahun = str_split(\Carbon\Carbon::parse($bast->sp->tanggal)->format('Y'));
         @endphp
-
         <div class="masa-title">Tahun Pajak</div>
         <div class="tahun-box">
             <div class="tahun-boxes">
@@ -553,10 +546,10 @@
             </div>
             <div class="tahun-note">Diisi tahun terutangnya pajak</div>
         </div>
-
     </div>
 </div>
 
+{{-- Kolom Nomor Ketetapan --}}
 <div class="nomor-ketetapan">
     <div class="nomor-row">
         <div class="nomor-label">Nomor<br>Ketetapan</div>
@@ -580,11 +573,10 @@
         </div>
     </div>
     <div class="nomor-note">Diisi sesuai Nomor Ketetapan: STP, SKPKB, SKPKBT</div>
-
-
 </div>
-<div class="jumlah-terbilang">
-    <!-- Kolom Jumlah Pembayaran -->
+
+ <!-- Kolom Jumlah Pembayaran -->
+<div class="jumlah-terbilang">   
     <div class="jt-cell" style="width: 35%;">
         <div class="label-bold">Jumlah Pembayaran</div>
         <div class="label-italic">Diisi dengan rupiah penuh</div>
@@ -597,8 +589,6 @@
             <span>Terbilang</span> :
             <div class="terbilang-text">
                 {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak * (100 / 111) * 0.11)) }} Rupiah
-
-
             </div>
         </div>
     </div>
@@ -627,13 +617,214 @@
     </div>
 </div>
 
+{{-- Footer --}}
 <div class="footer-box">
     <div class="quote">"Terima Kasih telah membayar Pajak-Pajak Untuk Pembangunan Bangsa"</div>
     <div class="validation">Ruang Validasi Kantor Penerima Pembayaran</div>
 </div>
-
 <div class="footer-note">Diisi sesuai buku petunjuk pengisian</div>
 <div class="footer-code">F.2.0.32.01</div>
-</body>
 
+
+
+{{-- Halaman2 PPh Ps22--}}
+<div style="page-break-before: always;"></div>
+<p style="margin-top: 30px;"></p>
+
+{{-- Kolom Header SSP --}}
+<div class="header-ssp">
+    <div class="header-cell" style="width: 33%;">
+        <div class="logo-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYfQToSwuedPqeYHXXmZe9kYxoiVbPPZEvvNurpktIu4YyvE_uTyiIXt8iMX1AEhMHMVU&usqp=CAU"
+                alt="Logo">
+            <div class="logo-text">
+                KEMENTERIAN KEUANGAN R.I.<br>
+                DIREKTORAT JENDERAL PAJAK
+            </div>
+        </div>
+    </div>
+    <div class="header-cell title" style="width: 33%;">
+        <div>SURAT SETORAN PAJAK</div>
+        <div class="ssp">(SSP)</div>
+    </div>
+    <div class="header-cell lembar" style="width: 33%;">
+        <div>LEMBAR</div>
+        <div class="box-number">1</div>
+        <div>Untuk Arsip Wajib Pajak</div>
+    </div>
+</div>
+<div class="identitas-box">
+    @php
+        $npwp = preg_replace('/[^0-9]/', '', $bast->sp->penyedia->npwp ?? '');
+    @endphp
+
+    <div class="npwp-row">
+        <span class="label">NPWP</span>:
+        <div class="npwp-boxes">
+            @for ($i = 0; $i < 15; $i++)
+                <div>{{ $npwp[$i] ?? '' }}</div>
+            @endfor
+        </div>
+    </div>
+    <div class="npwp-note">Diisi sesuai dengan Nomor Pokok Wajib Pajak yang dimiliki</div>
+    <div class="identitas-line">
+        <span class="label">NAMA WP</span>: {{ $bast->sp->penyedia->nama_penyedia }}
+    </div>
+    <div class="identitas-line">
+        <span class="label">ALAMAT</span>: {{ $bast->sp->penyedia->alamat }}
+    </div>
+</div>
+
+{{-- Kolom Kode Akun dan Jenis Setoran --}}
+<div class="kode-pembayaran">
+    <div class="kode-cell" style="width: 25%;">
+        <span class="label-bold">Kode Akun Pajak</span>
+        <div class="kode-boxes">
+            <div>4</div>
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+            <div>2</div>
+            <div>2</div>
+        </div>
+    </div>
+
+    <div class="kode-cell" style="width: 25%;">
+        <span class="label-bold">Kode Jenis Setoran</span>
+        <div class="kode-boxes">
+            <div>9</div>
+            <div>1</div>
+            <div>0</div>
+        </div>
+    </div>
+    <div class="kode-cell" style="width: 50%;">
+        <span class="label-bold">Uraian Pembayaran</span>
+        <div class="uraian">PPH PS.22 {{ $bast->sp->nama_paket }} TA {{ date('Y') }} pada
+            {{ $institusi->nama_institusi ?? '-' }}
+
+        </div>
+    </div>
+</div>
+</div>
+
+{{-- Kolom Masa dan Tahun Pajak --}}
+<div class="masa-tahun">
+    <!-- MASA PAJAK -->   
+    <div class="masa-cell" style="width: 75%;">
+        <div class="masa-title">Masa Pajak</div>
+        <div class="bulan-grid">
+            <div>Jan</div>
+            <div>Peb</div>
+            <div>Mar</div>
+            <div>Apr</div>
+            <div>Mei</div>
+            <div>Jun</div>
+            <div>Jul</div>
+            <div>Ags</div>
+            <div>Sep</div>
+            <div>Okt</div>
+            <div>Nop</div>
+            <div>Des</div>
+        </div>
+        <div class="masa-note">Beri tanda silang pada salah satu kolom bulan untuk masa yang berkenaan</div>
+    </div>
+
+    <!-- TAHUN PAJAK -->
+    <div class="masa-cell" style="width: 25%;">
+        @php
+            $tahun = str_split(\Carbon\Carbon::parse($bast->sp->tanggal)->format('Y'));
+        @endphp
+        <div class="masa-title">Tahun Pajak</div>
+        <div class="tahun-box">
+            <div class="tahun-boxes">
+                @foreach ($tahun as $digit)
+                    <div>{{ $digit }}</div>
+                @endforeach
+            </div>
+            <div class="tahun-note">Diisi tahun terutangnya pajak</div>
+        </div>
+    </div>
+</div>
+
+{{-- Kolom Nomor Ketetapan --}}
+<div class="nomor-ketetapan">
+    <div class="nomor-row">
+        <div class="nomor-label">Nomor<br>Ketetapan</div>
+        <div>:</div>
+        <div class="nomor-boxes">
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <span class="slash">/</span>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <span class="slash">/</span>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+            <span class="slash">/</span>
+            <div class="nomor-box"></div>
+            <div class="nomor-box"></div>
+        </div>
+    </div>
+    <div class="nomor-note">Diisi sesuai Nomor Ketetapan: STP, SKPKB, SKPKBT</div>
+</div>
+
+ <!-- Kolom Jumlah Pembayaran -->
+<div class="jumlah-terbilang">   
+    <div class="jt-cell" style="width: 35%;">
+        <div class="label-bold">Jumlah Pembayaran</div>
+        <div class="label-italic">Diisi dengan rupiah penuh</div>
+        <div class="nominal">Rp {{ number_format($bast->sp->total_kontrak * (100 / 111) * 0.015, 0, ',', '.') }}</div>
+    </div>
+
+    <!-- Kolom Terbilang -->
+    <div class="jt-cell" style="width: 65%;">
+        <div class="terbilang">
+            <span>Terbilang</span> :
+            <div class="terbilang-text">
+                {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak * (100 / 111) * 0.11)) }} Rupiah
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ttd-blok">
+    <!-- Kolom Kiri -->
+    <div class="ttd-cell" style="width: 50%;">
+        <div class="ttd-title">Diterima oleh Kantor Penerima Pembayaran</div>
+        <div class="ttd-title">Tanggal ……………………………………</div>
+        <div class="ttd-note">Cap dan tanda tangan</div>
+        <div class="ttd-nama">Nama Jelas :
+            <span>.................................................................</span>
+        </div>
+    </div>
+
+    <!-- Kolom Kanan -->
+    <div class="ttd-cell" style="width: 50%;">
+        <div class="ttd-title">Wajib Pajak/Penyetor</div>
+        <div class="ttd-title">
+            Banjarbaru, Tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ \Carbon\Carbon::parse($bast->sp->tanggal)->translatedFormat('F Y') }}
+        </div>
+        <div class="ttd-note">Cap dan tanda tangan</div>
+        <div class="ttd-nama">Nama Jelas : <span><strong>{{ $institusi->nama_bendahara ?? '-' }}</strong></span></div>
+    </div>
+</div>
+
+{{-- Footer --}}
+<div class="footer-box">
+    <div class="quote">"Terima Kasih telah membayar Pajak-Pajak Untuk Pembangunan Bangsa"</div>
+    <div class="validation">Ruang Validasi Kantor Penerima Pembayaran</div>
+</div>
+<div class="footer-note">Diisi sesuai buku petunjuk pengisian</div>
+<div class="footer-code">F.2.0.32.01</div>
+
+
+
+
+
+</body>
 </html>

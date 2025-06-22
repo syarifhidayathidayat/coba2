@@ -14,6 +14,7 @@
                             <th>Nomor BAP</th>
                             <th>Nomor SP</th>
                             <th>Penyedia</th>                            
+                            <th>Aksi</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,7 @@
                                 <td>{{ $bast->nomor_bap }}</td>
                                 <td>{{ $bast->nomor_bapem }}</td>
                                 <td>{{ $bast->sp->penyedia->nama_penyedia ?? 'Tidak Diketahui' }}</td>
+                                <td><a href="{{ route('bast.show', $bast) }}" class="btn btn-sm btn-info">Detail</a></td>
                             </tr>
                         @endforeach
                     </tbody>
