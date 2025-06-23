@@ -1,7 +1,6 @@
-import './bootstrap';
+import '@coreui/coreui';
+import '@coreui/chartjs';
+import 'bootstrap';
 
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+// Font Awesome CSS agar Vite tahu load font
+// import '@fortawesome/fontawesome-free/css/all.min.css';

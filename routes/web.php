@@ -18,7 +18,9 @@ use App\Http\Controllers\SearchController;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+// Route::middleware('auth')->group(function () {
+//     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+// });
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');

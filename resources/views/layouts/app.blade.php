@@ -3,83 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name', 'Pengadaan'))</title>
-
-    <!-- SB Admin 2 CSS -->
-     <link href="{{ asset('sb-admin-2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('sb-admin-2/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    {{-- fitur cari pada dropdown --}}
-
+    <title>@yield('title', config('app.name'))</title>
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+    <script src="{{ asset('build/assets/app.js') }}" defer></script> --}}
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body id="page-top">
+<body class="c-app">
 
-    <div id="wrapper">
-        @include('layouts.sidebar') {{-- Sidebar SB Admin --}}
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                @include('layouts.topbar') {{-- Topbar (opsional) --}}
+    @include('partials.sidebar') {{-- <- sudah fixed position dan scrollable --}}
+
+    <div class="c-wrapper d-flex flex-column">
+        @include('partials.header')
+
+        <div class="c-body flex-grow-1">
+            <main class="c-main px-4 py-3">
                 <div class="container-fluid">
-                    @yield('content') {{-- Konten halaman --}}
+                    @yield('content')
                 </div>
-            </div>
-
-            @include('layouts.footer') {{-- Footer --}}
+            </main>
         </div>
-        <!-- End of Content Wrapper -->
+
+        <footer class="c-footer px-4">
+            <div>&copy; {{ date('Y') }} {{ config('app.name') }}</div>
+            <div class="ms-auto">Powered by <a href="https://coreui.io">CoreUI</a></div>
+        </footer>
     </div>
-
-    <!-- SB Admin 2 JS -->
-    <script src="{{ asset('sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/js/sb-admin-2.min.js') }}"></script>
-    <!-- DataTables JS global -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    @stack('scripts')
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 3000
-            });
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ session('error') }}',
-                showConfirmButton: true
-            });
-        </script>
-    @endif
 
 </body>
 
 </html>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: "Pilih Penyedia",
-            allowClear: true
-        });
-    });
-</script>
-
-

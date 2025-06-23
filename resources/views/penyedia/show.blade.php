@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
 @section('title', 'Detail Penyedia')
 
 @section('content')

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Tambah Barang SP' . $sp->nomor_sp)
 @section('content')
