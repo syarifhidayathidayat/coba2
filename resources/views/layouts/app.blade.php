@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', config('app.name', 'Pengadaan'))</title>
 
-    <!-- SB Admin 2 CSS -->
-    <!-- Asset via Vite -->
+    {{-- Vite CSS & JS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
 </head>
+<body>
 
-<body id="page-top">
+    {{-- CoreUI Layout Wrapper --}}
+    <div class="c-app d-flex">
+        {{-- Sidebar --}}
+        <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+            @include('layouts.sidebar')
+        </div>
 
-    <div id="wrapper" class="d-flex">
-        @include('layouts.sidebar')
+        {{-- Main Content --}}
+        <div class="wrapper d-flex flex-column min-vh-100 bg-light flex-grow-1">
+            {{-- Header / Topbar --}}
+            @include('layouts.topbar')
 
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                @include('layouts.topbar')
-
-                <div class="container-fluid">
+            {{-- Page Content --}}
+            <div class="body flex-grow-1 px-3">
+                <main>
                     @yield('content')
-                </div>
+                </main>
             </div>
 
+            {{-- Footer --}}
             @include('layouts.footer')
         </div>
     </div>
 
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- SB Admin 2 JS -->
-    <script src="{{ asset('sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('sb-admin-2/js/sb-admin-2.min.js') }}"></script>
-    <!-- DataTables JS global -->
+    {{-- DataTables & Select2 --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    @stack('scripts')
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    {{-- Flash Messages --}}
     @if (session('success'))
         <script>
             Swal.fire({
@@ -69,14 +66,16 @@
         </script>
     @endif
 
-</body>
-
-</html>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: "Pilih Penyedia",
-            allowClear: true
+    {{-- Select2 Init --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('.select2').select2({
+                placeholder: "Pilih Penyedia",
+                allowClear: true
+            });
         });
-    });
-</script>
+    </script>
+
+    @stack('scripts')
+</body>
+</html>
