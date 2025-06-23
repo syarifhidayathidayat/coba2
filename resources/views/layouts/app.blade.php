@@ -8,31 +8,30 @@
     <title>@yield('title', config('app.name', 'Pengadaan'))</title>
 
     <!-- SB Admin 2 CSS -->
-     <link href="{{ asset('sb-admin-2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('sb-admin-2/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    {{-- fitur cari pada dropdown --}}
+    <!-- Asset via Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 </head>
 
 <body id="page-top">
 
-    <div id="wrapper">
-        @include('layouts.sidebar') {{-- Sidebar SB Admin --}}
+    <div id="wrapper" class="d-flex">
+        @include('layouts.sidebar')
+
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                @include('layouts.topbar') {{-- Topbar (opsional) --}}
+                @include('layouts.topbar')
+
                 <div class="container-fluid">
-                    @yield('content') {{-- Konten halaman --}}
+                    @yield('content')
                 </div>
             </div>
 
-            @include('layouts.footer') {{-- Footer --}}
+            @include('layouts.footer')
         </div>
-        <!-- End of Content Wrapper -->
     </div>
+
 
     <!-- SB Admin 2 JS -->
     <script src="{{ asset('sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>
@@ -81,5 +80,3 @@
         });
     });
 </script>
-
-

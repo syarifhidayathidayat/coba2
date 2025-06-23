@@ -1,3 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Bootstrap dan CoreUI */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '@coreui/coreui/dist/css/coreui.min.css';
+
+/* FontAwesome */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* DataTables dan Select2 */
+@import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+@import 'select2/dist/css/select2.min.css';

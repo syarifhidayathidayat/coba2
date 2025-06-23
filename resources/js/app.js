@@ -1,7 +1,5 @@
-import './bootstrap';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+import 'bootstrap';
+import '@coreui/coreui/dist/js/coreui.bundle.min.js';
+import '@fortawesome/fontawesome-free/js/all.min.js';
+import 'datatables.net-bs5';
+import 'select2';
