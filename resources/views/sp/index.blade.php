@@ -39,7 +39,7 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <table class="table table-bordered " id="tabel-sp">
+        <table id="tabel-sp" class="table table-bordered w-100">
             <thead>
                 <tr>
                     <!-- <th>No</th> -->
@@ -134,18 +134,23 @@
 @endsection
 
 @push('scripts')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#tabel-sp').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
                 responsive: true,
+                paging: true,
+                ordering: true,
+                searching: true,
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50, 100],
-                order: [
-                    [0, 'desc']
-                ],
+                order: [[0, 'desc']],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+                }
             });
         });
     </script>

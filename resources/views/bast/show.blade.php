@@ -57,25 +57,25 @@
         </div>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3">     
         
-        
-        <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-info" target="_blank">
-            <i class="fas fa-print"></i> Cetak BAP
+        <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-outline-primary" target="_blank">
+            <i class="fas fa-print"></i> BAP
         </a>
-        <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-primary" target="_blank">
-            <i class="fas fa-print"></i> Cetak BAST
+        <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-outline-secondary" target="_blank">
+            <i class="fas fa-print"></i> BAST
         </a>
-        <a href="{{ route('bast.print.bapem', $bast->id) }}" class="btn btn-success" target="_blank">
-            <i class="fas fa-print"></i> Cetak BAPEM
+        <a href="{{ route('bast.print.bapem', $bast->id) }}" class="btn btn-outline-danger" target="_blank">
+            <i class="fas fa-print"></i> BAPEM
         </a>
-        <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-warning" target="_blank">
-            <i class="fas fa-print"></i> Cetak Kwitansi
+        <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-outline-warning" target="_blank">
+            <i class="fas fa-print"></i> Kwitansi
         </a>
-        <a href="{{ route('bast.print.ssp', $bast->id) }}" class="btn btn-warning" target="_blank">
-            <i class="fas fa-print"></i> Cetak SSP
+        <a href="{{ route('bast.print.ssp', $bast->id) }}" class="btn btn-outline-success" target="_blank">
+            <i class="fas fa-print"></i> SSP
         </a>
-        <a href="{{ route('bast.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('bast.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+            Kembali</a>
     </div>
 </div>
 @endsection 
