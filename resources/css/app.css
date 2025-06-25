@@ -18,3 +18,27 @@
         margin-left: 0;
     }
 }
+
+header.header-fixed {
+    z-index: 1001;
+}
+
+@media (min-width: 768px) {
+    header.header-fixed {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        body:not(.sidebar-collapsed) header.header-fixed {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+        
+            body:not(.sidebar-collapsed) .wrapper {
+                margin-left: 250px;
+            }
+        
+            body.sidebar-collapsed header.header-fixed,
+            body.sidebar-collapsed .wrapper {
+                margin-left: 60px;
+                width: calc(100% - 60px);
+            }  
+         }}

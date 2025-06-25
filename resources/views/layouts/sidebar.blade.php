@@ -95,3 +95,11 @@
         </ul>
     </li>
 </ul>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            new coreui.Sidebar(sidebar);
+        }
+    });
+</script>

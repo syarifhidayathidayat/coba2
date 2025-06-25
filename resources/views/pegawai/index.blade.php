@@ -57,3 +57,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#tabel-barang').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100]
+        });
+    });
+</script>
+@endpush
