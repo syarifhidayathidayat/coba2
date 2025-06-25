@@ -45,7 +45,7 @@
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" required>
                                 <option value="">-- Pilih Status --</option>
-                                <option value="draft">Draft</option>
+                                <option value="draft" selected>Draft</option>
                                 <option value="selesai">Selesai</option>
                             </select>
                         </div>
@@ -60,7 +60,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Tanggal BAST</label>
-                            <input type="date" name="tanggal_bast" class="form-control" required>
+                            <input type="date" name="tanggal_bast" class="form-control" required value="{{ date('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -103,13 +103,13 @@
                             <td>
                                 <select name="kondisi[]" class="form-control" required>
                                     <option value="">Pilih Kondisi</option>
-                                    <option value="Baik">Baik</option>
+                                    <option value="Baik" selected>Baik </option>
                                     <option value="Rusak Ringan">Rusak Ringan</option>
                                     <option value="Rusak Berat">Rusak Berat</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" name="keterangan_barang[]" class="form-control">
+                                <input type="text" name="keterangan_barang[]" class="form-control" value="Lengkap">
                             </td>
                         </tr>
                         @endforeach
