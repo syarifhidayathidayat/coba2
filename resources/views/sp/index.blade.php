@@ -18,15 +18,15 @@
                     @if (request('belum_bast'))
                         <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
                     @else
-                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-primary btn-sm">Tampilkan SP
+                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-outline-primary btn-sm">Tampilkan SP
                             Belum BAST</a>
                     @endif
 
-                    <a href="{{ route('sp.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('sp.create') }}" class="btn btn-outline-primary btn-sm">
                         <i class="fas fa-plus"></i> Tambah SP
                     </a>
 
-                    <a href="{{ route('barang.semua') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('barang.semua') }}" class="btn btn-outline-primary btn-sm">
                         <i class="fas fa-shopping-cart"></i> Lihat Semua Barang
                     </a>
                 </div>

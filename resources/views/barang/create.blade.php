@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-secondary btn-add-penempatan mt-1" ><i class="fas fa-plus"></i>Penempatan</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-add-penempatan mt-1" ><i class="fas fa-plus"></i>Penempatan</button>
                 </div>
 
                 <div class="col-md-12 mt-1 d-flex gap-2">
@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-sm mt-3">Simpan Barang</button>
+        <button type="submit" class="btn btn-outline-primary mt-3">Simpan Barang</button>
     </form>
 </div>
 @endsection

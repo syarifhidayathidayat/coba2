@@ -100,7 +100,7 @@
 
 <body>
     <div class="header">
-        <img src="{{ public_path('sb-admin-2/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
+        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
         <h3>BERITA ACARA PEMBAYARAN</h3>
     </div>
     <table style="width:100%; ">

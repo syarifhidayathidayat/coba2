@@ -6,7 +6,7 @@
     <style>
         @page {
             size: 215mm 330mm;
-            margin: 10mm 20mm 20mm 30mm;
+            margin: 20mm 30mm 20mm 30mm;
         }
 
         body {
@@ -109,7 +109,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{ public_path('sb-admin-2/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
+        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
         
     </div>
     <div class="info">
@@ -195,7 +195,7 @@
     </div>
 
     
-    <p style="margin-top: 20px;"></p>
+    <p style="margin-top: 30px;"></p>
 
     <div class="footer">
         <div class="signature">
