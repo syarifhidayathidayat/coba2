@@ -148,9 +148,9 @@
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50, 100],
                 order: [[0, 'desc']],
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
-                }
+                // language: {
+                //     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+                // }
             });
         });
     </script>
