@@ -2,8 +2,8 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Header SSP</title>
+    <meta charset="UTF-8">   
+    <title>SSP {{ $bast->sp->penyedia->nama_penyedia }} No.SP {{ $bast->sp->nomor_sp }}</title>
     <style>
         @page {
             size: 215mm 330mm;
@@ -499,12 +499,7 @@
                 @endfor
             </div>
         </div>
-
-
-
         <div class="npwp-note">Diisi sesuai dengan Nomor Pokok Wajib Pajak yang dimiliki</div>
-
-
         <div class="identitas-line">
             <span class="label">NAMA WP</span>: {{ $bast->sp->penyedia->nama_penyedia }}
         </div>
@@ -615,7 +610,9 @@
         <div class="jt-cell" style="width: 35%;">
             <div class="label-bold">Jumlah Pembayaran</div>
             <div class="label-italic">Diisi dengan rupiah penuh</div>
-            <div class="nominal">Rp {{ number_format($bast->sp->total_kontrak * (100 / 111) * 0.11, 0, ',', '.') }}
+            <div class="nominal">Rp Rp {{ number_format(floor($bast->sp->total_kontrak * (100 / 111) * 0.11), 0, ',', '.') }}
+
+
             </div>
         </div>
 
@@ -817,7 +814,8 @@
         <div class="jt-cell" style="width: 35%;">
             <div class="label-bold">Jumlah Pembayaran</div>
             <div class="label-italic">Diisi dengan rupiah penuh</div>
-            <div class="nominal">Rp {{ number_format($bast->sp->total_kontrak * (100 / 111) * 0.015, 0, ',', '.') }}
+            <div class="nominal">Rp {{ number_format(floor($bast->sp->total_kontrak * (100 / 111) * 0.015), 0, ',', '.') }}
+
             </div>
         </div>
 
@@ -826,7 +824,7 @@
             <div class="terbilang">
                 <span>Terbilang</span> :
                 <div class="terbilang-text">
-                    {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak * (100 / 111) * 0.11)) }} Rupiah
+                    {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak * (100 / 111) * 0.015)) }} Rupiah
                 </div>
             </div>
         </div>
