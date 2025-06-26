@@ -75,11 +75,12 @@
                         <td>{{ $sp->nomor_sp }}</td>
                         <td>{{ $sp->penyedia->nama_penyedia ?? '-' }}</td>
                         <td>{{ $sp->nama_paket }}</td>
-                        <td>{{ $sp->tanggal }}</td>
+                        {{-- <td>{{ $sp->tanggal }}</td> --}}
+                        <td>{{ \Carbon\Carbon::parse($sp->tanggal)->locale('id')->translatedFormat('j F Y') }}</td>
                         <td><div class="fw-bold text-success">Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
-                        <td>{{ $sp->mulai_pekerjaan }}</td>
+                        <td>{{ \Carbon\Carbon::parse($sp->mulai_pekerjaan)->locale('id')->translatedFormat('j F Y') }}</td>
                         <td>{{ $sp->masa }} </td>
-                        <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->locale('id')->translatedFormat('j F Y') }}</td>
                         <td>{{ $sp->metode }}</td>
                         <!--<td>{{ number_format($sp->total_pagu, 0, ',', '.') }}</td>-->
                         <td class="align-top">

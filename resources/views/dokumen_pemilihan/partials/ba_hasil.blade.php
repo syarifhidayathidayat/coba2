@@ -1,22 +1,25 @@
 <div class="card mb-4">
-    <div class="card-header">Berita Acara Hasil Pengadaan Langsung</div>
+    <div class="card-header">
+        <h5>Berita Acara Hasil Pengadaan Langsung</h5>
+    </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
                 <label>No. BA Hasil</label>
                 <input type="text" name="ba_hasil_nomor"
-                    value="{{ old('ba_hasil_nomor', $dokumen->ba_hasil_nomor ?? '') }}" class="form-control">
-            </div>
-            <div class="col-md-3">
-                <label>Hari</label>
-                <input type="text" name="ba_hasil_hari"
-                    value="{{ old('ba_hasil_hari', $dokumen->ba_hasil_hari ?? '') }}" class="form-control">
+                    value="{{ old('ba_hasil_nomor', $dokumen->ba_hasil_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}" class="form-control">
             </div>
             <div class="col-md-3">
                 <label>Tanggal</label>
-                <input type="date" name="ba_hasil_tanggal"
+                <input type="date" name="ba_hasil_tanggal" id="ba_hasil_tanggal"
                     value="{{ old('ba_hasil_tanggal', $dokumen->ba_hasil_tanggal ?? '') }}" class="form-control">
             </div>
+            <div class="col-md-3">
+                <label>Hari</label>
+                <input type="text" name="ba_hasil_hari" id="ba_hasil_hari"
+                    value="{{ old('ba_hasil_hari', $dokumen->ba_hasil_hari ?? '') }}" class="form-control bg-light">
+            </div>
+           
         </div>
 
         <div class="row mt-3">
@@ -27,7 +30,7 @@
                         {{ old('ba_hasil_penawaran_admin', $dokumen->ba_hasil_penawaran_admin ?? '') == 0 ? 'selected' : '' }}>
                         Tidak Ada</option>
                     <option value="1"
-                        {{ old('ba_hasil_penawaran_admin', $dokumen->ba_hasil_penawaran_admin ?? '') == 1 ? 'selected' : '' }}>
+                        {{ old('ba_hasil_penawaran_admin', $dokumen->ba_hasil_penawaran_admin ?? '1') == 1 ? 'selected' : '' }}>
                         Ada</option>
                 </select>
             </div>
@@ -38,7 +41,7 @@
                         {{ old('ba_hasil_penawaran_teknis', $dokumen->ba_hasil_penawaran_teknis ?? '') == 0 ? 'selected' : '' }}>
                         Tidak Ada</option>
                     <option value="1"
-                        {{ old('ba_hasil_penawaran_teknis', $dokumen->ba_hasil_penawaran_teknis ?? '') == 1 ? 'selected' : '' }}>
+                        {{ old('ba_hasil_penawaran_teknis', $dokumen->ba_hasil_penawaran_teknis ?? '1') == 1 ? 'selected' : '' }}>
                         Ada</option>
                 </select>
             </div>
@@ -49,7 +52,7 @@
                         {{ old('ba_hasil_penawaran_biaya', $dokumen->ba_hasil_penawaran_biaya ?? '') == 0 ? 'selected' : '' }}>
                         Tidak Ada</option>
                     <option value="1"
-                        {{ old('ba_hasil_penawaran_biaya', $dokumen->ba_hasil_penawaran_biaya ?? '') == 1 ? 'selected' : '' }}>
+                        {{ old('ba_hasil_penawaran_biaya', $dokumen->ba_hasil_penawaran_biaya ?? '1') == 1 ? 'selected' : '' }}>
                         Ada</option>
                 </select>
             </div>
@@ -93,4 +96,33 @@
     </div>
 </div>
 
-@include('dokumen_pemilihan.partials.nota_dinas')
+{{-- @include('dokumen_pemilihan.partials.nota_dinas') --}}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tanggalInput = document.getElementById('ba_hasil_tanggal');
+        const hariInput = document.getElementById('ba_hasil_hari');
+
+        const hariIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+        if (tanggalInput && hariInput) {
+            tanggalInput.addEventListener('change', function() {
+                const tanggal = new Date(this.value);
+                if (!isNaN(tanggal.getTime())) {
+                    hariInput.value = hariIndo[tanggal.getDay()];
+                } else {
+                    hariInput.value = '';
+                }
+            });
+
+            // Isi otomatis saat load jika sudah ada tanggal
+            if (tanggalInput.value) {
+                const tanggal = new Date(tanggalInput.value);
+                if (!isNaN(tanggal.getTime())) {
+                    hariInput.value = hariIndo[tanggal.getDay()];
+                }
+            }
+        }
+    });
+</script>
