@@ -81,17 +81,17 @@
 
         <div class="mt-3">
             <label>Evaluasi Administrasi</label>
-            <textarea name="ba_hasil_evaluasi_admin" class="form-control" rows="2">{{ old('ba_hasil_evaluasi_admin', $dokumen->ba_hasil_evaluasi_admin ?? '') }}</textarea>
+            <textarea name="ba_hasil_evaluasi_admin" class="form-control" rows="1">{{ old('ba_hasil_evaluasi_admin', $dokumen->ba_hasil_evaluasi_admin ?? 'Memenuhi Syarat') }}</textarea>
         </div>
 
         <div class="mt-3">
             <label>Evaluasi Teknis</label>
-            <textarea name="ba_hasil_evaluasi_teknis" class="form-control" rows="2">{{ old('ba_hasil_evaluasi_teknis', $dokumen->ba_hasil_evaluasi_teknis ?? '') }}</textarea>
+            <textarea name="ba_hasil_evaluasi_teknis" class="form-control" rows="1">{{ old('ba_hasil_evaluasi_teknis', $dokumen->ba_hasil_evaluasi_teknis ?? 'Memenuhi Syarat') }}</textarea>
         </div>
 
         <div class="mt-3">
             <label>Evaluasi Kewajaran Harga</label>
-            <textarea name="ba_hasil_evaluasi_harga" class="form-control" rows="2">{{ old('ba_hasil_evaluasi_harga', $dokumen->ba_hasil_evaluasi_harga ?? '') }}</textarea>
+            <textarea name="ba_hasil_evaluasi_harga" class="form-control" rows="1">{{ old('ba_hasil_evaluasi_harga', $dokumen->ba_hasil_evaluasi_harga ?? 'Memenuhi Syarat') }}</textarea>
         </div>
     </div>
 </div>

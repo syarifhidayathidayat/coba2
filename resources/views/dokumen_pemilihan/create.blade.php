@@ -15,8 +15,8 @@
         @include('dokumen_pemilihan.partials.nota_dinas')
 
         <div class="mt-4">
-            <button type="submit" class="btn btn-primary">Simpan Dokumen</button>
-            <a href="{{ route('dokumen-pemilihan.index') }}" class="btn btn-secondary">Kembali</a>
+            <button type="submit" class="btn btn-primary mb-3">Simpan Dokumen</button>
+            <a href="{{ route('dokumen-pemilihan.index') }}" class="btn btn-secondary mb-3">Kembali</a>
         </div>
     </form>
 </div>
