@@ -20,6 +20,7 @@ class DokumenPemilihanController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'undangan_nomor' => 'required|string|max:255',
             'undangan_tanggal' => 'required|date',
@@ -74,7 +75,7 @@ class DokumenPemilihanController extends Controller
             'nota_dinas_tanggal' => 'nullable|date',
         ]);
 
-        \App\Models\DokumenPemilihan::create($validated);
+        $dokumen = DokumenPemilihan::create($validated);
 
         return redirect()->route('dokumen-pemilihan.index')
             ->with('success', 'Dokumen Pemilihan berhasil disimpan.');

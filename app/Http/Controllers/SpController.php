@@ -7,6 +7,8 @@ use App\Models\Penyedia;
 use App\Models\PaketPekerjaan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\DokumenPemilihan;    
+
 
 class SpController extends Controller
 {
@@ -27,7 +29,9 @@ class SpController extends Controller
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
         $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
-        return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan'));
+        $dokumenPemilihans = DokumenPemilihan::latest()->get(); // Tambahkan ini
+
+        return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihans'));
     }
 
     public function store(Request $request)
@@ -43,9 +47,13 @@ class SpController extends Controller
             'metode' => 'required|string',
             'akun' => 'required|string',
             'akhir_pekerjaan' => 'nullable|date', // pastikan ini ada
+            'dokumen_pemilihan_id' => 'nullable|exists:dokumen_pemilihans,id',
         ]);
 
-        $sp = Sp::create($validated); // hanya sekali create
+        $sp = Sp::create([
+            ...$validated,
+            'dokumen_pemilihan_id' => $request->dokumen_pemilihan_id,
+        ]);
 
         return redirect()->route('barang.create', ['id' => $sp->id])
             ->with('success', 'Data SP berhasil disimpan. Silakan masukkan detail barang.');

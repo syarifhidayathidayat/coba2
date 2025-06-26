@@ -70,4 +70,9 @@ class Sp extends Model
 
         return 'Tidak diketahui';
     }
+
+    public function dokumenPemilihan()
+    {
+        return $this->belongsTo(DokumenPemilihan::class);
+    }
 }

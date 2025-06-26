@@ -6,17 +6,18 @@
         <div class="row">
             <div class="col-md-4">
                 <label>No. Undangan</label>
-                <input type="text" name="undangan_nomor"
-                    value="{{ old('undangan_nomor', $dokumen->undangan_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}" class="form-control">
+                <input type="text" name="undangan_nomor" required
+                    value="{{ old('undangan_nomor', $dokumen->undangan_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}"
+                    class="form-control">
             </div>
             <div class="col-md-4">
                 <label>Tanggal Undangan</label>
-                <input type="date" name="undangan_tanggal"
+                <input type="date" name="undangan_tanggal" required
                     value="{{ old('undangan_tanggal', $dokumen->undangan_tanggal ?? '') }}" class="form-control">
             </div>
             <div class="col-md-4">
                 <label>Total HPS</label>
-                <input type="number" step="0.01" name="hps" value="{{ old('hps', $dokumen->hps ?? '') }}"
+                <input type="number" step="0.01" name="hps" required value="{{ old('hps', $dokumen->hps ?? '') }}"
                     class="form-control">
             </div>
         </div>
@@ -24,13 +25,13 @@
         <div class="row mt-3">
             <div class="col-md-4">
                 <label>Pemasukan Dokumen (Tanggal Mulai)</label>
-                <input type="date" name="undangan_pemasukan_tgl_mulai"
+                <input type="date" name="undangan_pemasukan_tgl_mulai" id="tgl_mulai"
                     value="{{ old('undangan_pemasukan_tgl_mulai', $dokumen->undangan_pemasukan_tgl_mulai ?? date('Y-m-d')) }}"
                     class="form-control">
             </div>
             <div class="col-md-4">
                 <label>Sampai Tanggal</label>
-                <input type="date" name="undangan_pemasukan_tgl_selesai"
+                <input type="date" name="undangan_pemasukan_tgl_selesai" id="tgl_selesai"
                     value="{{ old('undangan_pemasukan_tgl_selesai', $dokumen->undangan_pemasukan_tgl_selesai ?? date('Y-m-d', strtotime('+4 days'))) }}"
                     class="form-control">
             </div>
@@ -79,8 +80,8 @@
             <div class="col-md-4">
                 <label>Hari Penandatanganan SPK</label>
                 <input type="text" name="undangan_spk_hari" id="undangan_spk_hari"
-                    value="{{ old('undangan_spk_hari', $dokumen->undangan_spk_hari ?? '') }}" class="form-control bg-light"
-                    readonly>
+                    value="{{ old('undangan_spk_hari', $dokumen->undangan_spk_hari ?? '') }}"
+                    class="form-control bg-light" readonly>
             </div>
         </div>
 
@@ -138,21 +139,25 @@
 {{-- @include('dokumen_pemilihan.partials.ba_pembukaan') --}}
 <script>
     function updateTanggalSelesai() {
-        const tglMulai = document.getElementById('tgl_mulai').value;
-        if (tglMulai) {
-            const date = new Date(tglMulai);
-            date.setDate(date.getDate() + 4);
+        const tglMulai = document.getElementById('tgl_mulai');
+        const tglSelesai = document.getElementById('tgl_selesai');
 
-            const tglSelesai = date.toISOString().split('T')[0];
-            document.getElementById('tgl_selesai').value = tglSelesai;
+        if (tglMulai && tglSelesai && tglMulai.value) {
+            const date = new Date(tglMulai.value);
+            date.setDate(date.getDate() + 4);
+            tglSelesai.value = date.toISOString().split('T')[0];
         }
     }
 
-    // Panggil fungsi saat halaman pertama kali dimuat untuk memastikan default value benar
     document.addEventListener('DOMContentLoaded', function() {
         updateTanggalSelesai();
+        const tglMulai = document.getElementById('tgl_mulai');
+        if (tglMulai) {
+            tglMulai.addEventListener('change', updateTanggalSelesai);
+        }
     });
 </script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
