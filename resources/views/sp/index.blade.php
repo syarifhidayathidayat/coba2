@@ -76,7 +76,7 @@
                         <td>{{ $sp->penyedia->nama_penyedia ?? '-' }}</td>
                         <td>{{ $sp->nama_paket }}</td>
                         <td>{{ $sp->tanggal }}</td>
-                        <td>Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
+                        <td><div class="fw-bold text-success">Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
                         <td>{{ $sp->mulai_pekerjaan }}</td>
                         <td>{{ $sp->masa }} </td>
                         <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->format('d-m-Y') }}</td>

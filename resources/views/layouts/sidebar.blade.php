@@ -94,12 +94,16 @@
             @endhasanyrole
         </ul>
     </li>
+
+    
 </ul>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar) {
-            new coreui.Sidebar(sidebar);
+        const sidebarEl = document.getElementById('sidebar');
+        if (sidebarEl) {
+            const sidebar = coreui.Sidebar.getOrCreateInstance(sidebarEl);
         }
     });
 </script>
+
+

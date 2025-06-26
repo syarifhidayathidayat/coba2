@@ -98,7 +98,7 @@
                             <td>{{ $barang->qty }}</td>
                             <td>
                                 <input type="number" name="jumlah_serah_terima[]" class="form-control" 
-                                    min="1" max="{{ $barang->qty }}" required>
+                                    min="1" max="{{ $barang->qty }}" value="{{ $barang->qty }}" required>
                             </td>
                             <td>
                                 <select name="kondisi[]" class="form-control" required>

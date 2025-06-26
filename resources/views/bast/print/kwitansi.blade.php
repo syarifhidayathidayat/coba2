@@ -60,7 +60,7 @@
         }
         .signature2 {
             float: center;
-            width: 70%;
+            width: 100%;
             text-align: left;
         }
         .signature3 {

@@ -1,10 +1,10 @@
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Unit Teknologi Informasi 2025</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+<!-- Footer -->
+<footer class="footer mt-auto bg-white border-top shadow-sm">
+    <div class="container-fluid my-auto">
+        <div class="text-center text-muted small py-2">
+            &copy; 2025 Unit Teknologi Informasi. All rights reserved.
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->

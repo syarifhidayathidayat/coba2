@@ -8,8 +8,8 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         <a href="{{ route('institusi.create') }}" class="btn btn-primary mb-3">+ Tambah Institusi</a>
-        
-        
+
+
         <div class="card shadow">
             <div class="card-body table-responsive">
                 <table class="table table-bordered table-hover">
@@ -57,22 +57,23 @@
                                             <small class="text-muted">Belum diupload</small>
                                         @endif
 
-                                        <td>
-                                            <div class="d-flex flex-column gap-1">
-                                                <a href="{{ route('institusi.edit', $institusi) }}" class="btn btn-sm btn-warning w-100" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                        
-                                                <form action="{{ route('institusi.destroy', $institusi) }}" method="POST"
-                                                      onsubmit="return confirm('Hapus data ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger w-100" title="Hapus">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                <td>
+                                    <div class="d-flex flex-column gap-1">
+                                        <a href="{{ route('institusi.edit', $institusi) }}"
+                                            class="btn btn-sm btn-warning w-100" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <form action="{{ route('institusi.destroy', $institusi) }}" method="POST"
+                                            onsubmit="return confirm('Hapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger w-100" title="Hapus">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         @if ($institusis->isEmpty())
@@ -83,54 +84,62 @@
                     </tbody>
                 </table>
 
-                <div id="accordionKeterangan" class="mt-4">
-                    <div class="card">
-                        <div class="card-header bg-info text-white" id="headingKeterangan">
-                            <h5 class="mb-0 d-flex align-items-center">
-                                <i class="fas fa-info-circle mr-2 fa-lg"></i>
-                                <button class="btn btn-link text-white p-0" data-toggle="collapse" data-target="#collapseKeterangan"
-                                    aria-expanded="false" aria-controls="collapseKeterangan" style="text-decoration: none;">
-                                    Keterangan Tentang PPK, Pengadaan, Bendahara, dan Akun 52/53
-                                </button>
-                            </h5>
-                        </div>
-                
-                        <div id="collapseKeterangan" class="collapse" aria-labelledby="headingKeterangan" data-parent="#accordionKeterangan">
-                            <div class="card-body">
+                <div class="accordion mt-4" id="accordionKeterangan">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingKeterangan">
+                            <button class="accordion-button collapsed bg-info text-white" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseKeterangan" aria-expanded="false"
+                                aria-controls="collapseKeterangan">
+                                <i class="fas fa-info-circle me-2"></i> Keterangan Tentang PPK, Pengadaan, Bendahara, dan
+                                Akun 52/53
+                            </button>
+                        </h2>
+                        <div id="collapseKeterangan" class="accordion-collapse collapse" aria-labelledby="headingKeterangan"
+                            data-bs-parent="#accordionKeterangan">
+                            <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5><i class="fas fa-user-tie text-primary mr-2"></i>Pejabat Pembuat Komitmen (PPK)</h5>
+                                        <h5><i class="fas fa-user-tie text-primary me-2"></i>Pejabat Pembuat Komitmen (PPK)
+                                        </h5>
                                         <ul>
                                             <li>Menandatangani dan mengendalikan kontrak pengadaan.</li>
                                             <li>Mengawasi pelaksanaan pekerjaan penyedia barang/jasa.</li>
                                             <li>Memeriksa hasil pekerjaan dan menguji kebenaran tagihan.</li>
                                             <li>Menyusun dokumen pendukung pembayaran.</li>
                                         </ul>
-                
-                                        <h5 class="mt-4"><i class="fas fa-user-check text-success mr-2"></i>Pejabat Pengadaan</h5>
+
+                                        <h5 class="mt-4"><i class="fas fa-user-check text-success me-2"></i>Pejabat
+                                            Pengadaan</h5>
                                         <ul>
-                                            <li>Melaksanakan pemilihan penyedia untuk paket pengadaan tertentu (nilai ≤ 200 juta).</li>
+                                            <li>Melaksanakan pemilihan penyedia untuk paket pengadaan tertentu (nilai ≤ 200
+                                                juta).</li>
                                             <li>Membuat dan menetapkan dokumen pemilihan.</li>
                                             <li>Menunjuk penyedia berdasarkan hasil evaluasi.</li>
                                             <li>Melaporkan proses pemilihan kepada PPK atau KPA.</li>
                                         </ul>
-                
-                                        <h5 class="mt-4"><i class="fas fa-wallet text-warning mr-2"></i>Bendahara Pengeluaran</h5>
+
+                                        <h5 class="mt-4"><i class="fas fa-wallet text-warning me-2"></i>Bendahara
+                                            Pengeluaran</h5>
                                         <ul>
                                             <li>Mengelola dana kas kecil dan pembayaran berdasarkan SPM.</li>
                                             <li>Melakukan pencatatan transaksi keuangan negara secara akuntabel.</li>
-                                            <li>Menyimpan bukti transaksi dan menyusun laporan pertanggungjawaban keuangan.</li>
+                                            <li>Menyimpan bukti transaksi dan menyusun laporan pertanggungjawaban keuangan.
+                                            </li>
                                         </ul>
-                
-                                        <h5 class="mt-4"><i class="fas fa-book-open text-info mr-2"></i>Akun 52 – Belanja Barang</h5>
+
+                                        <h5 class="mt-4"><i class="fas fa-book-open text-info me-2"></i>Akun 52 – Belanja
+                                            Barang</h5>
                                         <ul>
-                                            <li>Digunakan untuk kebutuhan operasional seperti ATK, honorarium, sewa, konsumsi, dan jasa lainnya.</li>
+                                            <li>Digunakan untuk kebutuhan operasional seperti ATK, honorarium, sewa,
+                                                konsumsi, dan jasa lainnya.</li>
                                             <li>Tidak menghasilkan aset tetap.</li>
                                         </ul>
-                
-                                        <h5 class="mt-4"><i class="fas fa-building text-danger mr-2"></i>Akun 53 – Belanja Modal</h5>
+
+                                        <h5 class="mt-4"><i class="fas fa-building text-danger me-2"></i>Akun 53 – Belanja
+                                            Modal</h5>
                                         <ul>
-                                            <li>Digunakan untuk pengadaan barang atau aset bernilai ekonomis dan tahan lama (lebih dari 1 tahun).</li>
+                                            <li>Digunakan untuk pengadaan barang atau aset bernilai ekonomis dan tahan lama
+                                                (lebih dari 1 tahun).</li>
                                             <li>Contoh: komputer, alat laboratorium, kendaraan, dan gedung.</li>
                                             <li>Menambah nilai aset negara dan dicatat dalam neraca pemerintah.</li>
                                         </ul>
@@ -140,20 +149,23 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                
-                
+
+
+
+
+
             </div>
         </div>
     </div>
 @endsection
 
+@vite(['resources/js/app.js'])
 
-@push('scripts')
 <script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+    // No custom JS needed if using Bootstrap's collapse with correct data attributes
+    // If you use CoreUI, ensure CoreUI JS is loaded and attributes are correct
 </script>
-@endpush
+
+
+
+
