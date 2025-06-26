@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DokumenPemilihanController;
 
 
 Route::get('/', function () {
@@ -79,6 +80,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+    Route::resource('dokumen-pemilihan', DokumenPemilihanController::class)->middleware('auth');
+
+    Route::get('dokumen-pemilihan', [DokumenPemilihanController::class, 'index'])->name('dokumen-pemilihan.index');
+    Route::get('dokumen-pemilihan/create', [DokumenPemilihanController::class, 'create'])->name('dokumen-pemilihan.create');
+    Route::post('dokumen-pemilihan', [DokumenPemilihanController::class, 'store'])->name('dokumen-pemilihan.store');
 });
 
 
