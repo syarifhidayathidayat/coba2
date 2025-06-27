@@ -124,4 +124,6 @@ class SpController extends Controller
         $sp = Sp::with(['penyedia', 'barangs'])->findOrFail($id);
         return view('sp.cetak', compact('sp'));
     }
+
+    
 }

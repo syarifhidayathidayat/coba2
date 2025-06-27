@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DokumenPemilihan;
 use Illuminate\Http\Request;
+use PDF;
 
 class DokumenPemilihanController extends Controller
 {
@@ -113,4 +114,28 @@ class DokumenPemilihanController extends Controller
         $dokumen->delete();
         return redirect()->route('dokumen-pemilihan.index')->with('success', 'Dokumen berhasil dihapus.');
     }
+
+    // public function cetakUndangan($id)
+    // {
+    //     $dokumen = DokumenPemilihan::findOrFail($id);
+    //     return view('dokumen_pemilihan.cetak.undangan', compact('dokumen'));
+    // }
+
+    public function cetakUndangan($id)
+    {
+        $dokumen = DokumenPemilihan::with('sp.penyedia')->findOrFail($id);
+
+        $tanggal = $dokumen->undangan_tanggal;
+
+        $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
+            ->where('tanggal_selesai', '>=', $tanggal)
+            ->first();
+
+        $pdf = Pdf::loadView('dokumen_pemilihan.cetak.undangan', compact('dokumen', 'institusi'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('Undangan_Pengadaan_Langsung.pdf');
+    }
+
+
 }

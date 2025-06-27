@@ -18,7 +18,8 @@
                     @if (request('belum_bast'))
                         <a href="{{ route('sp.index') }}" class="btn btn-outline-secondary btn-sm">Tampilkan Semua</a>
                     @else
-                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}" class="btn btn-outline-primary btn-sm">Tampilkan SP
+                        <a href="{{ route('sp.index', ['belum_bast' => 1]) }}"
+                            class="btn btn-outline-primary btn-sm">Tampilkan SP
                             Belum BAST</a>
                     @endif
 
@@ -77,7 +78,9 @@
                         <td>{{ $sp->nama_paket }}</td>
                         {{-- <td>{{ $sp->tanggal }}</td> --}}
                         <td>{{ \Carbon\Carbon::parse($sp->tanggal)->locale('id')->translatedFormat('j F Y') }}</td>
-                        <td><div class="fw-bold text-success">Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}</td>
+                        <td>
+                            <div class="fw-bold text-success">Rp {{ number_format($sp->total_kontrak, 0, ',', '.') }}
+                        </td>
                         <td>{{ \Carbon\Carbon::parse($sp->mulai_pekerjaan)->locale('id')->translatedFormat('j F Y') }}</td>
                         <td>{{ $sp->masa }} </td>
                         <td>{{ \Carbon\Carbon::parse($sp->akhir_pekerjaan)->locale('id')->translatedFormat('j F Y') }}</td>
@@ -125,6 +128,12 @@
                                     <i class="fas fa-plus"></i> BAST
                                 </a>
                             @endif
+                            @if ($sp->metode === 'Pengadaan Langsung' && $sp->dokumenPemilihan)
+                                <a href="{{ route('dokumen-pemilihan.cetak.undangan', $sp->dokumen_pemilihan_id) }}"
+                                    class="btn btn-sm btn-outline-secondary" target="_blank" title="Cetak Undangan">
+                                    <i class="fas fa-print"></i> Undangan
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -148,7 +157,9 @@
                 searching: true,
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50, 100],
-                order: [[0, 'desc']],
+                order: [
+                    [0, 'desc']
+                ],
                 // language: {
                 //     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
                 // }

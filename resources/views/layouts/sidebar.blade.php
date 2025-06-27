@@ -1,11 +1,12 @@
-<div class="sidebar-brand d-none d-md-flex">
-    <a href="{{ route('dashboard') }}" class="text-white text-decoration-none w-100 justify-content-center d-flex align-items-center">
-        <i class="fas fa-check-double me-2"></i>
-        <span class="fw-bold">Contract<sup>2</sup></span>
-    </a>
-</div>
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-brand d-none d-md-flex">
+        <a href="{{ route('dashboard') }}" class="text-white text-decoration-none w-100 justify-content-center d-flex align-items-center">
+            <i class="fas fa-check-double me-2"></i>
+            <span class="fw-bold">Contract<sup>2</sup></span>
+        </a>
+    </div>
 
-<ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
     {{-- Dashboard --}}
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
@@ -38,6 +39,11 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('paket-pekerjaan.index') }}">
                 <i class="fas fa-briefcase nav-icon"></i> Paket Pekerjaan
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('dokumen-pemilihan.index') }}">
+                <i class="fas fa-briefcase nav-icon"></i> Dok. Pemilihan Penyedia
             </a>
         </li>
     @endhasanyrole
@@ -97,6 +103,7 @@
 
     
 </ul>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebarEl = document.getElementById('sidebar');

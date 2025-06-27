@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [SearchController::class, 'index'])->name('search');
 
     Route::resource('dokumen-pemilihan', DokumenPemilihanController::class);
+
+    Route::get('/dokumen-pemilihan/{id}/cetak-undangan', [DokumenPemilihanController::class, 'cetakUndangan'])->name('dokumen-pemilihan.cetak.undangan');
 });
 
 
