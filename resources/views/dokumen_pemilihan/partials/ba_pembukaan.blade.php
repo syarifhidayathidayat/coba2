@@ -17,7 +17,7 @@
             </div>
             <div class="col-md-3">
                 <label>Hari</label>
-                <input type="text" name="ba_pembukaan_hari" id="ba_pembukaan_hari"
+                <input type="text" name="ba_pembukaan_hari" id="ba_pembukaan_hari" readonly
                     value="{{ old('ba_pembukaan_hari', $dokumen->ba_pembukaan_hari ?? '') }}" class="form-control bg-light">
             </div>
            

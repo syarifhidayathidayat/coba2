@@ -79,9 +79,9 @@
 
             <div class="col-md-4">
                 <label>Hari Penandatanganan SPK</label>
-                <input type="text" name="undangan_spk_hari" id="undangan_spk_hari"
+                <input type="text" name="undangan_spk_hari" id="undangan_spk_hari" readonly
                     value="{{ old('undangan_spk_hari', $dokumen->undangan_spk_hari ?? '') }}"
-                    class="form-control bg-light" readonly>
+                    class="form-control bg-light">
             </div>
         </div>
 
