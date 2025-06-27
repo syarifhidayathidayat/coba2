@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
             <h2 class="mb-0">Daftar Penyedia</h2>
-            <a href="{{ route('penyedia.create') }}" class="btn btn-primary">
+            <a href="{{ route('penyedia.create') }}" class="btn btn-primary mt-3">
                 <i class="fas fa-plus"></i> Tambah Penyedia
             </a>
         </div>
@@ -28,9 +28,9 @@
                                 <th>Nama Penyedia</th>
                                 <th>Nama Direktur</th>
                                 <th>Alamat</th>
-                                <th>Telp</th>
-                                <th>Website</th>
-                                <th>Fax</th>
+                                {{-- <th>Telp</th> --}}
+                                {{-- <th>Website</th> --}}
+                                {{-- <th>Fax</th> --}}
                                 <th>Email</th>
                                 <th>Rekening</th>
                                 <th>Cabang Bank</th>
@@ -53,9 +53,9 @@
                                     <td>{{ $penyedia->nama_penyedia }}</td>
                                     <td>{{ $penyedia->nama_direktur_penyedia }}</td>
                                     <td>{{ $penyedia->alamat }}</td>
-                                    <td>{{ $penyedia->telepon }}</td>
-                                    <td>{{ $penyedia->website }}</td>
-                                    <td>{{ $penyedia->fax }}</td>
+                                    {{-- <td>{{ $penyedia->telepon }}</td> --}}
+                                    {{-- <td>{{ $penyedia->website }}</td> --}}
+                                    {{-- <td>{{ $penyedia->fax }}</td> --}}
                                     <td>{{ $penyedia->email }}</td>
                                     <td>{{ $penyedia->rekening_bank }}</td>
                                     <td>{{ $penyedia->cabang_bank }}</td>
@@ -136,7 +136,7 @@
         const table = $('.datatable').DataTable({
             responsive: true,
             scrollX: true,
-            autoWidth: false,
+            autoWidth: true,
             paging: true,
             searching: true,
             ordering: true,
