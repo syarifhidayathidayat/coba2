@@ -22,6 +22,7 @@ class Sp extends Model
         'metode',
         'total_pagu',
         'akun',
+        'dokumen_pemilihan_id',
     ];
 
     public function penyedia()

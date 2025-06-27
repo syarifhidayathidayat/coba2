@@ -7,7 +7,7 @@ use App\Models\Penyedia;
 use App\Models\PaketPekerjaan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\DokumenPemilihan;    
+use App\Models\DokumenPemilihan;
 
 
 class SpController extends Controller
@@ -29,9 +29,9 @@ class SpController extends Controller
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
         $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
-        $dokumenPemilihans = DokumenPemilihan::latest()->get(); // Tambahkan ini
+        $dokumenPemilihan = \App\Models\DokumenPemilihan::latest()->get();
 
-        return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihans'));
+        return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
 
     public function store(Request $request)
@@ -50,10 +50,7 @@ class SpController extends Controller
             'dokumen_pemilihan_id' => 'nullable|exists:dokumen_pemilihans,id',
         ]);
 
-        $sp = Sp::create([
-            ...$validated,
-            'dokumen_pemilihan_id' => $request->dokumen_pemilihan_id,
-        ]);
+        $sp = Sp::create($validated);
 
         return redirect()->route('barang.create', ['id' => $sp->id])
             ->with('success', 'Data SP berhasil disimpan. Silakan masukkan detail barang.');
@@ -71,7 +68,8 @@ class SpController extends Controller
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
         $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
-        return view('sp.edit', compact('sp', 'penyedias', 'metodes', 'paketPekerjaan'));
+        $dokumenPemilihan = DokumenPemilihan::latest()->get();
+        return view('sp.edit', compact('sp', 'penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
 
     public function update(Request $request, $id)
@@ -99,15 +97,15 @@ class SpController extends Controller
     public function destroy($id)
     {
         $sp = Sp::findOrFail($id);
-        
+
         // Hapus BAST jika ada
         if ($sp->bast) {
             $sp->bast->delete();
         }
-        
+
         // Hapus barang-barang terkait
         $sp->barangs()->delete();
-        
+
         // Hapus SP
         $sp->delete();
 

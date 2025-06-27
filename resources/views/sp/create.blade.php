@@ -79,6 +79,19 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div id="dokumen-pemilihan-field" class="col-md-4" style="display: none;">
+                    <label>Pilih Dokumen Pemilihan</label>
+                    <select name="dokumen_pemilihan_id" class="form-control">
+                        <option value="">-- Pilih Dokumen --</option>
+                        @foreach ($dokumenPemilihan as $dok)
+                            <option value="{{ $dok->id }}">{{ $dok->undangan_nomor }} – {{ $dok->uraian_paket }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
@@ -102,6 +115,9 @@
         const akunInput = document.getElementById('akun');
         const totalPaguInput = document.getElementById('total_pagu');
 
+        const metodeSelect = document.querySelector('select[name="metode"]');
+        const dokumenField = document.getElementById('dokumen-pemilihan-field');
+
         function hitungTanggalAkhir() {
             const mulai = new Date(mulaiInput.value);
             const masa = parseInt(masaInput.value);
@@ -118,7 +134,7 @@
                 if (akhir.getDay() === 0 || akhir.getDay() === 6) {
                     akhirInput.value = '';
                     akhirHidden.value = '';
-                    alert('Tanggal akhir jatuh pada hari Sabtu/Minggu. Silakan ubah masa pekerjaan.');
+                    alert('Tanggal akhir jatuh pada hari Sabtu/Minggu. Silakan ubah masa pekerjaan.Hari minggu saatnya ngopi!');
                     if (submitBtn) submitBtn.disabled = true;
                 } else {
                     akhirInput.value = formatted;
@@ -128,15 +144,23 @@
             }
         }
 
+        function toggleDokumenField() {
+            if (metodeSelect.value === 'Pengadaan Langsung') {
+                dokumenField.style.display = 'block';
+            } else {
+                dokumenField.style.display = 'none';
+            }
+        }
+
         mulaiInput.addEventListener('change', hitungTanggalAkhir);
         masaInput.addEventListener('input', hitungTanggalAkhir);
-
         namaPaketSelect.addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
-            const max = selectedOption.getAttribute('data-max');
-            const pagu = selectedOption.getAttribute('data-pagu');
-            akunInput.value = max || '';
-            totalPaguInput.value = pagu || '';
+            akunInput.value = selectedOption.getAttribute('data-max') || '';
+            totalPaguInput.value = selectedOption.getAttribute('data-pagu') || '';
         });
+
+        metodeSelect.addEventListener('change', toggleDokumenField);
+        toggleDokumenField(); // initial call
     });
 </script>
