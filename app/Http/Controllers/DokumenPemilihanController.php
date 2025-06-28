@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DokumenPemilihan;
 use Illuminate\Http\Request;
+use App\Models\Institusi;
 use PDF;
 
 class DokumenPemilihanController extends Controller

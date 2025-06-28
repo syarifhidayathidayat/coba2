@@ -62,7 +62,7 @@ class DokumenPemilihan extends Model
     // Relasi ke SP
     public function sp()
     {
-        return $this->belongsTo(Sp::class);
+        return $this->hasOne(\App\Models\Sp::class);
     }
 
     // Relasi ke user (optional, untuk tracking siapa yang input)
