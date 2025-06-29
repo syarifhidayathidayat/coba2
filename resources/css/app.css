@@ -10,6 +10,14 @@
 @import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 @import 'select2/dist/css/select2.min.css';
 
+
+/* .body input,
+.body select,
+.body textarea,
+.body button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+} */
 .body {
     margin-left: 250px;
 

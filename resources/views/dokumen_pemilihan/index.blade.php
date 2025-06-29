@@ -2,7 +2,7 @@
 @section('title', 'Daftar Dokumen Pemilihan')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
         <h4>Dokumen Pemilihan - Pengadaan Langsung</h4>
         <a href="{{ route('dokumen-pemilihan.create') }}" class="btn btn-primary">+ Tambah Dokumen</a>

@@ -116,6 +116,7 @@
     </style>
 </head>
 {{-- Undangan --}}
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -247,6 +248,7 @@
 </body>
 {{-- <div style="page-break-inside: avoid;"></div> --}}
 {{-- Pembukaan Penawaran --}}
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -261,7 +263,8 @@
         $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
         $tahun = trim(terbilang((int) $tanggal->format('Y')));
     @endphp
-    <p>Pada hari {{ $dokumen->ba_pembukaan_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }} bulan
+    <p>Pada hari {{ $dokumen->ba_pembukaan_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }}
+        bulan
         {{ $bulan }} tahun {{ $tahun }} pukul
         {{ $dokumen->undangan_pemasukan_jam ?? '' }} WITA, kami yang bertanda tangan di bawah ini adalah Pejabat
         Pengadaan
@@ -305,6 +308,7 @@
     </div>
 </body>
 {{-- BERITA ACARA KLARIFIKASI DAN NEGOSIASI --}}
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -319,15 +323,20 @@
         $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
         $tahun = trim(terbilang((int) $tanggal->format('Y')));
     @endphp
-    <p>Pada hari {{ $dokumen->ba_klarifikasi_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }} bulan
+    <p>Pada hari {{ $dokumen->ba_klarifikasi_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }}
+        bulan
         {{ $bulan }} tahun {{ $tahun }} pukul
         {{ $dokumen->undangan_pemasukan_jam ?? '' }} WITA, kami yang bertanda tangan di bawah ini adalah Pejabat
         Pengadaan
         Barang/Jasa, yang dibentuk dalam Surat Keputusan Kuasa Direktur {{ $institusi->nama_institusi ?? '' }} tanggal
-        XXXXX , melaksanakan pembukaan penawaran untuk pelaksanaan pekerjaan {{ $dokumen->uraian_paket ?? '' }} TA
-        {{ $paket->tahun_anggaran ?? 'XXXX' }} , di biayai dari dana DIPA Tahun Anggaran
-        {{ $paket->tahun_anggaran ?? 'XXXX' }} Nomor SP DIPA XXXX dengan Harga Perkiraan Sendiri (HPS) sebesar
-        {{ $dokumen->hps ?? 'XXXX' }} (terbilang) dengan hasil Pembukaan Penawaran sebagai berikut :</p>
+        {{ $institusi->tanggal_sk_pejabat }} No {{ $institusi->no_sk_pejabat ?? '' }}, melaksanakan pembukaan
+        penawaran
+        untuk pelaksanaan pekerjaan {{ $dokumen->uraian_paket ?? '' }} TA
+        XXXX , di biayai dari dana DIPA Tahun Anggaran
+        XXXX Nomor SP DIPA {{ $institusi->dipa ?? '' }} dengan Harga Perkiraan
+        Sendiri
+        (HPS) sebesar Rp.
+        {{ $dokumen->hps ?? 'XXXX' }} ({{ ucwords(\App\Helpers\Terbilang::make($dokumen->hps )) }} Rupiah) dengan hasil Pembukaan Penawaran sebagai berikut :</p>
     <p>Melakukan klarifikasi dan negosiasi terhadap penawaran yang diajukan oleh : CV.Berkah Tiga Jagoan dengan hasil
         seperti terdapat dalam lampiran.</p>
     <p>Dari hasil klarifikasi dan negosiasi harga, ditetapkan sebagai penyedia yaitu :</p>

@@ -25,6 +25,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">No. Telepon</label>
+                                <input type="text" name="no_telp" class="form-control" value="{{ old('no_telp') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Fax</label>
+                                <input type="text" name="fax" class="form-control" value="{{ old('fax') }}">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <h5 class="mb-3">PPK</h5>
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -110,13 +125,20 @@
                     </div>
                     <h5 class="mb-3">DIPA</h5>
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">DIPA</label>
                                 <input type="text" name="dipa" class="form-control" value="{{ old('dipa') }}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Tanggal SP DIPA</label>
+                                <input type="date" name="tanggal_sp_dipa" class="form-control" value="{{ old('tanggal_sp_dipa') }}">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Upload SP DIPA (PDF)</label>
                                 <input type="file" name="sp_dipa" class="form-control" accept="application/pdf">
@@ -129,6 +151,33 @@
                             </div>
                         </div>
                     </div>
+                    <h5 class="mb-3">SK Pejabat</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">No SK Pejabat</label>
+                                <input type="text" name="no_sk_pejabat" class="form-control" value="{{ old('no_sk_pejabat') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Tanggal SK Pejabat</label>
+                                <input type="date" name="tanggal_sk_pejabat" class="form-control" value="{{ old('tanggal_sk_pejabat') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Upload SK Pejabat (PDF)</label>
+                                <input type="file" name="upload_sk_pejabat" class="form-control" accept="application/pdf">
+                                @if (isset($institusi) && $institusi->upload_sk_pejabat)
+                                    <small class="form-text text-muted">
+                                        <a href="{{ asset('storage/' . $institusi->upload_sk_pejabat) }}" target="_blank">Lihat SK</a>
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-group">

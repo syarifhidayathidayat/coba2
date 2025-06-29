@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', 'Institusi & Pejabat')
 @section('content')
 <div class="container-fluid">
@@ -9,14 +8,12 @@
             <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Institusi
         </a>
     </div>
-
     @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Data Institusi</h6>
@@ -75,12 +72,22 @@
                             </td>
                             <td>
                                 {{ $institusi->dipa ?: '-' }}<br>
+                                {{-- Link SP DIPA --}}
                                 @if ($institusi->sp_dipa)
-                                <a href="{{ asset('storage/' . $institusi->sp_dipa) }}" target="_blank" class="badge bg-primary text-white">
-                                    <i class="fas fa-file-pdf"></i> SP DIPA
-                                </a>
+                                    <a href="{{ asset('storage/' . $institusi->sp_dipa) }}" target="_blank" class="badge bg-primary text-white mb-1 d-inline-block">
+                                        <i class="fas fa-file-pdf"></i> SP DIPA
+                                    </a>
                                 @else
-                                <span class="badge bg-secondary">Belum upload</span>
+                                    <span class="badge bg-secondary d-inline-block mb-1">Belum upload SP DIPA</span>
+                                @endif
+                                <br>
+                                {{-- Link SK Pejabat --}}
+                                @if ($institusi->upload_sk_pejabat)
+                                    <a href="{{ asset('storage/' . $institusi->upload_sk_pejabat) }}" target="_blank" class="badge bg-success text-white d-inline-block">
+                                        <i class="fas fa-file-pdf"></i> SK Pejabat
+                                    </a>
+                                @else
+                                    <span class="badge bg-secondary d-inline-block">Belum upload SK</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -108,7 +115,6 @@
             </div>
         </div>
     </div>
-
     <div class="accordion mb-4" id="infoAccordion">
         <div class="accordion-item border-0 shadow">
             <h2 class="accordion-header" id="headingInfo">
@@ -129,7 +135,6 @@
                                     <li class="list-group-item bg-light">Menyusun dokumen pendukung pembayaran</li>
                                 </ul>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="text-success"><i class="fas fa-user-check me-2"></i>Pejabat Pengadaan</h5>
                                 <ul class="list-group list-group-flush">
@@ -139,7 +144,6 @@
                                     <li class="list-group-item bg-light">Melaporkan proses pemilihan kepada PPK atau KPA</li>
                                 </ul>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="text-warning"><i class="fas fa-wallet me-2"></i>Bendahara Pengeluaran</h5>
                                 <ul class="list-group list-group-flush">
@@ -148,7 +152,6 @@
                                     <li class="list-group-item bg-light">Menyimpan bukti transaksi dan menyusun laporan pertanggungjawaban keuangan</li>
                                 </ul>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="text-info"><i class="fas fa-book-open me-2"></i>Akun 52 – Belanja Barang</h5>
                                 <ul class="list-group list-group-flush">
@@ -156,7 +159,6 @@
                                     <li class="list-group-item bg-light">Tidak menghasilkan aset tetap</li>
                                 </ul>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="text-danger"><i class="fas fa-building me-2"></i>Akun 53 – Belanja Modal</h5>
                                 <ul class="list-group list-group-flush">
@@ -173,7 +175,6 @@
     </div>
 </div>
 @endsection
-
 @push('scripts')
 <script>
     // Initialize tooltips if needed
