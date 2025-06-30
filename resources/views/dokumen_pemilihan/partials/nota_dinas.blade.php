@@ -1,5 +1,6 @@
 <div class="card mb-4">
-    <div class="card-header"><h5>Nota Dinas</h5></div>
+    <div class="card-header">
+        <h5 class="text-primary">Nota Dinas</h5>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">

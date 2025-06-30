@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header">
-        <h5>Undangan</h5>
+        <h5 class="text-primary">Undangan</h5>
     </div>
     <div class="card-body">
         <div class="row">
@@ -49,13 +49,13 @@
             <div class="col-md-4">
                 <label>Evaluasi dan Negosiasi (Tanggal Mulai)</label>
                 <input type="date" name="undangan_evaluasi_tgl_mulai"
-                    value="{{ old('undangan_evaluasi_tgl_mulai', $dokumen->undangan_evaluasi_tgl_mulai ?? '') }}"
+                    value="{{ old('undangan_evaluasi_tgl_mulai', $dokumen->undangan_evaluasi_tgl_mulai ?? date('Y-m-d')) }}"
                     class="form-control">
             </div>
             <div class="col-md-4">
                 <label>Sampai Tanggal</label>
                 <input type="date" name="undangan_evaluasi_tgl_selesai"
-                    value="{{ old('undangan_evaluasi_tgl_selesai', $dokumen->undangan_evaluasi_tgl_selesai ?? '') }}"
+                    value="{{ old('undangan_evaluasi_tgl_selesai', $dokumen->undangan_evaluasi_tgl_selesai ?? date('Y-m-d', strtotime('+4 days'))) }}"
                     class="form-control">
             </div>
             <div class="col-md-4">

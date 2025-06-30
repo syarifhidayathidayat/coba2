@@ -39,7 +39,7 @@ class DokumenPemilihanController extends Controller
 
             'undangan_spk_hari' => 'nullable|string',
             'undangan_spk_tanggal' => 'nullable|date',
-            'uraian_paket' => 'nullable|string',
+            'uraian_paket' => 'required|string',
 
             'no_surat_izin_usaha' => 'nullable|string',
             'masa_berlaku_penawaran' => 'nullable|string',
@@ -80,7 +80,8 @@ class DokumenPemilihanController extends Controller
 
         $dokumen = DokumenPemilihan::create($validated);
 
-        return redirect()->route('dokumen-pemilihan.index')
+        return redirect()->route('sp.create')
+        // return redirect()->route('dokumen-pemilihan.index')
             ->with('success', 'Dokumen Pemilihan berhasil disimpan.');
     }
 

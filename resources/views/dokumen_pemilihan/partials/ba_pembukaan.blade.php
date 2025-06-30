@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header">
-        <h5>Berita Acara Pembukaan Penawaran</h5>
+        <h5 class="text-primary">Berita Acara Pembukaan Penawaran</h5>
     </div>
     <div class="card-body">
         <div class="row">
@@ -20,9 +20,7 @@
                 <input type="text" name="ba_pembukaan_hari" id="ba_pembukaan_hari" readonly
                     value="{{ old('ba_pembukaan_hari', $dokumen->ba_pembukaan_hari ?? '') }}" class="form-control bg-light">
             </div>
-           
         </div>
-
         <div class="row mt-3">
             <div class="col-md-3">
                 <label>Surat Penawaran</label>
@@ -69,27 +67,18 @@
                 </select>
             </div>
         </div>
-
         <div class="mt-3">
             <label>Keterangan</label>
             <textarea name="ba_pembukaan_keterangan" class="form-control" rows="3">{{ old('ba_pembukaan_keterangan', $dokumen->ba_pembukaan_keterangan ?? '') }}</textarea>
         </div>
     </div>
 </div>
-
 {{-- @include('dokumen_pemilihan.partials.ba_klarifikasi') --}}
-
-
-
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const tanggalInput = document.getElementById('ba_pembukaan_tanggal');
         const hariInput = document.getElementById('ba_pembukaan_hari');
-
         const hariIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-
         if (tanggalInput && hariInput) {
             tanggalInput.addEventListener('change', function() {
                 const tanggal = new Date(this.value);
@@ -99,7 +88,6 @@
                     hariInput.value = '';
                 }
             });
-
             // Isi otomatis saat load jika sudah ada tanggal
             if (tanggalInput.value) {
                 const tanggal = new Date(tanggalInput.value);

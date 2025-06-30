@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header">
-        <h5>Berita Acara Klarifikasi dan Negosiasi</h5>
+        <h5 class="text-primary">Berita Acara Klarifikasi dan Negosiasi</h5>
     </div>
     <div class="card-body">
         <div class="row">
