@@ -8,7 +8,8 @@
     <title>@yield('title', config('app.name', 'Pengadaan'))</title>
 
     {{-- Vite compiled CSS/JS --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
     <!-- CoreUI CSS -->
     <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.0/dist/css/coreui.min.css" rel="stylesheet">
