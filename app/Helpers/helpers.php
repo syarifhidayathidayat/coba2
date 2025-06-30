@@ -5,7 +5,18 @@ if (!function_exists('terbilang')) {
     {
         $number = abs($number);
         $words = [
-            '', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas'
+            '',
+            'satu',
+            'dua',
+            'tiga',
+            'empat',
+            'lima',
+            'enam',
+            'tujuh',
+            'delapan',
+            'sembilan',
+            'sepuluh',
+            'sebelas'
         ];
         $temp = "";
 
@@ -33,4 +44,29 @@ if (!function_exists('terbilang')) {
 
         return $temp;
     }
-} 
+
+
+
+
+    if (!function_exists('bulanRomawi')) {
+        function bulanRomawi($bulan)
+        {
+            $romawi = [
+                1 => 'I',
+                2 => 'II',
+                3 => 'III',
+                4 => 'IV',
+                5 => 'V',
+                6 => 'VI',
+                7 => 'VII',
+                8 => 'VIII',
+                9 => 'IX',
+                10 => 'X',
+                11 => 'XI',
+                12 => 'XII'
+            ];
+
+            return $romawi[(int) $bulan] ?? '';
+        }
+    }
+}

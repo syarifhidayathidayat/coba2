@@ -7,7 +7,9 @@
             <div class="col-md-6">
                 <label>No. BA</label>
                 <input type="text" name="ba_pembukaan_nomor"
-                    value="{{ old('ba_pembukaan_nomor', $dokumen->ba_pembukaan_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}" class="form-control">
+                    value="{{ old('ba_pembukaan_nomor', $dokumen->ba_pembukaan_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}"
+                    class="form-control">
+
             </div>
             <div class="col-md-3">
                 <label>Tanggal</label>
@@ -18,7 +20,8 @@
             <div class="col-md-3">
                 <label>Hari</label>
                 <input type="text" name="ba_pembukaan_hari" id="ba_pembukaan_hari" readonly
-                    value="{{ old('ba_pembukaan_hari', $dokumen->ba_pembukaan_hari ?? '') }}" class="form-control bg-light">
+                    value="{{ old('ba_pembukaan_hari', $dokumen->ba_pembukaan_hari ?? '') }}"
+                    class="form-control bg-light">
             </div>
         </div>
         <div class="row mt-3">
@@ -51,7 +54,8 @@
                         {{ old('ba_pembukaan_syarat', $dokumen->ba_pembukaan_syarat ?? '') == 0 ? 'selected' : '' }}>
                         Tidak Ada</option>
                     <option value="1"
-                        {{ old('ba_pembukaan_syarat', $dokumen->ba_pembukaan_syarat ?? '1') == 1 ? 'selected' : '' }}>Ada
+                        {{ old('ba_pembukaan_syarat', $dokumen->ba_pembukaan_syarat ?? '1') == 1 ? 'selected' : '' }}>
+                        Ada
                     </option>
                 </select>
             </div>

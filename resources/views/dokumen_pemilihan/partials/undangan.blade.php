@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-md-4">
                 <label>No. Undangan</label>
-                <input type="text" name="undangan_nomor" required
-                    value="{{ old('undangan_nomor', $dokumen->undangan_nomor ?? 'ULP/Pejabat Pengadaan/xxxxx/2025') }}"
+                <input type="text" name="undangan_nomor"
+                    value="{{ old('undangan_nomor', $nomorOtomatis ?? '') }}"
                     class="form-control">
             </div>
             <div class="col-md-4">
