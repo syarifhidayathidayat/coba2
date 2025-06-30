@@ -2,7 +2,7 @@
 @section('title', 'Tambah Dokumen Pemilihan')
 
 @section('content')
-<div class="container mt-3"> 
+<div class="container-fluid mt-3 "> 
     <h4>Tambah Dokumen Pemilihan – Pengadaan Langsung</h4>
 
     <form action="{{ route('dokumen-pemilihan.store') }}" method="POST">
