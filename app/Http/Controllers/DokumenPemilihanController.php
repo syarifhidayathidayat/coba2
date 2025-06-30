@@ -78,7 +78,7 @@ class DokumenPemilihanController extends Controller
         $dokumen = DokumenPemilihan::create($validated);
         return redirect()->route('sp.create')
         // return redirect()->route('dokumen-pemilihan.index')
-            ->with('success', 'Dokumen Pemilihan berhasil disimpan.');
+            ->with('success', 'Dokumen Pemilihan berhasil disimpan, Lanjutkan untuk membuat Kontrak');
     }
     public function edit($id)
     {
@@ -92,7 +92,44 @@ class DokumenPemilihanController extends Controller
             'undangan_nomor' => 'required|string|max:255',
             'undangan_tanggal' => 'required|date',
             'hps' => 'required|numeric',
-            // ... semua field yang sama
+            'undangan_pemasukan_tgl_mulai' => 'nullable|date',
+            'undangan_pemasukan_tgl_selesai' => 'nullable|date',
+            'undangan_pemasukan_jam' => 'nullable',
+            'undangan_evaluasi_tgl_mulai' => 'nullable|date',
+            'undangan_evaluasi_tgl_selesai' => 'nullable|date',
+            'undangan_evaluasi_jam' => 'nullable',
+            'undangan_spk_hari' => 'nullable|string',
+            'undangan_spk_tanggal' => 'nullable|date',
+            'uraian_paket' => 'required|string',
+            'no_surat_izin_usaha' => 'nullable|string',
+            'masa_berlaku_penawaran' => 'nullable|string',
+            'bidang_usaha' => 'nullable|string',
+            'jangka_waktu_penyerahan' => 'nullable|string',
+            'ba_pembukaan_nomor' => 'nullable|string',
+            'ba_pembukaan_hari' => 'nullable|string',
+            'ba_pembukaan_tanggal' => 'nullable|date',
+            'ba_pembukaan_surat_penawaran' => 'nullable|boolean',
+            'ba_pembukaan_dok_teknis' => 'nullable|boolean',
+            'ba_pembukaan_syarat' => 'nullable|boolean',
+            'ba_pembukaan_lain' => 'nullable|boolean',
+            'ba_pembukaan_keterangan' => 'nullable|string',
+            'ba_klarifikasi_nomor' => 'nullable|string',
+            'ba_klarifikasi_hari' => 'nullable|string',
+            'ba_klarifikasi_tanggal' => 'nullable|date',
+            'ba_klarifikasi_harga_penawaran' => 'nullable|numeric',
+            'ba_klarifikasi_harga_negosiasi' => 'nullable|numeric',
+            'ba_hasil_nomor' => 'nullable|string',
+            'ba_hasil_hari' => 'nullable|string',
+            'ba_hasil_tanggal' => 'nullable|date',
+            'ba_hasil_penawaran_admin' => 'nullable|boolean',
+            'ba_hasil_penawaran_teknis' => 'nullable|boolean',
+            'ba_hasil_penawaran_biaya' => 'nullable|boolean',
+            'ba_hasil_penawaran_keterangan' => 'nullable|string',
+            'ba_hasil_harga_koreksi' => 'nullable|numeric',
+            'ba_hasil_harga_final' => 'nullable|numeric',
+            'ba_hasil_evaluasi_admin' => 'nullable|string',
+            'ba_hasil_evaluasi_teknis' => 'nullable|string',
+            'ba_hasil_evaluasi_harga' => 'nullable|string',
             'nota_dinas_nomor' => 'nullable|string',
             'nota_dinas_tanggal' => 'nullable|date',
         ]);
@@ -119,7 +156,8 @@ class DokumenPemilihanController extends Controller
         $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
             ->where('tanggal_selesai', '>=', $tanggal)
             ->first();
-        $pdf = Pdf::loadView('dokumen_pemilihan.cetak.undangan', compact('dokumen', 'institusi'))
+        $paket_pekerjaan = PaketPekerjaan::where('nama_paket', $dokumen->uraian_paket)->first();
+        $pdf = Pdf::loadView('dokumen_pemilihan.cetak.undangan', compact('dokumen', 'institusi', 'paket_pekerjaan'))
             ->setPaper('a4', 'portrait');
         return $pdf->stream('Undangan_Pengadaan_Langsung.pdf');
     }
