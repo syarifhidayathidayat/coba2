@@ -3,7 +3,6 @@
 @section('content')
 <div class="container-fluid">
     <h4>Detail BAST</h4>
-
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
@@ -12,7 +11,6 @@
                     <p><strong>Tanggal BAST:</strong> {{ $bast->tanggal_bast->format('d-m-Y') }}</p>
                     <p><strong>Nomor BAP:</strong> {{ $bast->nomor_bap }}</p>
                     <p><strong>Nomor BAST:</strong> {{ $bast->nomor_bast }}</p>
-                   
                     <p><strong>Nomor BAPEM:</strong> {{ $bast->nomor_bapem }}</p>
                     <div class="info-item">
                         <div class="info-label">Nomor Kwitansi</div>
@@ -26,7 +24,6 @@
             </div>
         </div>
     </div>
-
     <div class="card">
         <div class="card-header">
             <h5 class="card-title mb-0">Detail Barang</h5>
@@ -43,22 +40,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($bast->barangs as $index => $barang)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $barang->nama_barang }}</td>
-                        <td>{{ $barang->pivot->jumlah_serah_terima }}</td>
-                        <td>{{ $barang->pivot->kondisi }}</td>
-                        <td>{{ $barang->pivot->keterangan ?? '-' }}</td>
-                    </tr>
+                    @php
+                        $grouped = $bast->barangs->groupBy('nama_barang');
+                        $no = 1;
+                    @endphp
+                    @foreach ($grouped as $namaBarang => $items)
+                        @php
+                            $totalSerah = $items->sum(fn($item) => $item->pivot->jumlah_serah_terima);
+                            $kondisi = $items->pluck('pivot.kondisi')->unique()->implode(', ');
+                            $keterangan = $items->pluck('pivot.keterangan')->unique()->implode(', ');
+                        @endphp
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $namaBarang }}</td>
+                            <td>{{ $totalSerah }}</td>
+                            <td>{{ $kondisi }}</td>
+                            <td>{{ $keterangan }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="mt-3">     
-        
+    <div class="mt-3">
         <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-outline-primary" target="_blank">
             <i class="fas fa-print"></i> BAP
         </a>
@@ -78,4 +82,4 @@
             Kembali</a>
     </div>
 </div>
-@endsection 
+@endsection

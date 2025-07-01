@@ -76,4 +76,8 @@ class Sp extends Model
     {
         return $this->belongsTo(DokumenPemilihan::class);
     }
+    public function paketPekerjaan()
+    {
+        return $this->belongsTo(\App\Models\PaketPekerjaan::class, 'nama_paket', 'nama_paket');
+    }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Kwitansi - {{ $bast->no_kwitansi }}</title>
@@ -29,7 +30,6 @@
         .content {
             margin-bottom: 10px;
             line-height: 1.5;
-
         }
 
         table {
@@ -58,11 +58,13 @@
             width: 70%;
             text-align: left;
         }
+
         .signature2 {
             float: center;
             width: 100%;
             text-align: left;
         }
+
         .signature3 {
             float: left;
             width: 50%;
@@ -76,7 +78,6 @@
         .info-item {
             /* margin: 5px 0; */
         }
-       
 
         .info-label {
             display: inline-block;
@@ -107,10 +108,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
-        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
-        
+        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
+            style="width:120%;max-width:1200px;margin-bottom:0px;">
     </div>
     <div class="info">
         <div class="info-item">
@@ -119,39 +121,43 @@
         </div>
         <div class="info-item">
             <span class="info-label2">No Bukti</span>
-            <span class="info-value">: {{ $bast->no_kwitansi }}</span>
+            <span class="info-value">: -</span>
         </div>
         <div class="info-item">
             <span class="info-label2">Mata Anggaran</span>
             <span class="info-value">: {{ $bast->sp->akun ?? '-' }}</span>
         </div>
     </div>
-
     <p style="margin-top: 30px;"></p>
     <div class="title" align="center">
-       <h3>KUITANSI</h3>
+        <h3 style="margin-bottom: 0px;">KUITANSI</h3>
+        @if (($bast->sp->total_kontrak ?? 0) <= 50000000)<p style="margin-top: 0px;"></p>Nomor {{ $bast->no_kwitansi ?? '-' }}</p>@endif
     </div>
-
+    <p style="margin-top: 30px;"></p>
     <div class="content">
-        @if($bast->sp)
+        @if ($bast->sp)
             <div class="info-item">
                 <span class="info-label">Sudah Terima Dari</span>
                 <span class="info-value">: Pejabat Pembuat Komitmen Poltekkes Kemenkes Banjarmasin</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Jumlah Uang</span>
-                <span class="info-value">: Rp {{ number_format($bast->sp->total_kontrak , 0, ',', '.') }}</span>
+                <span class="info-value">: Rp {{ number_format($bast->sp->total_kontrak, 0, ',', '.') }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Terbilang</span>
-                <span class="info-value2">: {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak )) }} Rupiah</span>
+                <span class="info-value2">: {{ ucwords(\App\Helpers\Terbilang::make($bast->sp->total_kontrak)) }}
+                    Rupiah</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Untuk Pembayaran</span>
-                <span class="info-value2">: {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}, Sesuai Surat Perjanjian No {{ $bast->sp->nomor_sp }}, Tanggal {{ \Carbon\Carbon::parse($bast->sp->tanggal)->format('d-m-Y') }}</span>
+                <span class="info-value2">: {{ $bast->sp->nama_paket }} Tahun anggaran {{ date('Y') }}, Sesuai Surat
+                    Perjanjian No {{ $bast->sp->nomor_sp }}, Tanggal
+                    {{ \Carbon\Carbon::parse($bast->sp->tanggal)->format('d-m-Y') }}</span>
             </div>
             <p style="margin-top: 20px;"></p>
-            @if($bast->barangs && count($bast->barangs) > 0)
+            @if (($bast->sp->total_kontrak ?? 0) <= 50000000)
+            @if ($bast->barangs && count($bast->barangs) > 0)
                 <table>
                     <thead>
                         <tr>
@@ -164,15 +170,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($bast->barangs as $index => $barang)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $barang->nama_barang }}</td>
-                            <td>{{ $barang->pivot->jumlah_serah_terima }}</td>
-                            <td>Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
-                            <td>Rp {{ number_format($barang->ongkos_kirim, 0, ',', '.') }}</td>
-                            <td>Rp {{ number_format($barang->total + $barang->ongkos_kirim, 0, ',', '.') }}</td>
-                        </tr>
+                        @foreach ($bast->barangs as $index => $barang)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $barang->nama_barang }}</td>
+                                <td>{{ $barang->pivot->jumlah_serah_terima }}</td>
+                                <td>Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($barang->ongkos_kirim, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($barang->total + $barang->ongkos_kirim, 0, ',', '.') }}</td>
+                            </tr>
                         @endforeach
                         <tr>
                             <td colspan="5" style="text-align: right;"><strong>Total</strong></td>
@@ -185,25 +191,26 @@
                     Data barang tidak tersedia
                 </div>
             @endif
-
-          
+            @endif
         @else
             <div class="error-message">
                 Data SP tidak tersedia. Silakan periksa kembali data BAST ini.
             </div>
         @endif
     </div>
-
-    
     <p style="margin-top: 30px;"></p>
-
     <div class="footer">
         <div class="signature">
+            @php
+                $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan';
+            @endphp
             <div>a.n Kuasa Pengguna Anggaran</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
-            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
+            <div>
+                <strong>{{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</strong>
+            </div>
+            <div>NIP. {{ $jenisAkun == '52' ? $institusi->nip_ppk_52 ?? '-' : $institusi->nip_ppk_53 ?? '-' }}</div>
         </div>
         <div class="signature">
             <div>__________,_____________</div>
@@ -215,14 +222,16 @@
         <div class="clear"></div>
         <div>_________________________________________________________________________________</div>
         <p style="margin-top: 10px;"></p>
-        <div class="signature2">
-            <div>Pekerjaan tersebut telah di terima/diselesaikan dengan lengkap dan baik</div>
-            <div>PEJABAT PENGADAAN</div>
-            <br><br><br><br>
-            <div> <strong>{{ $institusi->nama_pejabat_pengadaan_53 ?? '-' }}</strong> </div>
-            <div>NIP. {{ $institusi->nip_pejabat_pengadaan_53 ?? '-' }}</div>
-        </div>
-        
+        @if (($bast->sp->total_kontrak ?? 0) <= 50000000)
+            <div class="signature2">
+                <div>Pekerjaan tersebut telah di terima/diselesaikan dengan lengkap dan baik</div>
+                <div>PEJABAT PENGADAAN</div>
+                <br><br><br><br>
+                <div><strong>{{ $institusi->nama_pejabat_pengadaan_53 ?? '-' }}</strong></div>
+                <div>NIP. {{ $institusi->nip_pejabat_pengadaan_53 ?? '-' }}</div>
+            </div>
+        @endif
     </div>
 </body>
-</html> 
+
+</html>

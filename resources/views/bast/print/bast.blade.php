@@ -30,7 +30,6 @@
         .content {
             margin-bottom: 10px;
             line-height: 1.5;
-
         }
 
         table {
@@ -100,7 +99,8 @@
 
 <body>
     <div class="header">
-        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat" style="width:120%;max-width:1200px;margin-bottom:0px;">
+        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
+            style="width:120%;max-width:1200px;margin-bottom:0px;">
         <h3>BERITA ACARA SERAH TERIMA BARANG</h3>
     </div>
     <table style="width:100%; ">
@@ -131,17 +131,21 @@
         @php
             $tanggal = \Carbon\Carbon::parse($bast->tanggal_bast);
             $hari = $tanggal->locale('id')->isoFormat('dddd');
-            $tgl = trim(terbilang((int)$tanggal->format('d')));
+            $tgl = trim(terbilang((int) $tanggal->format('d')));
             $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
-            $tahun = trim(terbilang((int)$tanggal->format('Y')));
+            $tahun = trim(terbilang((int) $tanggal->format('Y')));
         @endphp
-        <p>Pada hari ini {{ $hari }} tanggal {{ $tgl }} bulan {{ $bulan }} tahun {{ $tahun }}, kami yang bertanda tangan di bawah ini:</p>
-
+        <p>Pada hari ini {{ $hari }} tanggal {{ $tgl }} bulan {{ $bulan }} tahun
+            {{ $tahun }}, kami yang bertanda tangan di bawah ini:</p>
         <ol style="padding-left: 20px;">
             <li>
+                @php
+                    $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan';
+                @endphp
                 <div class="info-item">
                     <span class="info-label">Namas</span>
-                    <span class="info-value">: {{ $institusi->nama_ppk_53 ?? '-' }}</span>
+                    <span class="info-value">:
+                        {{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Jabatan</span>
@@ -169,42 +173,49 @@
                 <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
             </li>
         </ol>
-        <p>Kedua belah pihak berdasarkan Surat Pesanan Nomor : {{ $bast->sp->nomor_sp ?? '-' }} tanggal {{ \Carbon\Carbon::parse($bast->sp->tanggal_sp)->format('d-m-Y') }} dan Berita Acara Pemeriksaan Hasil Pekerjaan No : {{ $bast->nomor_bast ?? '-' }} tanggal {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }} </p>
-        <p>Dengan ini telah setuju dan sepakat untuk melakukan Serah Terima Pelaksanaan Pengadaan {{ $bast->sp->nama_paket ?? '-' }} pada {{ $institusi->nama_institusi ?? '-' }} Tahun anggaran {{ date('Y') }}.</p>
-
-        <p>PIHAK KEDUA menyerahkan kepada PIHAK PERTAMA dan PIHAK PERTAMA menerima dari PIHAK KEDUA seluruh hasil pekerjaan tersebut untuk :</p>
+        <p>Kedua belah pihak berdasarkan Surat Pesanan Nomor : {{ $bast->sp->nomor_sp ?? '-' }} tanggal
+            {{ \Carbon\Carbon::parse($bast->sp->tanggal_sp)->format('d-m-Y') }} dan Berita Acara Pemeriksaan Hasil
+            Pekerjaan No : {{ $bast->nomor_bast ?? '-' }} tanggal
+            {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }} </p>
+        <p>Dengan ini telah setuju dan sepakat untuk melakukan Serah Terima Pelaksanaan Pengadaan
+            {{ $bast->sp->nama_paket ?? '-' }} pada {{ $institusi->nama_institusi ?? '-' }} Tahun anggaran
+            {{ date('Y') }}.</p>
+        <p>PIHAK KEDUA menyerahkan kepada PIHAK PERTAMA dan PIHAK PERTAMA menerima dari PIHAK KEDUA seluruh hasil
+            pekerjaan tersebut untuk :</p>
         <ol style="padding-left: 20px;">
-
-
             <li>
-                <div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">: {{ $bast->sp->nama_paket ?? '-' }}</span></div>
+                <div class="info-item"><span class="info-label">Pekerjaan</span><span class="info-value">:
+                        {{ $bast->sp->nama_paket ?? '-' }}</span></div>
             </li>
             <li>
-                <div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">: Banjarbaru</span></div>
+                <div class="info-item"><span class="info-label">Lokasi</span><span class="info-value">:
+                        Banjarbaru</span></div>
             </li>
             <li>
-                <div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian Kesehatan R.I.</span></div>
+                <div class="info-item"><span class="info-label">Instansi</span><span class="info-value">: Kementerian
+                        Kesehatan R.I.</span></div>
             </li>
             <li>
-                <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">: {{ $institusi->dipa ?? '-' }}</span></div>
+                <div class="info-item"><span class="info-label">DIPA</span><span class="info-value">:
+                        {{ $institusi->dipa ?? '-' }}</span></div>
             </li>
-
         </ol>
         <p>
-            Demikian Berita Acara ini dibuat dan ditandatangani di Banjarbaru pada tanggal tersebut diatas oleh kedua belah pihak dalam rangkap 3 (tiga) untuk dipergunakan seperlunya. </li>
-
-
+            Demikian Berita Acara ini dibuat dan ditandatangani di Banjarbaru pada tanggal tersebut diatas oleh kedua
+            belah pihak dalam rangkap 3 (tiga) untuk dipergunakan seperlunya. </li>
         <p style="margin-top: 20px;"></p>
-
     </div>
-
     <div class="footer">
         <div class="signature">
+            @php $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan'; @endphp
             <div>PIHAK PERTAMA</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
-            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
+            <div>
+                <strong>{{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</strong>
+            </div>
+            <div>NIP. {{ $jenisAkun == '52' ? $institusi->nip_ppk_52 ?? '-' : $institusi->nip_ppk_53 ?? '-' }}
+            </div>
         </div>
         <div class="signature">
             <div>PIHAK KEDUA</div>
@@ -215,9 +226,6 @@
         </div>
         <div class="clear"></div>
     </div>
-
-
-
 </body>
 
 </html>

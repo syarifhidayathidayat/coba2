@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>Berita Acara Pemeriksaan {{ $bast->sp->penyedia->nama_penyedia }} No.SP {{ $bast->sp->nomor_sp }}</title>
@@ -9,84 +8,67 @@
             size: 215mm 330mm;
             margin: 10mm 20mm 20mm 30mm;
         }
-
         body {
             font-family: Times New Roman, sans-serif;
             margin: 10px;
             text-align: justify;
             font-size: 13px;
         }
-
         .header {
             text-align: center;
             margin-bottom: 10px 10px 10px 10px;
         }
-
         .header h2 {
             margin: 0;
             padding: 0;
         }
-
         .content {
             margin-bottom: 10px;
             line-height: 1.5;
-
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             /* margin-bottom: 10px; */
         }
-
         th,
         td {
             border: 1px solid #000;
             padding: 10px;
             text-align: left;
         }
-
         th {
             background-color: #f0f0f0;
         }
-
         .footer {
             /* margin-top: 50px; */
         }
-
         .signature {
             float: left;
             width: 70%;
             text-align: left;
         }
-
         .clear {
             clear: both;
         }
-
         .info-item {
             /* margin: 5px 0; */
         }
-
         .info-label {
             display: inline-block;
             width: 170px;
         }
-
         .info-label2 {
             display: inline-block;
             width: 100px;
         }
-
         .info-value {
             display: inline-block;
         }
-
         .info-value2 {
             /* display: inline-block; */
             width: 100px;
         }
-
         .error-message {
             color: red;
             text-align: center;
@@ -97,7 +79,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -138,12 +119,16 @@
         @endphp
         <p>Pada hari ini {{ $hari }} tanggal {{ $tgl }} bulan {{ $bulan }} tahun
             {{ $tahun }}, kami yang bertanda tangan di bawah ini:</p>
-
         <ol style="padding-left: 20px;">
             <li>
+                @php
+                    $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan'; // default 53 jika tidak ditemukan
+                @endphp
                 <div class="info-item">
                     <span class="info-label">Nama</span>
-                    <span class="info-value">: {{ $institusi->nama_ppk_53 ?? '-' }}</span>
+                    <span class="info-value">:
+                        {{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}
+                    </span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Jabatan</span>
@@ -171,7 +156,6 @@
                 <div style="margin-bottom: 12px;">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></div>
             </li>
         </ol>
-
         <p>PIHAK PERTAMA dengan ini menyatakan :</p>
         <ol style="padding-left: 20px;">
             <li>
@@ -204,16 +188,17 @@
         <p>Demikian Berita Acara ini dibuat dan ditanda tangani di Banjarbaru pada tanggal tersebut di atas, dalam
             rangkap 3 (Tiga) untuk dipergunakan seperlunya.</p>
         <p style="margin-top: 20px;"></p>
-
     </div>
-
     <div class="footer">
         <div class="signature">
+            @php
+                $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan'; // default 53 jika tidak ditemukan
+            @endphp
             <div>PIHAK PERTAMA</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
-            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
+            <div> <strong>{{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $jenisAkun == '52' ? ($institusi->nip_ppk_52 ?? '-') : ($institusi->nip_ppk_53 ?? '-') }}</div>
         </div>
         <div class="signature">
             <div>PIHAK KEDUA</div>
@@ -224,15 +209,11 @@
         </div>
         <div class="clear"></div>
     </div>
-
     <div style="page-break-before: always;"></div>
-
-
     <div class="info-item">
         <span class="info-label">Lampiran</span>
         <span class="info-value">: Berita Acara Pemeriksaan Hasil Pekerjaan</span>
     </div>
-
     <div class="info-item">
         <span class="info-label">Nomor</span>
         <span class="info-value">: {{ $bast->nomor_bap ?? '-' }}</span>
@@ -241,7 +222,6 @@
         <span class="info-label">Tanggal</span>
         <span class="info-value">: {{ \Carbon\Carbon::parse($bast->tanggal_bast)->format('d-m-Y') }}</span>
     </div>
-
     <p style="margin-bottom: 20px;"></p>
     <table>
         <thead>
@@ -254,26 +234,34 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($bast->barangs as $index => $barang)
+            @php
+                $grouped = $bast->barangs->groupBy('nama_barang');
+                $no = 1;
+            @endphp
+            @foreach ($grouped as $namaBarang => $items)
+                @php
+                    $totalSerah = $items->sum(fn($item) => $item->pivot->jumlah_serah_terima);
+                    $kondisi = $items->pluck('pivot.kondisi')->unique()->implode(', ');
+                    $keterangan = $items->pluck('pivot.keterangan')->unique()->implode(', ');
+                @endphp
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->pivot->jumlah_serah_terima }}</td>
-                    <td>{{ $barang->pivot->kondisi }}</td>
-                    <td>{{ $barang->pivot->keterangan ?? '-' }}</td>
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $namaBarang }}</td>
+                    <td>{{ $totalSerah }}</td>
+                    <td>{{ $kondisi }}</td>
+                    <td>{{ $keterangan }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <p style="margin-top: 20px;"></p>
     <div class="footer">
-
         <div class="signature">
             <div>PIHAK PERTAMA</div>
             <div>PEJABAT PEMBUAT KOMITMEN</div>
             <br><br><br><br>
-            <div> <strong>{{ $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
-            <div>NIP. {{ $institusi->nip_ppk_53 ?? '-' }}</div>
+            <div> <strong>{{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $jenisAkun == '52' ? ($institusi->nip_ppk_52 ?? '-') : ($institusi->nip_ppk_53 ?? '-') }}</div>
         </div>
         <div class="signature">
             <div>PIHAK KEDUA</div>
@@ -284,7 +272,5 @@
         </div>
         <div class="clear"></div>
     </div>
-
 </body>
-
 </html>
