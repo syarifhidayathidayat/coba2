@@ -11,6 +11,7 @@ class Institusi extends Model
         'alamat',
         'no_telp',
         'fax',
+        'kode_institusi',
         'nama_ppk_52',
         'nip_ppk_52',
         'nama_ppk_53',

@@ -38,6 +38,12 @@
                                 <input type="text" name="fax" class="form-control" value="{{ old('fax') }}">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Kode Institusi</label>
+                                <input type="text" name="kode_institusi     " class="form-control" value="{{ old('kode_institusi ') }}">
+                            </div>
+                        </div>
                     </div>
                     
                     <h5 class="mb-3">PPK</h5>
