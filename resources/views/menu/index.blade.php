@@ -49,13 +49,13 @@
                                         <td>{{ $menu->order }}</td>
                                         <td>
                                             @foreach($menu->roles as $role)
-                                                <span class="badge badge-info">{{ $role->name }}</span>
+                                            <span class="badge bg-info text-light">{{ $role->name }}</span>
                                             @endforeach
                                         </td>
                                         <td>
-                                            <span class="badge badge-{{ $menu->is_active ? 'success' : 'danger' }}">
+                                            <span class="badge bg-{{ $menu->is_active ? 'success' : 'danger' }}">
                                                 {{ $menu->is_active ? 'Aktif' : 'Nonaktif' }}
-                                            </span>
+                                              </span>
                                         </td>
                                         <td>
                                             <a href="{{ route('menu.edit', $menu->id) }}" class="btn btn-sm btn-warning">
@@ -83,4 +83,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
