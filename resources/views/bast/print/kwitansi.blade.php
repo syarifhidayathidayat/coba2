@@ -220,9 +220,10 @@
             <div>Direktur</div>
         </div>
         <div class="clear"></div>
+        @if (($bast->sp->total_kontrak ?? 0) <= 50000000)
         <div>_________________________________________________________________________________</div>
         <p style="margin-top: 10px;"></p>
-        @if (($bast->sp->total_kontrak ?? 0) <= 50000000)
+
             <div class="signature2">
                 <div>Pekerjaan tersebut telah di terima/diselesaikan dengan lengkap dan baik</div>
                 <div>PEJABAT PENGADAAN</div>
