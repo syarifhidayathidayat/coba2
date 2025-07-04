@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Institusi;
 use Illuminate\Http\Request;
+
 class InstitusiController extends Controller
 {
     /**
@@ -40,7 +43,7 @@ class InstitusiController extends Controller
             'alamat' => $data['alamat'],
             'notelp' => $data['no_telp'] ?? null,
             'fax' => $data['fax'] ?? null,
-            'kode_institusi' => $data ['kode_institusi'] ?? null,
+            'kode_institusi' => $data['kode_institusi'] ?? null,
             'nama_ppk_52' => $data['nama_ppk_52'] ?? null,
             'nip_ppk_52' => $data['nip_ppk_52'] ?? null,
             'nama_ppk_53' => $data['nama_ppk_53'] ?? null,
@@ -103,6 +106,7 @@ class InstitusiController extends Controller
             'alamat' => $data['alamat'],
             'no_telp' => $data['no_telp'] ?? null,
             'fax' => $data['fax'] ?? null,
+            'kode_institusi' => $data['kode_institusi'] ?? null,
             'nama_ppk_52' => $data['nama_ppk_52'] ?? null,
             'nip_ppk_52' => $data['nip_ppk_52'] ?? null,
             'nama_ppk_53' => $data['nama_ppk_53'] ?? null,

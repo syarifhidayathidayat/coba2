@@ -128,6 +128,7 @@
         </tr>
     </table>
     <div class="content">
+
         @php
             $tanggal = \Carbon\Carbon::parse($bast->tanggal_bast);
             $hari = $tanggal->locale('id')->isoFormat('dddd');

@@ -1,10 +1,8 @@
 @extends('layouts.app')
-
 @section('title', 'Buat BAST untuk SP')
 @section('content')
 <div class="container-fluid">
     <h4>Buat BAST untuk SP: {{ $sp->nomor_sp }}</h4>
-
     <form action="{{ route('bast.store', ['sp_id' => $sp->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="sp_id" value="{{ $sp->id }}">
@@ -31,7 +29,9 @@
                             <input type="text" name="nomor_bapem" id="nomor_bapem" class="form-control" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+
+
+                    <div class="col-md-6" id="kwitansi_field">
                         <div class="form-group">
                             <label for="no_kwitansi">Nomor Kwitansi</label>
                             <input type="text" name="no_kwitansi" id="no_kwitansi" class="form-control">
@@ -39,7 +39,6 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="status">Status</label>
@@ -53,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
@@ -72,7 +70,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">Detail Barang</h5>
@@ -97,7 +94,7 @@
                             </td>
                             <td>{{ $barang->qty }}</td>
                             <td>
-                                <input type="number" name="jumlah_serah_terima[]" class="form-control" 
+                                <input type="number" name="jumlah_serah_terima[]" class="form-control"
                                     min="1" max="{{ $barang->qty }}" value="{{ $barang->qty }}" required>
                             </td>
                             <td>
@@ -117,11 +114,10 @@
                 </table>
             </div>
         </div>
-
         <div class="mt-3">
             <button type="submit" class="btn btn-primary">Simpan BAST</button>
             <a href="{{ route('sp.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </form>
 </div>
-@endsection 
+@endsection

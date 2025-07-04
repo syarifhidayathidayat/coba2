@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Undangan</title>
@@ -8,82 +9,102 @@
             size: 215mm 330mm;
             margin: 10mm 20mm 20mm 30mm;
         }
+
         body {
             font-family: Times New Roman, sans-serif;
             margin: 10px;
             text-align: justify;
             font-size: 13px;
         }
+
         .no-spacing {
             margin: 0;
             padding: 0;
             line-height: 1;
             /* Optional: Menyamakan tinggi garis */
         }
+
         .header {
             text-align: center;
             margin-bottom: 10px 10px 10px 10px;
         }
+
         .header h2 {
             margin: 0;
             padding: 0;
         }
+
         .content {
             margin-bottom: 10px;
             line-height: 1.25;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             /* margin-bottom: 10px; */
         }
+
         th,
         td {
             border: 1px solid #000;
             padding: 2px 5px;
             text-align: left;
         }
+
         .no-padding {
             padding: 0 !important;
         }
+
         .no-border {
             border: none !important;
         }
+
         th {
             background-color: #f0f0f0;
         }
+
         .footer {
             /* margin-top: 50px; */
         }
+
         .signature {
             float: left;
             width: 65%;
             text-align: left;
         }
+
         .clear {
             clear: both;
         }
+
         .info-item {
             margin: 5px 0;
         }
+
         .info-label2 {
             display: inline-block;
             width: 100px;
         }
+
         .info-label {
             display: inline-block;
             width: 170px;
         }
+
         .info-value {
             display: inline-block;
         }
+
         .info-value2 {
             /* display: inline-block; */
             text-align: left;
         }
+
         .no-wrap {
             white-space: nowrap;
         }
+
         .error-message {
             color: red;
             text-align: center;
@@ -94,7 +115,8 @@
         }
     </style>
 </head>
-<body class="content">
+
+{{-- <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
             style="width:110%;max-width:900px;margin-bottom:0px;">
@@ -147,7 +169,7 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Sumber Pendanaan</span>
-                <span class="info-value">: DIPA {{ $institusi->nama_institusi }}{{ $institusi->dipa ?? '-' }}</span>
+                <span class="info-value">: DIPA {{ $institusi->nama_institusi }} {{ $institusi->dipa ?? '-' }}</span>
             </div>
         <li>
             <div class="info-item">
@@ -162,7 +184,7 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Telepon/Fax</span>
-                <span class="info-value">: {{ $institusi->no_telp ?? '' }} {{ $institusi->fax ??''}}</span>
+                <span class="info-value">: {{ $institusi->no_telp ?? '' }} | {{ $institusi->fax ?? '' }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Website</span>
@@ -230,6 +252,7 @@
         <div class="clear"></div>
     </div>
 </body>
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -244,15 +267,15 @@
         $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
         $tahun = trim(terbilang((int) $tanggal->format('Y')));
     @endphp
-    <p>Pada hari {{ $dokumen->ba_pembukaan_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }}
+    <p>Pada hari {{ $hari }} tanggal {{ $tgl }}
         bulan
         {{ $bulan }} tahun {{ $tahun }} pukul
         {{ $dokumen->undangan_pemasukan_jam ?? '' }} WITA, kami yang bertanda tangan di bawah ini adalah Pejabat
         Pengadaan
         Barang/Jasa, yang dibentuk dalam Surat Keputusan Kuasa Direktur {{ $institusi->nama_institusi ?? '' }} tanggal
-        {{ $institusi->tanggal_sk_pejabat }} , melaksanakan pembukaan penawaran untuk pelaksanaan pekerjaan
+        {{ $institusi->tanggal_sk_pejabat }}, melaksanakan pembukaan penawaran untuk pelaksanaan pekerjaan
         {{ $dokumen->uraian_paket ?? '' }} TA
-        {{ $paket_pekerjaan->tahun_anggaran ?? 'xxxx' }} , di biayai dari dana DIPA Tahun Anggaran
+        {{ $paket_pekerjaan->tahun_anggaran ?? 'xxxx' }}, di biayai dari dana DIPA Tahun Anggaran
         {{ $paket_pekerjaan->tahun_anggaran ?? 'xxxx' }} Nomor SP {{ $institusi->dipa ?? '' }} dengan Harga Perkiraan
         Sendiri (HPS) sebesar Rp.
         {{ $dokumen->hps ?? '' }} ({{ ucwords(\App\Helpers\Terbilang::make($dokumen->hps)) }} Rupiah) dengan hasil
@@ -291,7 +314,8 @@
         </div>
         <div class="clear"></div>
     </div>
-</body>
+</body> --}}
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -306,7 +330,7 @@
         $bulan = strtolower($tanggal->locale('id')->isoFormat('MMMM'));
         $tahun = trim(terbilang((int) $tanggal->format('Y')));
     @endphp
-    <p>Pada hari {{ $dokumen->ba_klarifikasi_hari ?? '' }} tanggal {{ $hari }} tanggal {{ $tgl }}
+    <p>Pada hari {{ $hari }} tanggal {{ $tgl }}
         bulan
         {{ $bulan }} tahun {{ $tahun }} pukul
         {{ $dokumen->undangan_pemasukan_jam ?? '' }} WITA, kami yang bertanda tangan di bawah ini adalah Pejabat
@@ -316,12 +340,12 @@
         penawaran
         untuk pelaksanaan pekerjaan {{ $dokumen->uraian_paket ?? '' }} TA
         XXXX , di biayai dari dana DIPA Tahun Anggaran
-        XXXX Nomor SP DIPA {{ $institusi->dipa ?? '' }} dengan Harga Perkiraan
+        XXXX Nomor SP DIPA {{ $institusi->dipa ?? '' }} tanggal {{ $institusi->tanggal_sp_dipa ?? ''}} dengan Harga Perkiraan
         Sendiri
         (HPS) sebesar Rp.
         {{ $dokumen->hps ?? 'XXXX' }} ({{ ucwords(\App\Helpers\Terbilang::make($dokumen->hps)) }} Rupiah) dengan
         hasil Pembukaan Penawaran sebagai berikut :</p>
-    <p>Melakukan klarifikasi dan negosiasi terhadap penawaran yang diajukan oleh : CV.Berkah Tiga Jagoan dengan hasil
+    <p>Melakukan klarifikasi dan negosiasi terhadap penawaran yang diajukan oleh : {{ $dokumen->sp?->penyedia?->nama_penyedia ?? '' }} dengan hasil
         seperti terdapat dalam lampiran.</p>
     <p>Dari hasil klarifikasi dan negosiasi harga, ditetapkan sebagai penyedia yaitu :</p>
     <div class="info-item">
@@ -373,6 +397,7 @@
         <div class="clear"></div>
     </div>
 </body>
+
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -505,4 +530,5 @@
         <div class="clear"></div>
     </div>
 </body>
+
 </html>
