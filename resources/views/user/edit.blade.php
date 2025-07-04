@@ -31,8 +31,8 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('user.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+        <a href="{{ route('user.index') }}" class="btn btn-secondary mt-3">Kembali</a>
     </form>
 </div>
-@endsection 
+@endsection

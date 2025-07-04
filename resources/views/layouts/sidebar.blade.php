@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+<div class="sidebar sidebar-light sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
       <a href="{{ route('dashboard') }}" class="text-white text-decoration-none w-100 d-flex justify-content-center align-items-center">
         <i class="fas fa-check-double me-2"></i>
