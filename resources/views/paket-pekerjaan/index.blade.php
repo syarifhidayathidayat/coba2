@@ -14,9 +14,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
+
+
+
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    
-                    <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary btn-sm">
+
+                    <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
                     </a>
                 </div>
@@ -78,7 +81,7 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
 
 
 @push('scripts')

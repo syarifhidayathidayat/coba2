@@ -40,12 +40,11 @@ Route::middleware('auth')->group(function () {
     // Route::resource('penyedia', PenyediaController::class);
     Route::get('/penyedia/{penyedia}', [PenyediaController::class, 'show'])->name('penyedia.show');
 
+    // SP berdasarkan akun
+    Route::get('/sp/akun52', [SpController::class, 'index52'])->name('sp.index.52');
+    Route::get('/sp/akun53', [SpController::class, 'index53'])->name('sp.index.53');
 
-    // 🚫 DULU DI DALAM MIDDLEWARE ROLE
-    // Route::middleware(['role:admin|PPK|Pejabat-Pengadaan53'])->group(function () {
-    //     Route::resource('sp', SpController::class); 
-
-    // ✅ PINDAHKAN KE SINI UNTUK SEMENTARA
+    // SP Utama
     Route::resource('sp', SpController::class);
 
     Route::get('/barang/semua', [BarangController::class, 'indexSemuaBarang'])->name('barang.semua');

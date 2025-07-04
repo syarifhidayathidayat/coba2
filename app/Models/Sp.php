@@ -1,15 +1,10 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-
-
 class Sp extends Model
 {
     protected $table = 'sps';
-
     protected $fillable = [
         'nomor_sp',
         'penyedia_id',
@@ -22,9 +17,9 @@ class Sp extends Model
         'metode',
         'total_pagu',
         'akun',
+        'jenis_akun',
         'dokumen_pemilihan_id',
     ];
-
     public function penyedia()
     {
         return $this->belongsTo(Penyedia::class);
@@ -56,22 +51,11 @@ class Sp extends Model
         if (!$this->bast) {
             return 'SP Dibuat';
         }
-
         if ($this->bast && !$this->bast->dicetak) {
             return 'BAST Dibuat';
         }
-
-        // if ($this->bast && $this->bast->dicetak && !$this->pembayaran) {
-        //     return 'BAST Dicetak';
-        // }
-
-        // if ($this->pembayaran) {
-        //     return 'Sudah Dibayar';
-        // }
-
         return 'Tidak diketahui';
     }
-
     public function dokumenPemilihan()
     {
         return $this->belongsTo(DokumenPemilihan::class);
