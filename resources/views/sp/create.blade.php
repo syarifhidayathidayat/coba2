@@ -84,12 +84,12 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-3 form-group">
                             <label>Total Pagu</label>
                             <input type="number" name="total_pagu" id="total_pagu" class="form-control text-muted bg-light"
                                 readonly>
                         </div>
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-3 form-group">
                             <label>Metode</label>
                             <select name="metode" class="form-control" required>
                                 <option value="">-- Pilih Metode --</option>
@@ -99,7 +99,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div id="dokumen-pemilihan-field" class="col-md-4 form-group" style="display: none;">
+                        <div id="dokumen-pemilihan-field" class="col-md-6 form-group" style="display: none;">
                             <label>Dokumen Pemilihan</label>
                             <select name="dokumen_pemilihan_id" class="form-control">
                                 <option value="">-- Pilih Dokumen --</option>
@@ -110,8 +110,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <div class="col-md-4 form-group">
+                    <div class="row mb-3">
+                        <div class="col-md-3 form-group">
                             <label>Akun</label>
                             <input type="text" name="akun" id="akun" class="form-control text-muted bg-light"
                                 readonly>
