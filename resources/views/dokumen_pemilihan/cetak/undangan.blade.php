@@ -162,7 +162,7 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Telepon/Fax</span>
-                <span class="info-value">: {{ $institusi->no_telp ?? '' }}</span>
+                <span class="info-value">: {{ $institusi->no_telp ?? '' }} {{ $institusi->fax ??''}}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Website</span>
