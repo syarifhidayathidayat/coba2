@@ -116,7 +116,7 @@
     </style>
 </head>
 
-<body class="content">
+{{-- <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
             style="width:110%;max-width:900px;margin-bottom:0px;">
@@ -396,7 +396,7 @@
         </div>
         <div class="clear"></div>
     </div>
-</body>
+</body> --}}
 
 <body class="content">
     <div class="header">
@@ -439,8 +439,8 @@
         {{ $dokumen->undangan_pemasukan_jam ?? '' }} WITA, dengan mengambil tempat di kantor
         {{ $institusi->nama_institusi ?? '' }} telah disusun Berita Acara Hasil Pengadaan Langsung untuk pekerjaan
         tersebut diatas.
-    <p>Dari hasil klarifikasi dan negosiasi harga, ditetapkan sebagai penyedia yaitu :</p>
-    <ol style="list-style-type: upper-roman; padding-left: 15px;">
+    <div>Dari hasil klarifikasi dan negosiasi harga, ditetapkan sebagai penyedia yaitu :</div>
+    <ol style="list-style-type: upper-roman; padding-left: 17px;">
         <li>Bahwa dalam proses pengadaan langsung Pekerjaan Pemeliharaan Laboratorium Terpadu telah diundang calon
             penyedia yaitu :
             <ol style="list-style-type: decimal; padding-left: 17px;">
@@ -463,24 +463,28 @@
             melaksanakan pekerjaan pengadaan langsung tersebut</p>
         <li>Setelah penyedia menyampaikan penawaran (administrasi, teknis dan harga) maka dilakukan pembukaan
             penawaran. Dalam pembukaan penawaran di peroleh hasil sebagai berikut :
-            <ol style="list-style-type: decimal; padding-left: 17px;">
+            <ol style="list-style-type: decimal; padding-left: 19px;">
                 <li>
                     <table border="1" cellspacing="0" cellpadding="5"
                         style="border-collapse: collapse; text-align: center;">
                         <tr>
-                            <th colspan="3">PENAWARAN</th>
-                            <th rowspan="2">KETERANGAN</th>
+                            <th style="text-align: center" colspan="3">PENAWARAN</th>
+                            <th style="text-align: center"rowspan="2">KETERANGAN</th>
                         </tr>
                         <tr>
-                            <th>ADMINISTRASI</th>
-                            <th>TEKNIS</th>
-                            <th>BIAYA</th>
+                            <th style="text-align: center">ADMINISTRASI</th>
+                            <th style="text-align: center">TEKNIS</th>
+                            <th style="text-align: center">BIAYA</th>
                         </tr>
                         <tr>
-                            <td>{{ $dokumen->ba_hasil_penawaran_admin == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
-                            <td>{{ $dokumen->ba_hasil_penawaran_teknis == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
-                            <td>{{ $dokumen->ba_hasil_penawaran_biaya == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
-                            <td>{{ $dokumen->ba_hasil_penawaran_keterangan == 1 ? 'LENGKAP' : 'TIDAK LENGKAP' }}</td>
+                            <td style="text-align: center">
+                                {{ $dokumen->ba_hasil_penawaran_admin == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
+                            <td style="text-align: center">
+                                {{ $dokumen->ba_hasil_penawaran_teknis == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
+                            <td style="text-align: center">
+                                {{ $dokumen->ba_hasil_penawaran_biaya == 1 ? 'ADA' : 'TIDAK ADA' }}</td>
+                            <td style="text-align: center">
+                                {{ $dokumen->ba_hasil_penawaran_keterangan == 1 ? 'LENGKAP' : 'TIDAK LENGKAP' }}</td>
                         </tr>
                     </table>
                 </li>
@@ -508,12 +512,87 @@
                 </li>
             </ol>
         </li>
-        <li>Selanjutnya dilakukan evaluasi dengan unsur – unsur evaluasi sebagai berikut :</li>
-        <ol style="list-style-type: decimal; padding-left: 17px;">
-            <li>Evaluasi Administrasi </li>
-            <li>Evaluasi Teknis</li>
-            <li>Evaluasi Kewajaran Harga</li>
-        </ol>
+        <li>Selanjutnya dilakukan evaluasi dengan unsur – unsur evaluasi sebagai berikut :
+            <ol style="list-style-type: decimal; padding-left: 17px;">
+                <li>Evaluasi Administrasi</li>
+                <li>Evaluasi Teknis</li>
+                <li>Evaluasi Kewajaran Harga
+                    <div>Unsur – unsur selengkapnya sebagai berikut :</div>
+                    <ol>
+                        <li>EVALUASI ADMINISTRASI
+                            <br>Evaluasi Administrasi meliputi :
+                            <br>a. Surat Penawaran
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">No</th>
+                                        <th style="text-align: center">UNSUR YANG DIEVALUASI</th>
+                                        <th style="text-align: center">KETERANGAN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Syarat – syarat substansial yang diminta berdasarkan dokumen pemilihan yang
+                                            dipenuhi/ dilengkapi</td>
+                                        <td>Memenuhi syarat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Surat Penawaran</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="sub-item">- Ditandatangani oleh yang berhak</td>
+                                        <td>MemenuhiSyarat</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="sub-item">- Jangka waktu berlakunya surat penawaran</td>
+                                        <td>MemenuhiSyarat</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="sub-item">- Jangka waktu pelaksanaan</td>
+                                        <td>MemenuhiSyarat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>EVALUASI TEKNIS
+                            <div>Apabila penawaran memenuhi syarat administrasi tersebut diatas dilakukan evaluasi
+                                teknis, unsur
+                                evaluasi teknis meliputi :</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">UNSUR YANG DIEVALUASI</th>
+                                        <th style="text-align: center">KETERANGAN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Metode pelaksanaan pekerjaan</td>
+                                        <td>Memenuhi Syarat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jadwal waktu pelaksanaan pekerjaan</td>
+                                        <td>Memenuhi Syarat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Spesifikasi teknis</td>
+                                        <td>Memenuhi Syarat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>EVALUASI KEWAJARAN HARGA</li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+
         <li>Untuk selanjutnya Berita Acara Hasil Pengadaan Langsung ini akan disampaikan kepada Pejabat Pembuat
             Komitmen untuk proses pengadaan langsung selanjutnya.</li>
     </ol>
@@ -530,5 +609,84 @@
         <div class="clear"></div>
     </div>
 </body>
+
+{{-- <body class="content">
+    <div class="header">
+        <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
+            style="width:110%;max-width:900px;margin-bottom:0px;">
+        <h3 class="no-spacing">NOTA DINAS</h3>
+    </div>
+    <p style="padding-top: 5px"></p>
+
+
+
+
+    <div class="info-item">
+        <span class="info-label"> Kepada </span>
+        <span class="info-value">: Yth. Pejabat Pembuat Komitmen {{ $institusi->nama_institusi ?? '' }}</span>
+    </div>
+
+    <div class="info-item">
+        <span class="info-label"> Dari </span>
+        <span class="info-value2">: Pejabat Pengadaan Barang/Jasa {{ $institusi->nama_institusi ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Tanggal </span>
+        <span class="info-value2">: {{ $dokumen->nota_dinas_tanggal ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Nomor </span>
+        <span class="info-value2">: {{ $dokumen->nota_dinas_nomor ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Sifat </span>
+        <span class="info-value2">: Segera</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Lampiran </span>
+        <span class="info-value2">: 8 (Delapan) berkas</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Hal </span>
+        <span class="info-value2">: Penyampaian Berita Acara Pengadaan Langsung</span>
+    </div>
+
+
+    <div>Sesuai dengan Berita Acara Hasil Pengadaan Langsung Nomor : ULP/Pejabat Pengadaan/X/462/2022 Tanggal 2 November
+        2022 untuk pekerjaan Pengadaan Pemeliharaan Laboratorium Terpadu maka bersama ini kami sampaikan administrasi
+        proses pengadaan langsung yang telah selesai dilaksanakan terhadap :</div>
+    <div class="info-item">
+        <span class="info-label"> Nama Perusahaan </span>
+        <span class="info-value">: {{ $dokumen->sp?->penyedia?->nama_penyedia ?? '[Nama Penyedia]' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Alamat </span>
+        <span class="info-value">: {{ $dokumen->sp?->penyedia?->alamat ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> NPWP </span>
+        <span class="info-value">: {{ $dokumen->sp?->penyedia?->npwp ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Harga </span>
+        <span class="info-value">: Yth. Pejabat Pembuat Komitmen {{ $institusi->nama_institusi ?? '' }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label"> Setelah negosiasi </span>
+        <span class="info-value">: Yth. Pejabat Pembuat Komitmen {{ $institusi->nama_institusi ?? '' }}</span>
+    </div>
+    </li>
+    <p>Demikian atas perhatiannya diucapkan terima kasih.</p>
+    <p style="padding-top: 20px"></p>
+    <div class="footer">
+        <div class="signature">
+            <div>Pejabat Pengadaan Barang/Jasa</div>
+            <br><br><br><br>
+            <div> <strong>{{ $institusi->nama_pejabat_pengadaan_53 ?? '-' }}</strong> </div>
+            <div>NIP. {{ $institusi->nip_pejabat_pengadaan_53 ?? '-' }}</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body> --}}
 
 </html>
