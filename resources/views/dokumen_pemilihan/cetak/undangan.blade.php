@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>Undangan</title>
@@ -9,102 +8,95 @@
             size: 215mm 330mm;
             margin: 10mm 20mm 20mm 30mm;
         }
-
-        body {
+        /* body {
             font-family: Times New Roman, sans-serif;
             margin: 10px;
             text-align: justify;
-            font-size: 13px;
+            font-size: 14px;
+        } */
+        body {
+            line-height: 1.4;
+            /* Lebih readable */
         }
-
         .no-spacing {
             margin: 0;
             padding: 0;
             line-height: 1;
             /* Optional: Menyamakan tinggi garis */
         }
-
         .header {
             text-align: center;
             margin-bottom: 10px 10px 10px 10px;
         }
-
         .header h2 {
             margin: 0;
             padding: 0;
         }
-
-        .content {
+        /* .content {
             margin-bottom: 10px;
             line-height: 1.25;
+        } */
+        .content {
+            margin-bottom: 15px;
+            /* Konsisten */
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            /* margin-bottom: 10px; */
+            margin-bottom: 10px;
         }
-
         th,
         td {
             border: 1px solid #000;
             padding: 2px 5px;
             text-align: left;
         }
-
         .no-padding {
             padding: 0 !important;
         }
-
         .no-border {
             border: none !important;
         }
-
         th {
             background-color: #f0f0f0;
         }
-
         .footer {
             /* margin-top: 50px; */
         }
-
         .signature {
             float: left;
             width: 65%;
             text-align: left;
         }
-
         .clear {
             clear: both;
         }
-
-        .info-item {
+        /* .info-item {
             margin: 5px 0;
+        } */
+        .info-item {
+            display: block;
+            align-items: baseline;
+            margin: 2px 0;
         }
-
+        .info-label {
+            width: 170px;
+            text-align: left;
+            display: inline-block;
+        }
         .info-label2 {
             display: inline-block;
             width: 100px;
         }
-
-        .info-label {
-            display: inline-block;
-            width: 170px;
-        }
-
         .info-value {
             display: inline-block;
         }
-
         .info-value2 {
-            /* display: inline-block; */
             text-align: left;
         }
-
         .no-wrap {
             white-space: nowrap;
         }
-
         .error-message {
             color: red;
             text-align: center;
@@ -115,7 +107,6 @@
         }
     </style>
 </head>
-
 {{-- <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -252,7 +243,6 @@
         <div class="clear"></div>
     </div>
 </body>
-
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -315,7 +305,6 @@
         <div class="clear"></div>
     </div>
 </body>
-
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -397,7 +386,6 @@
         <div class="clear"></div>
     </div>
 </body> --}}
-
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -443,7 +431,7 @@
     <ol style="list-style-type: upper-roman; padding-left: 17px;">
         <li>Bahwa dalam proses pengadaan langsung Pekerjaan Pemeliharaan Laboratorium Terpadu telah diundang calon
             penyedia yaitu :
-            <ol style="list-style-type: decimal; padding-left: 17px;">
+            <ol style="list-style-type: decimal; padding-left: 17px; ">
                 <li>
                     <div class="info-item">
                         <span class="info-label"> Nama Penanggung jawab </span>
@@ -592,7 +580,6 @@
                 </li>
             </ol>
         </li>
-
         <li>Untuk selanjutnya Berita Acara Hasil Pengadaan Langsung ini akan disampaikan kepada Pejabat Pembuat
             Komitmen untuk proses pengadaan langsung selanjutnya.</li>
     </ol>
@@ -609,7 +596,6 @@
         <div class="clear"></div>
     </div>
 </body>
-
 {{-- <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -617,15 +603,10 @@
         <h3 class="no-spacing">NOTA DINAS</h3>
     </div>
     <p style="padding-top: 5px"></p>
-
-
-
-
     <div class="info-item">
         <span class="info-label"> Kepada </span>
         <span class="info-value">: Yth. Pejabat Pembuat Komitmen {{ $institusi->nama_institusi ?? '' }}</span>
     </div>
-
     <div class="info-item">
         <span class="info-label"> Dari </span>
         <span class="info-value2">: Pejabat Pengadaan Barang/Jasa {{ $institusi->nama_institusi ?? '' }}</span>
@@ -650,8 +631,6 @@
         <span class="info-label"> Hal </span>
         <span class="info-value2">: Penyampaian Berita Acara Pengadaan Langsung</span>
     </div>
-
-
     <div>Sesuai dengan Berita Acara Hasil Pengadaan Langsung Nomor : ULP/Pejabat Pengadaan/X/462/2022 Tanggal 2 November
         2022 untuk pekerjaan Pengadaan Pemeliharaan Laboratorium Terpadu maka bersama ini kami sampaikan administrasi
         proses pengadaan langsung yang telah selesai dilaksanakan terhadap :</div>
@@ -688,5 +667,4 @@
         <div class="clear"></div>
     </div>
 </body> --}}
-
 </html>
