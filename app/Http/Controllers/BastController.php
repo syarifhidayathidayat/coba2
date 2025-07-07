@@ -1,36 +1,33 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Bast;
 use App\Models\Sp;
 use App\Models\Barang;
 use App\Models\Institusi;
 use Illuminate\Http\Request;
 use PDF;
-
 class BastController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $basts = Bast::with('sp')->latest()->get();
+        $user = auth()->user();
+        $query = Bast::with(['sp']);
+        if ($user->hasRole('Pejabat-Pengadaan52')) {
+            $query->whereHas('sp', function ($q) {
+                $q->where('jenis_akun', '52');
+            });
+        } elseif ($user->hasRole('Pejabat-Pengadaan53')) {
+            $query->whereHas('sp', function ($q) {
+                $q->where('jenis_akun', '53');
+            });
+        }
+        $basts = $query->latest()->get();
         return view('bast.index', compact('basts'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Sp $sp)
     {
         return view('bast.create', compact('sp'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,9 +48,7 @@ class BastController extends Controller
             'keterangan_barang' => 'nullable|array',
             'keterangan_barang.*' => 'nullable|string'
         ]);
-
         $bast = Bast::create($request->all());
-
         // Simpan data barang
         foreach ($request->barang_id as $index => $barangId) {
             $bast->barangs()->attach($barangId, [
@@ -62,43 +57,25 @@ class BastController extends Controller
                 'keterangan' => $request->keterangan_barang[$index] ?? null
             ]);
         }
-
         return redirect()->route('bast.index')
             ->with('success', 'BAST berhasil dibuat');
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Bast $bast)
     {
         return view('bast.show', compact('bast'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
     }
-
     public function printBast($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -121,7 +98,6 @@ class BastController extends Controller
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bap) . '.pdf';
         return $pdf->stream($filename);
     }
-
     public function printBapem($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -133,7 +109,6 @@ class BastController extends Controller
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bapem) . '.pdf';
         return $pdf->stream($filename);
     }
-
     public function printKwitansi($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -145,19 +120,6 @@ class BastController extends Controller
         $filename = 'Kwitansi -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
         return $pdf->stream($filename);
     }
-
-    // public function printSsp($id)
-    // {
-    //     $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
-    //     $tanggal = $bast->tanggal_bast;
-    //     $institusi = \App\Models\Institusi::where('tanggal_mulai', '<=', $tanggal)
-    //         ->where('tanggal_selesai', '>=', $tanggal)
-    //         ->first();
-    //     $pdf = PDF::loadView('bast.print.ssp', compact('bast', 'institusi'));
-    //     $filename = 'SSP -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
-    //     return $pdf->stream($filename);
-    // }
-
     public function printSsp(Bast $bast)
     {
         $bast->load([

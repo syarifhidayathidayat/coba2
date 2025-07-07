@@ -107,7 +107,7 @@
         }
     </style>
 </head>
-{{-- <body class="content">
+ <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
             style="width:110%;max-width:900px;margin-bottom:0px;">
@@ -385,7 +385,7 @@
         </div>
         <div class="clear"></div>
     </div>
-</body> --}}
+</body>
 <body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
@@ -596,7 +596,7 @@
         <div class="clear"></div>
     </div>
 </body>
-{{-- <body class="content">
+<body class="content">
     <div class="header">
         <img src="{{ public_path('assets/img/KOP_2025.jpg') }}" alt="Kop Surat"
             style="width:110%;max-width:900px;margin-bottom:0px;">
@@ -666,5 +666,5 @@
         </div>
         <div class="clear"></div>
     </div>
-</body> --}}
+</body>
 </html>

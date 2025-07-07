@@ -42,7 +42,7 @@ class DokumenPemilihanController extends Controller
             'undangan_evaluasi_jam' => 'nullable',
             'undangan_spk_hari' => 'nullable|string',
             'undangan_spk_tanggal' => 'nullable|date',
-            'uraian_paket' => 'required|string',
+            'uraian_paket' => 'required',
             'no_surat_izin_usaha' => 'nullable|string',
             'masa_berlaku_penawaran' => 'nullable|string',
             'bidang_usaha' => 'nullable|string',
@@ -88,7 +88,7 @@ class DokumenPemilihanController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            // 📝 Sama seperti validasi di store()
+            //  Sama seperti validasi di store
             'undangan_nomor' => 'required|string|max:255',
             'undangan_tanggal' => 'required|date',
             'hps' => 'required|numeric',
