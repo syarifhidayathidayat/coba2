@@ -2,99 +2,123 @@
 
 @section('title', 'Daftar Paket Pekerjaan')
 @section('content')
-<div class="container-fluid">
-    <div>
-        <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h1>
-        <x-breadcrumb :items="[
-            ['label' => 'Dashboard', 'url' => route('dashboard')],
-            ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
-            ['label' => 'Paket Pekerjaan', 'active' => true],
-        ]" />
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
+    <div class="container-fluid">
+        <div>
+            <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h1>
+            <x-breadcrumb :items="[
+                ['label' => 'Dashboard', 'url' => route('dashboard')],
+                ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+                ['label' => 'Paket Pekerjaan', 'active' => true],
+            ]" />
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
 
 
 
-                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header d-flex justify-content-between align-items-center">
 
-                    <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
-                    </a>
-                </div>
-
-                <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Paket</th>
-                                    <th>MAX</th>
-                                    <th>Kode RUP</th>
-                                    <th>Pagu</th>
-                                    <th>Qty</th>
-                                    <th>Outstanding Kontrak</th>
-                                    <th>Realisasi</th>
-                                    <th>Sisa Pagu</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($paketPekerjaan as $key => $paket)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $paket->nama_paket }}</td>
-                                    <td>{{ $paket->max }}</td>
-                                    <td>{{ $paket->kode_rup }}</td>
-                                    <td>Rp {{ number_format($paket->pagu, 0, ',', '.') }}</td>
-                                    <td>{{ $paket->qty }}</td>
-                                    <td>Rp {{ number_format($paket->outstanding_kontrak, 0, ',', '.') }}</td>
-                                    <td>Rp {{ number_format($paket->realisasi, 0, ',', '.') }}</td>
-                                    <td>Rp {{ number_format($paket->sisa_pagu, 0, ',', '.') }}</td>
-                                    <td>
-                                        <div class="d-flex gap-4">
-                                            <a href="{{ route('paket-pekerjaan.show', $paket->id) }}" class="btn btn-info btn-sm" title="Detail"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('paket-pekerjaan.edit', $paket->id) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('paket-pekerjaan.destroy', $paket->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" title="Hapus"><i class="fas fa-trash"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
+                        </a>
                     </div>
-                    {{ $paketPekerjaan->links() }}
+
+                    <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Paket</th>
+                                        <th>MAX</th>
+                                        <th>Kode RUP</th>
+                                        <th>Pagu</th>
+                                        <th>Qty</th>
+                                        <th>Outstanding Kontrak</th>
+                                        <th>Realisasi</th>
+                                        <th>Sisa Pagu</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($paketPekerjaan as $key => $paket)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $paket->nama_paket }}</td>
+                                            <td>{{ $paket->max }}</td>
+                                            <td>{{ $paket->kode_rup }}</td>
+                                            <td>Rp {{ number_format($paket->pagu, 0, ',', '.') }}</td>
+                                            <td>{{ $paket->qty }}</td>
+                                            <td>Rp {{ number_format($paket->outstanding_kontrak, 0, ',', '.') }}</td>
+                                            <td>Rp {{ number_format($paket->realisasi, 0, ',', '.') }}</td>
+                                            <td>Rp {{ number_format($paket->sisa_pagu, 0, ',', '.') }}</td>
+                                            <td class="text-center">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                                                        id="paketActionDropdown" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-cog"></i> Action
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="paketActionDropdown">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('paket-pekerjaan.show', $paket->id) }}">
+                                                                <i class="fas fa-eye me-2"></i> Detail
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('paket-pekerjaan.edit', $paket->id) }}">
+                                                                <i class="fas fa-edit me-2"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <form
+                                                                action="{{ route('paket-pekerjaan.destroy', $paket->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item"
+                                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                                    <i class="fas fa-trash me-2"></i> Hapus
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{ $paketPekerjaan->links() }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#tabel-barang').DataTable({
-            paging: true,
-            searching: true,
-            ordering: true,
-            responsive: true,
-            pageLength: 10,
-            lengthMenu: [5, 10, 25, 50, 100]
+    <script>
+        $(document).ready(function() {
+            $('#tabel-barang').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
         });
-    });
-</script>
+    </script>
 @endpush

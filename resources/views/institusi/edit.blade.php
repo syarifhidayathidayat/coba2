@@ -166,7 +166,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ route('institusi.index') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('institusi.index') }}" class="btn btn-secondary">< Kembali</a>
                         </div>
                     </div>
                 </form>
