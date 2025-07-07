@@ -7,12 +7,15 @@ use App\Models\PaketPekerjaan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class DashboardController extends Controller
 {
     public function index()
     {
         $user = auth()->user();
         $jenisAkun = null;
+        $tahun = session('tahun', now()->year); // bukan langsung now()->year saja
+        // dd($tahun);
 
         // Tentukan jenis akun berdasarkan role
         if ($user->hasRole('Pejabat-Pengadaan52')) {
@@ -57,7 +60,7 @@ class DashboardController extends Controller
         // Grafik kontrak per bulan
         $kontrakPerBulan = $spQuery->clone()
             ->selectRaw('MONTH(tanggal) as bulan, COUNT(*) as jumlah')
-            ->whereYear('tanggal', Carbon::now()->year)
+            ->whereYear('tanggal', $tahun)
             ->groupBy('bulan')
             ->orderBy('bulan')
             ->get()

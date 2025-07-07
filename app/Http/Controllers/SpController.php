@@ -22,39 +22,42 @@ class SpController extends Controller
         $pageTitle = 'Semua Surat Pesanan';
         return view('sp.index', compact('sps', 'pageTitle'));
     }
-
     public function index52()
     {
+        $tahun = session('tahun', now()->year); // Ambil tahun dari session
         if (request('belum_bast')) {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '52')
+                ->whereYear('tanggal', $tahun)
                 ->doesntHave('bast')
                 ->get();
         } else {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '52')
+                ->whereYear('tanggal', $tahun)
                 ->get();
         }
-        $pageTitle = 'Surat Pesanan Akun 52';
+        $pageTitle = "Surat Pesanan Akun 52 - Tahun $tahun";
         return view('sp.index', compact('sps', 'pageTitle'));
     }
-
     public function index53()
     {
+        $tahun = session('tahun', now()->year); // Ambil tahun dari session
         if (request('belum_bast')) {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '53')
+                ->whereYear('tanggal', $tahun)
                 ->doesntHave('bast')
                 ->get();
         } else {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '53')
+                ->whereYear('tanggal', $tahun)
                 ->get();
         }
-        $pageTitle = 'Surat Pesanan Akun 53';
+        $pageTitle = "Surat Pesanan Akun 53 - Tahun $tahun";
         return view('sp.index', compact('sps', 'pageTitle'));
     }
-
     public function create()
     {
         $penyedias = Penyedia::all();
@@ -74,7 +77,6 @@ class SpController extends Controller
         $dokumenPemilihan = \App\Models\DokumenPemilihan::latest()->get();
         return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -95,13 +97,11 @@ class SpController extends Controller
         return redirect()->route('barang.create', ['id' => $sp->id])
             ->with('success', 'Data SP berhasil disimpan. Silakan masukkan detail barang.');
     }
-
     public function show($id)
     {
         $sp = Sp::with('barangs')->findOrFail($id);
         return view('sp.show', compact('sp'));
     }
-
     public function edit($id)
     {
         $sp = Sp::findOrFail($id);
@@ -117,7 +117,6 @@ class SpController extends Controller
         $dokumenPemilihan = DokumenPemilihan::latest()->get();
         return view('sp.edit', compact('sp', 'penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -140,8 +139,8 @@ class SpController extends Controller
         if (in_array($sp->jenis_akun, ['52', '53'])) {
             $redirectRoute = 'sp.index.' . $sp->jenis_akun;
         }
-        return redirect()->route($redirectRoute)->with('success', 'Surat Pesanan berhasil diperbarui');    }
-
+        return redirect()->route($redirectRoute)->with('success', 'Surat Pesanan berhasil diperbarui');
+    }
     public function destroy($id)
     {
         $sp = Sp::findOrFail($id);
@@ -156,13 +155,11 @@ class SpController extends Controller
         return redirect()->route('sp.index')
             ->with('success', 'Data SP berhasil dihapus.');
     }
-
     public function indexSemuaBarang()
     {
         $barangs = Barang::with('sp')->get(); // include data SP-nya juga
         return view('barang.semua', compact('barangs'));
     }
-
     public function cetak($id)
     {
         $sp = Sp::with(['penyedia', 'barangs'])->findOrFail($id);

@@ -6,6 +6,18 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+        <form method="POST" action="{{ route('dashboard.setTahun') }}">
+            @csrf
+            <select name="tahun" onchange="this.form.submit()">
+                @for ($i = now()->year; $i >= 2020; $i--)
+                    <option value="{{ $i }}" {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
+                        {{ $i }}
+                    </option>
+                @endfor
+            </select>
+        </form>
+
     </div>
 
     <!-- Content Row -->

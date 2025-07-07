@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-between flex-wrap align-items-center">
             <div>
-                <h4>{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h4>
+                <h4>{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }} TA <strong>{{ $tahun }}</strong></h4>
                 <x-breadcrumb :items="[
                     ['label' => 'Dashboard', 'url' => route('dashboard')],
                     ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
@@ -13,6 +13,7 @@
             </div>
             <div class="btn-group mt-3 mt-md-0">
                 <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">+ Tambah Dokumen</a>
+
             </div>
         </div>
         <div class="row justify-content-center">

@@ -23,6 +23,10 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
+Route::post('/dashboard/set-tahun', function () {
+    session(['tahun' => request()->input('tahun')]);
+    return redirect()->route('dashboard');
+})->name('dashboard.setTahun');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

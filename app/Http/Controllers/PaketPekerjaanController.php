@@ -11,6 +11,10 @@ class PaketPekerjaanController extends Controller
     {
         $user = auth()->user();
         $jenisAkun = null;
+        $tahun = session('tahun', now()->year); // bukan langsung now()->year saja
+        // dd($tahun);
+
+
 
         // Tentukan jenis akun berdasarkan role user
         if ($user->hasRole('Pejabat-Pengadaan52')) {
@@ -19,22 +23,24 @@ class PaketPekerjaanController extends Controller
             $jenisAkun = '53';
         }
 
-        // Filter data berdasarkan jenis akun jika perlu
+        // Query dengan filter tahun dan jenis akun
         $paketPekerjaan = PaketPekerjaan::when($jenisAkun, function ($query) use ($jenisAkun) {
             return $query->where('jenis_akun', $jenisAkun);
         })
+            ->where('tahun_anggaran', $tahun)
             ->latest()
             ->paginate(10);
 
-        // Hitung realisasi dan sisa pagu untuk setiap paket
+        // Hitung realisasi dan sisa pagu
         foreach ($paketPekerjaan as $paket) {
             $totalKontrak = \App\Models\Sp::where('nama_paket', $paket->nama_paket)->sum('total_kontrak');
             $paket->realisasi = $totalKontrak;
             $paket->sisa_pagu = $paket->pagu - $totalKontrak;
         }
 
-        return view('paket-pekerjaan.index', compact('paketPekerjaan'));
+        return view('paket-pekerjaan.index', compact('paketPekerjaan', 'tahun'));
     }
+
 
     public function create()
     {
