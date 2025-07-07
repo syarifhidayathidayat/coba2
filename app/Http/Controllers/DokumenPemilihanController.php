@@ -10,9 +10,30 @@ class DokumenPemilihanController extends Controller
 {
     public function index()
     {
-        $dokumens = DokumenPemilihan::latest()->get();
+        $user = auth()->user();
+        $jenisAkun = null;
+
+        if ($user->hasRole('Pejabat-Pengadaan52')) {
+            $jenisAkun = '52';
+        } elseif ($user->hasRole('Pejabat-Pengadaan53')) {
+            $jenisAkun = '53';
+        }
+
+        $dokumens = DokumenPemilihan::latest()
+            ->when($jenisAkun, function ($query) use ($jenisAkun) {
+                $query->whereIn('id', function ($subQuery) use ($jenisAkun) {
+                    $subQuery->select('dokumen_pemilihan_id')
+                        ->from('sps')
+                        ->join('paket_pekerjaan', 'sps.nama_paket', '=', 'paket_pekerjaan.nama_paket')
+                        ->where('paket_pekerjaan.jenis_akun', $jenisAkun);
+                });
+            })
+            ->get();
+
         return view('dokumen_pemilihan.index', compact('dokumens'));
     }
+
+
     public function create()
     {
         $bulan = date('n');
