@@ -14,10 +14,16 @@
                 <input type="date" name="undangan_tanggal" required
                     value="{{ old('undangan_tanggal', $dokumen->undangan_tanggal ?? '') }}" class="form-control">
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <label>Total HPS</label>
                 <input type="number" step="0.01" name="hps" required
                     value="{{ old('hps', $dokumen->hps ?? '') }}" class="form-control">
+            </div> --}}
+            <div class="col-md-4">
+                <label>Total HPS</label>
+                <input type="number" step="0.01" name="hps" id="hpsInput" required
+                    value="{{ old('hps', $dokumen->hps ?? '') }}" class="form-control">
+                <div id="hpsError" class="text-danger" style="display:none;"></div>
             </div>
         </div>
         <div class="row mt-3">
@@ -145,5 +151,44 @@
                 }
             }
         }
+    });
+</script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+<script>
+    // Variabel untuk menyimpan timeout
+    let hpsInputTimeout;
+    document.getElementById('hpsInput').addEventListener('input', function() {
+        // Clear timeout yang ada sebelumnya
+        clearTimeout(hpsInputTimeout);
+        // Set timeout baru (akan dieksekusi setelah user berhenti mengetik selama 800ms)
+        hpsInputTimeout = setTimeout(() => {
+            const hpsValue = parseFloat(this.value) || 0;
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+            if (hpsValue > 0 && hpsValue <= 200000000) {
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Nilai pekerjaan Anda ≤ 200,000,000, cukup menggunakan SPK'
+                });
+            } else if (hpsValue > 200000000) {
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Nilai pekerjaan > 200,000,000, wajib Kontrak dan proses tender'
+                });
+            }
+        }, 800); // Delay 800ms setelah user berhenti mengetik
+    });
+    // Bersihkan timeout ketika user meninggalkan halaman
+    window.addEventListener('beforeunload', function() {
+        clearTimeout(hpsInputTimeout);
     });
 </script>

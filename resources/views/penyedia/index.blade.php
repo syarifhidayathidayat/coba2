@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped datatable w-100">
+                    <table id="tabel-penyedia" class="table table-hover table-bordered table-striped w-100">
                         <thead class="table-light">
                             <tr>
                                 <th>Show</th>
@@ -36,9 +36,9 @@
                                 <th>Cabang Bank</th>
                                 <th>Rekening A/n</th>
                                 <th>NPWP</th>
-                                <th>NPWP Doc</th>
+                                {{-- <th>NPWP Doc</th>
                                 <th>KTP Doc</th>
-                                <th>Rek. Koran Doc</th>
+                                <th>Rek. Koran Doc</th> --}}
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -61,7 +61,7 @@
                                     <td>{{ $penyedia->cabang_bank }}</td>
                                     <td>{{ $penyedia->rekening_atas_nama }}</td>
                                     <td>{{ $penyedia->npwp }}</td>
-                                    <td class="text-center">
+                                    {{-- <td class="text-center">
                                         @if ($penyedia->dokumen_npwp)
                                             <a href="{{ asset('storage/' . $penyedia->dokumen_npwp) }}" target="_blank"
                                                 title="Lihat NPWP">
@@ -90,21 +90,33 @@
                                         @else
                                             -
                                         @endif
-                                    </td>
-                                    <td class="text-nowrap">
-                                        <div class="d-flex gap-1 flex-wrap">
-                                            <a href="{{ route('penyedia.edit', $penyedia->id) }}"
-                                                class="btn btn-sm btn-warning" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('penyedia.destroy', $penyedia->id) }}" method="POST"
-                                                onsubmit="return confirm('Hapus data ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger" title="Hapus">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                    </td> --}}
+                                    <td class="text-nowrap text-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                                                id="penyediaActionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog"></i> Action
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="penyediaActionDropdown">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('penyedia.edit', $penyedia->id) }}">
+                                                        <i class="fas fa-edit me-2"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('penyedia.destroy', $penyedia->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item"
+                                                            onclick="return confirm('Hapus data ini?')">
+                                                            <i class="fas fa-trash-alt me-2"></i> Hapus
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
@@ -118,65 +130,21 @@
 @endsection
 
 @push('scripts')
-<!-- DataTables + Buttons CDN -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
-<script>
-    $(document).ready(function () {
-        const table = $('.datatable').DataTable({
-            responsive: true,
-            scrollX: true,
-            autoWidth: true,
-            paging: true,
-            searching: true,
-            ordering: true,
-            pageLength: 10,
-            order: [[1, 'desc']],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copyHtml5',
-                    className: 'btn btn-sm btn-secondary',
-                    text: '<i class="fas fa-copy"></i> Salin'
-                },
-                {
-                    extend: 'excelHtml5',
-                    className: 'btn btn-sm btn-success',
-                    text: '<i class="fas fa-file-excel"></i> Excel'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    className: 'btn btn-sm btn-danger',
-                    text: '<i class="fas fa-file-pdf"></i> PDF'
-                },
-                {
-                    extend: 'print',
-                    className: 'btn btn-sm btn-info',
-                    text: '<i class="fas fa-print"></i> Cetak'
-                },
-                {
-                    extend: 'colvis',
-                    className: 'btn btn-sm btn-warning',
-                    text: '<i class="fas fa-columns"></i> Kolom'
-                }
-            ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
-            }
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
+    {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+    <script>
+        $(function() {
+            $('#tabel-penyedia').DataTable({
+                responsive: true,
+                paging: true,
+                ordering: true,
+                searching: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100],
+                order: [
+                    [4, 'desc']
+                ],
+            });
         });
-
-        // Render tombol export ke div
-        table.buttons().container().appendTo('#export-buttons');
-    });
-</script>
+    </script>
 @endpush

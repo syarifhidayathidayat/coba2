@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputBAPembukaan = document.querySelector('input[name="ba_pembukaan_nomor"]');
     const inputBAKlarifikasi = document.querySelector('input[name="ba_klarifikasi_nomor"]');
     const inputBAHasil = document.querySelector('input[name="ba_hasil_nomor"]');
+    const inputNotaDinas = document.querySelector('input[name="nota_dinas_nomor"]');
     function incrementNomor(nomor, tambah = 1) {
         const parts = nomor.split('/');
         const current = parseInt(parts[3]); // index ke-3 adalah "130"
@@ -44,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             if (inputBAHasil.value.includes('xxxxx')) {
                 inputBAHasil.value = incrementNomor(nomor, 3);
+            }
+            if (inputNotaDinas.value.includes('xxxxx')) {
+                inputNotaDinas.value = incrementNomor(nomor, 4);
             }
         }
     }

@@ -23,7 +23,7 @@ class DokumenPemilihanController extends Controller
             ->whereYear('created_at', $tahun)
             ->count();
         // Buat nomor urut, mulai dari 10 dan kelipatan 10
-        $nomorUrut = ($jumlahDokumenBulanIni + 1) * 10;
+        $nomorUrut = ($jumlahDokumenBulanIni + 1) * 5;
         $nomorOtomatis = "ULP/Pejabat Pengadaan/{$bulanRomawi}/{$nomorUrut}/{$tahun}";
         return view('dokumen_pemilihan.create', compact('nomorOtomatis'));
     }
@@ -159,6 +159,6 @@ class DokumenPemilihanController extends Controller
         $paket_pekerjaan = PaketPekerjaan::where('nama_paket', $dokumen->uraian_paket)->first();
         $pdf = Pdf::loadView('dokumen_pemilihan.cetak.undangan', compact('dokumen', 'institusi', 'paket_pekerjaan'))
             ->setPaper('a4', 'portrait');
-        return $pdf->stream('Undangan_Pengadaan_Langsung.pdf');
+        return $pdf->stream('DokumenPemilihan_Pengadaan_Langsung.pdf');
     }
 }

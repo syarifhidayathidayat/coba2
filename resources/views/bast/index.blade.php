@@ -2,13 +2,13 @@
 @section('title', 'Daftar BAST')
 @section('content')
     <div class="container-fluid">
-        <h4>Daftar BAST</h4>
+        <h3>Daftar BAST</h3>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered table-striped">
+                <table id="tabel-bast" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -58,3 +58,22 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('#tabel-bast').DataTable({
+                responsive: true,
+                paging: true,
+                ordering: true,
+                searching: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100],
+                order: [
+                    [4, 'desc']
+                ],
+            });
+        });
+    </script>
+@endpush

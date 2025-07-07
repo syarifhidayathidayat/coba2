@@ -1,38 +1,31 @@
 @extends('layouts.app')
-
 @section('title', 'Daftar Paket Pekerjaan')
 @section('content')
     <div class="container-fluid">
-        <div>
-            <h1 class="h3 text-gray-800">{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h1>
-            <x-breadcrumb :items="[
-                ['label' => 'Dashboard', 'url' => route('dashboard')],
-                ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
-                ['label' => 'Paket Pekerjaan', 'active' => true],
-            ]" />
+        <div class="d-flex justify-content-between flex-wrap align-items-center">
+            <div>
+                <h4>{{ $pageTitle ?? 'Daftar Paket Pekerjaan' }}</h4>
+                <x-breadcrumb :items="[
+                    ['label' => 'Dashboard', 'url' => route('dashboard')],
+                    ['label' => 'Surat Pesanan', 'url' => route('sp.index')],
+                    ['label' => 'Paket Pekerjaan', 'active' => true],
+                ]" />
+            </div>
+            <div class="btn-group mt-3 mt-md-0">
+                <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">+ Tambah Dokumen</a>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-
-
-
-                    <div class="card-header d-flex justify-content-between align-items-center">
-
-                        <a href="{{ route('paket-pekerjaan.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Tambah Paket Pekerjaan
-                        </a>
-                    </div>
-
                     <div class="card-body">
                         @if (session('success'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('success') }}
                             </div>
                         @endif
-
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table id="tabel-paket_pekerjaan"class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -106,12 +99,10 @@
         </div>
     </div>
 @endsection
-
-
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#tabel-barang').DataTable({
+            $('#tabel-paket_pekerjaan').DataTable({
                 paging: true,
                 searching: true,
                 ordering: true,

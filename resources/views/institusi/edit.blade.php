@@ -3,8 +3,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Institusi & Pejabat</h6>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="m-0 font-weight-bold text-primary">Tambah Institusi & Pejabat</h5>
+                <a href="{{ route('institusi.index') }}" class="btn btn-secondary btn-sm">
+                    < Kembali</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('institusi.update', $institusi) }}" method="POST" enctype="multipart/form-data">
@@ -166,7 +168,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ route('institusi.index') }}" class="btn btn-secondary">< Kembali</a>
                         </div>
                     </div>
                 </form>

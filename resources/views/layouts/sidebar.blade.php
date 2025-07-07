@@ -6,7 +6,6 @@
             <strong>Contract<sup>2</sup></strong>
         </a>
     </div>
-
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
         {{-- Dashboard --}}
         <li class="nav-item">
@@ -14,10 +13,9 @@
                 <i class="fas fa-tachometer-alt nav-icon"></i> Dashboard
             </a>
         </li>
-
         {{-- KONTRAK Section --}}
-        <li class="nav-title">KONTRAK</li>
         @hasanyrole('admin')
+            <li class="nav-title">KONTRAK</li>
             <li class="nav-item"><a class="nav-link" href="{{ route('sp.index') }}"><i
                         class="fas fa-pencil-alt nav-icon"></i> Surat Pesanan</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('barang.semua') }}"><i
@@ -37,19 +35,15 @@
                     <i class="fas fa-pencil-alt nav-icon"></i> SP Akun 52
                 </a></li>
         @endhasanyrole
-
         @hasanyrole('admin|Pejabat-Pengadaan53')
             <li class="nav-item"><a class="nav-link {{ request()->routeIs('sp.index.53') ? 'active' : '' }}"
                     href="{{ route('sp.index.53') }}">
                     <i class="fas fa-pencil-alt nav-icon"></i> SP Akun 53
                 </a></li>
         @endhasanyrole
-
-
-
         {{-- USER Section --}}
-        <li class="nav-title">USER</li>
         @hasanyrole('admin')
+            <li class="nav-title">USER</li>
             <li class="nav-item"><a class="nav-link" href="{{ route('pegawai.index') }}"><i
                         class="fas fa-user-tie nav-icon"></i> Pegawai</a></li>
         @endhasanyrole
@@ -57,10 +51,8 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('penyedia.index') }}"><i
                         class="fas fa-user nav-icon"></i> Penyedia</a></li>
         @endhasanyrole
-
         {{-- PENGATURAN Section --}}
         <li class="nav-title">PENGATURAN</li>
-
         <li class="nav-group">
             <a class="nav-link nav-group-toggle" href="#">
                 <i class="fas fa-wrench nav-icon"></i> Pengaturan
