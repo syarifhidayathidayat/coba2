@@ -148,7 +148,7 @@
         <div class="accordion mb-4" id="infoAccordion">
             <div class="accordion-item border-0 shadow">
                 <h2 class="accordion-header" id="headingInfo">
-                    <button class="accordion-button collapsed bg-primary text-white" type="button"
+                    <button class="accordion-button collapsed " type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseInfo" aria-expanded="false"
                         aria-controls="collapseInfo">
                         <i class="fas fa-info-circle me-2"></i> Keterangan Tentang PPK, Pengadaan, Bendahara, dan Akun 52/53

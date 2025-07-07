@@ -35,7 +35,7 @@
                                 <th>Rekening</th>
                                 <th>Cabang Bank</th>
                                 <th>Rekening A/n</th>
-                                <th>NPWP</th>
+                                {{-- <th>NPWP</th> --}}
                                 {{-- <th>NPWP Doc</th>
                                 <th>KTP Doc</th>
                                 <th>Rek. Koran Doc</th> --}}
@@ -60,7 +60,7 @@
                                     <td>{{ $penyedia->rekening_bank }}</td>
                                     <td>{{ $penyedia->cabang_bank }}</td>
                                     <td>{{ $penyedia->rekening_atas_nama }}</td>
-                                    <td>{{ $penyedia->npwp }}</td>
+                                    {{-- <td>{{ $penyedia->npwp }}</td> --}}
                                     {{-- <td class="text-center">
                                         @if ($penyedia->dokumen_npwp)
                                             <a href="{{ asset('storage/' . $penyedia->dokumen_npwp) }}" target="_blank"
@@ -141,9 +141,9 @@
                 searching: true,
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50, 100],
-                order: [
-                    [4, 'desc']
-                ],
+                // order: [
+                //     [4, 'desc']
+                // ],
             });
         });
     </script>

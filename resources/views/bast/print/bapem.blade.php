@@ -146,7 +146,7 @@
                     @php
                         $jenisAkun = $bast->sp->paketPekerjaan->jenis_akun ?? 'ppk tidak ditemukan';
                     @endphp
-                    <span class="info-label">Namas</span>
+                    <span class="info-label">Nama</span>
                     <span class="info-value">:
                         {{ $jenisAkun == '52' ? $institusi->nama_ppk_52 ?? '-' : $institusi->nama_ppk_53 ?? '-' }}</span>
                 </div>
@@ -185,7 +185,7 @@
         <ol style="padding-left: 20px;">
             <li>
                 <div class="info-item"><span class="info-label">Nomor dan tanggal DIPA</span><span class="info-value">:
-                        {{ $institusi->dipa ?? '-' }}</span></div>
+                        {{ $institusi->dipa ?? '-' }} tanggal {{ $institusi->tanggal_sp_dipa ?? '' }}</span></div>
             </li>
             <li>
                 <div class="info-item"><span class="info-label">Nomor dan tanggal SP</span><span class="info-value">:
