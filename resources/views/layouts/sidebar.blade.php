@@ -13,6 +13,38 @@
                 <i class="fas fa-tachometer-alt nav-icon"></i> Dashboard
             </a>
         </li>
+        {{-- <li class="nav-item">
+            <label class="form-label text-muted small">
+            </label>
+            <form method="POST" action="{{ route('dashboard.setTahun') }}" class="px-3 pb-2">
+                @csrf
+                <label for="tahun" class="form-label text-muted small">Tahun Anggaran</label>
+                <select name="tahun" id="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                    @for ($i = now()->year; $i >= 2020; $i--)
+                        <option value="{{ $i }}" {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
+                            {{ $i }}
+                        </option>
+                    @endfor
+                </select>
+            </form>
+        </li> --}}
+
+        <li class="nav-item mt-3 px-3">
+            <form method="POST" action="{{ route('dashboard.setTahun') }}">
+                @csrf
+                <label for="tahun" class="form-label ">
+                    <i class="fas fa-calendar "></i> Tahun Anggaran
+                </label>
+                <select name="tahun" id="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                    @for ($i = now()->year; $i >= 2020; $i--)
+                        <option value="{{ $i }}" {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
+                            {{ $i }}
+                        </option>
+                    @endfor
+                </select>
+            </form>
+        </li>
+
         {{-- KONTRAK Section --}}
         @hasanyrole('admin')
             <li class="nav-title">KONTRAK</li>

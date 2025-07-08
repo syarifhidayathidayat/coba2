@@ -1,31 +1,26 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::with('roles')->get();
-        return view('user.index', compact('users'));
+        return view('user.index', compact('user'));
     }
-
     public function create()
     {
         $roles = Role::all();
         return view('user.create', compact('roles'));
     }
-
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:user',
             'password' => 'required|confirmed|min:6',
             'role' => 'required|exists:roles,name',
         ]);
@@ -37,19 +32,25 @@ class UserController extends Controller
         $user->assignRole($request->role);
         return redirect()->route('user.index')->with('success', 'User berhasil ditambah');
     }
-
     public function edit(User $user)
     {
+        // Cegah selain admin mengakses profil orang lain
+        if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
+            abort(403);
+        }
         $roles = Role::all();
         return view('user.edit', compact('user', 'roles'));
     }
-
     public function update(Request $request, User $user)
     {
+        // Hanya admin atau user itu sendiri yang boleh update
+        if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
+            abort(403, 'Unauthorized action.');
+        }
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role' => 'required|exists:roles,name',
+            'role' => 'required_if:role_enabled,true|exists:roles,name',
             'password' => 'nullable|confirmed|min:6',
         ]);
         $user->name = $request->name;
@@ -58,13 +59,15 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->save();
-        $user->syncRoles([$request->role]);
+        // Hanya admin yang boleh mengubah role
+        if (auth()->user()->hasRole('Admin')) {
+            $user->syncRoles([$request->role]);
+        }
         return redirect()->route('user.index')->with('success', 'User berhasil diupdate');
     }
-
     public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
     }
-} 
+}

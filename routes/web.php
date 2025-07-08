@@ -28,9 +28,13 @@ Route::post('/dashboard/set-tahun', function () {
     return redirect()->route('dashboard');
 })->name('dashboard.setTahun');
 
+
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pegawai', PegawaiController::class);
 
@@ -83,6 +87,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/search', [SearchController::class, 'index'])->name('search');
+    // Route::resource('users', UserController::class);
+
 
     Route::resource('dokumen-pemilihan', DokumenPemilihanController::class);
 
