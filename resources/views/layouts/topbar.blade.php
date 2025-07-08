@@ -27,22 +27,22 @@
         {{-- Right Menu --}}
         <ul class="header-nav ms-auto d-flex align-items-center">
 
-            <li class="nav-item d-flex align-items-center me-3">
+            {{-- <li class="nav-item d-flex align-items-center me-3">
                 <div class="form-check form-switch mb-0">
                     <input class="form-check-input" type="checkbox" id="darkModeToggle">
                     <label class="form-check-label ms-2" for="darkModeToggle" style="font-size: 0.875rem;">
                         Dark
                     </label>
                 </div>
-            </li>
+            </li> --}}
             {{-- Notifications --}}
-            <li class="nav-item position-relative me-3 d-none d-md-block">
+            {{-- <li class="nav-item position-relative me-3 d-none d-md-block">
                 <a class="nav-link" href="#">
                     <i class="fas fa-bell"></i>
                     <span
                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- User Dropdown --}}
             <li class="nav-item dropdown">
                 <a class="nav-link py-0 px-2 d-flex align-items-center" href="#" role="button"
