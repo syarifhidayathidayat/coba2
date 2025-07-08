@@ -7,15 +7,13 @@ use App\Models\PaketPekerjaan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-
 class DashboardController extends Controller
 {
     public function index()
     {
         $user = auth()->user();
+        $tahun = session('tahun', now()->year); // Gunakan tahun dari session, default tahun sekarang
         $jenisAkun = null;
-        $tahun = session('tahun', now()->year); // bukan langsung now()->year saja
-        // dd($tahun);
 
         // Tentukan jenis akun berdasarkan role
         if ($user->hasRole('Pejabat-Pengadaan52')) {
@@ -28,13 +26,14 @@ class DashboardController extends Controller
         $paketQuery = PaketPekerjaan::query();
         $spQuery = Sp::query();
 
-        // Filter berdasarkan jenis akun jika ada
+        // Filter berdasarkan jenis akun dan tahun
         if ($jenisAkun) {
             $paketQuery->where('jenis_akun', $jenisAkun);
-
-            $namaPaketFiltered = PaketPekerjaan::where('jenis_akun', $jenisAkun)->pluck('nama_paket');
-            $spQuery->whereIn('nama_paket', $namaPaketFiltered);
+            $spQuery->where('jenis_akun', $jenisAkun);
         }
+
+        $paketQuery->where('tahun_anggaran', $tahun);
+        $spQuery->whereYear('tanggal', $tahun);
 
         // Hitungan umum
         $totalPagu = $paketQuery->sum('pagu');
@@ -47,7 +46,7 @@ class DashboardController extends Controller
         $kontrakSelesai = $spQuery->clone()->where('akhir_pekerjaan', '<', now())->count();
         $rataRataKontrak = $spQuery->count() > 0 ? $totalKontrak / $spQuery->count() : 0;
 
-        // Jatuh tempo
+        // Jatuh tempo (20 hari ke depan)
         $tanggalJatuhTempo = Carbon::now()->addDays(20);
         $kontrakJatuhTempo = $spQuery->clone()
             ->where('akhir_pekerjaan', '>=', now())
@@ -57,10 +56,9 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        // Grafik kontrak per bulan
+        // Grafik kontrak per bulan (bar chart)
         $kontrakPerBulan = $spQuery->clone()
             ->selectRaw('MONTH(tanggal) as bulan, COUNT(*) as jumlah')
-            ->whereYear('tanggal', $tahun)
             ->groupBy('bulan')
             ->orderBy('bulan')
             ->get()
@@ -69,7 +67,7 @@ class DashboardController extends Controller
                 return $item;
             });
 
-        // Grafik status kontrak
+        // Grafik status kontrak (donut/pie chart)
         $statusKontrak = [
             'Aktif' => $kontrakAktif,
             'Selesai' => $kontrakSelesai

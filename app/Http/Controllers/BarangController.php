@@ -7,8 +7,6 @@ use App\Models\Sp;
 use Illuminate\Http\Request;
 use App\Models\Penempatan;
 
-
-
 class BarangController extends Controller
 {
     public function create($id)
@@ -17,11 +15,6 @@ class BarangController extends Controller
         $penempatans = Penempatan::all();
         return view('barang.create', compact('sp', 'penempatans'));
     }
-
-
-
-
-
     public function store(Request $request, $id)
     {
         $request->validate([
@@ -31,9 +24,7 @@ class BarangController extends Controller
             'penempatan_id.*'  => 'required|array',
             'qty_penempatan.*' => 'required|array',
         ]);
-
         $sp = Sp::findOrFail($id);
-
         foreach ($request->nama_barang as $barangIndex => $nama) {
             $harga         = $request->harga[$barangIndex] ?? 0;
             $ongkos_kirim  = $request->ongkos_kirim[$barangIndex] ?? 0;
@@ -56,21 +47,22 @@ class BarangController extends Controller
                 ]);
             }
         }
-
         // Tambahkan pemanggilan update total kontrak
         $sp->updateTotalKontrak();
-
         return redirect()->route('sp.index')->with('success', 'Data barang berhasil disimpan.');
     }
-
-
-
     public function indexSemuaBarang()
     {
-        $barangs = Barang::with('sp')->get(); // pastikan relasi `sp` ada di model Barang
-        return view('barang.semua', compact('barangs'));
+        $tahun = session('tahun', now()->year);
+        $barangs = Barang::with('sp')
+            ->whereHas('sp', function ($query) use ($tahun) {
+                $query->whereYear('tanggal', $tahun);
+            })
+            ->latest()
+            ->get();
+        $pageTitle = "Daftar Semua barang Akun 52 - Tahun $tahun";
+        return view('barang.semua', compact('barangs','pageTitle'));
     }
-
     public function edit($sp_id, $nama_barang)
     {
         $sp = Sp::findOrFail($sp_id);
@@ -78,7 +70,6 @@ class BarangController extends Controller
         $barangs = Barang::where('sp_id', $sp_id)->where('nama_barang', $nama_barang)->get();
         return view('barang.edit', compact('sp', 'penempatans', 'barangs', 'nama_barang'));
     }
-
     public function update(Request $request, $sp_id, $nama_barang)
     {
         $request->validate([
@@ -88,14 +79,13 @@ class BarangController extends Controller
             'penempatan_id'  => 'required|array',
             'qty_penempatan' => 'required|array',
         ]);
-
         $sp = Sp::findOrFail($sp_id);
         $oldBarangs = Barang::where('sp_id', $sp_id)->where('nama_barang', $nama_barang)->get();
         $initialTotalQty = $oldBarangs->sum('qty');
         $penempatanIds = $request->penempatan_id;
         $qtyPenempatans = $request->qty_penempatan;
         // Validasi penempatan tidak boleh ganda
-        if(count($penempatanIds) !== count(array_unique($penempatanIds))) {
+        if (count($penempatanIds) !== count(array_unique($penempatanIds))) {
             return back()->withInput()->withErrors(['penempatan_id' => 'Penempatan tidak boleh ganda!']);
         }
         // Hapus semua barangs lama untuk sp_id dan nama_barang tsb
