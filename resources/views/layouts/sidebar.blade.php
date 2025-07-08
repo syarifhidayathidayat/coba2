@@ -1,4 +1,5 @@
-<div class="sidebar sidebar-light sidebar-fixed" id="sidebar">
+{{-- <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar"> --}}
+<div class="sidebar sidebar-dark sidebar-fixed bg-dark" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
         <a href="{{ route('dashboard') }}"
             class="text-white text-decoration-none w-100 d-flex justify-content-center align-items-center">
@@ -13,21 +14,7 @@
                 <i class="fas fa-tachometer-alt nav-icon"></i> Dashboard
             </a>
         </li>
-        {{-- <li class="nav-item">
-            <label class="form-label text-muted small">
-            </label>
-            <form method="POST" action="{{ route('dashboard.setTahun') }}" class="px-3 pb-2">
-                @csrf
-                <label for="tahun" class="form-label text-muted small">Tahun Anggaran</label>
-                <select name="tahun" id="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
-                    @for ($i = now()->year; $i >= 2020; $i--)
-                        <option value="{{ $i }}" {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
-                            {{ $i }}
-                        </option>
-                    @endfor
-                </select>
-            </form>
-        </li> --}}
+
 
         <li class="nav-item mt-3 px-3">
             <form method="POST" action="{{ route('dashboard.setTahun') }}">

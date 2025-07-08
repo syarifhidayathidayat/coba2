@@ -10,36 +10,30 @@
         </a>
         {{-- Horizontal Menu (Optional) --}}
         <ul class="header-nav d-none d-md-flex">
-            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-        </ul>
-        {{-- Right Menu --}}
-        <ul class="header-nav ms-auto d-flex align-items-center">
-            {{-- Search --}}
+            {{-- <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li> --}}
             <li class="nav-item d-none d-md-block me-3">
                 <form class="d-flex me-3" action="{{ route('search') }}" method="GET">
-                    <input
-                        class="form-control form-control-sm me-2"
-                        type="search"
-                        name="q"
-                        value="{{ request('q') }}"
-                        placeholder="Cari BAST, SP, Pegawai, Penyedia..."
-                        aria-label="Search"
-                    >
+                    <input class="form-control form-control-sm me-2" type="search" name="q"
+                        value="{{ request('q') }}" placeholder="Cari BAST, SP, Pegawai, Penyedia..."
+                        aria-label="Search">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
-                {{-- <form action="{{ route('search') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Cari dokumen, SP, BAST..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
+            </li>
 
+
+        </ul>
+        {{-- Right Menu --}}
+        <ul class="header-nav ms-auto d-flex align-items-center">
+
+            <li class="nav-item d-flex align-items-center me-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                    <label class="form-check-label ms-2" for="darkModeToggle" style="font-size: 0.875rem;">
+                        Dark
+                    </label>
+                </div>
             </li>
             {{-- Notifications --}}
             <li class="nav-item position-relative me-3 d-none d-md-block">
@@ -56,11 +50,9 @@
                     <div class="avatar avatar-md me-2" style="width: 40px; height: 40px;">
                         @php $authUser = auth()->user(); @endphp
                         <img class="avatar-img rounded-circle"
-                             src="{{ $authUser->foto ? asset('storage/' . $authUser->foto) : asset('img/undraw_profile.svg') }}"
-                             alt="User"
-                             style="width: 100%; height: 100%; object-fit: cover;">
+                            src="{{ $authUser->foto ? asset('storage/' . $authUser->foto) : asset('img/undraw_profile.svg') }}"
+                            alt="User" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-
                     <div class="d-none d-md-block text-start">
                         <div class="fw-semibold small">{{ auth()->user()->name }}</div>
                         <div class="text-muted small">{{ auth()->user()->getRoleNames()->first() ?? '-' }}</div>
