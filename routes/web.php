@@ -28,7 +28,11 @@ Route::post('/dashboard/set-tahun', function () {
     return redirect()->route('dashboard');
 })->name('dashboard.setTahun');
 
-
+// Route::get('/make-admin', function () {
+//     $user = auth()->user();
+//     $user->assignRole('Admin');
+//     return 'Admin role assigned';
+// });
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pegawai', PegawaiController::class);
 
-    Route::middleware(['role:admin|Pejabat-Pengadaan53'])->group(function () {
+    Route::middleware(['role:Admin|Pejabat-Pengadaan53'])->group(function () {
         Route::resource('penempatan', PenempatanController::class);
     });
 
@@ -81,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('sp/{sp_id}/barang/{nama_barang}/edit', [App\Http\Controllers\BarangController::class, 'edit'])->name('barang.edit');
     Route::put('sp/{sp_id}/barang/{nama_barang}', [App\Http\Controllers\BarangController::class, 'update'])->name('barang.update');
 
-    Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('user', UserController::class);
     });

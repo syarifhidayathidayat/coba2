@@ -16,12 +16,30 @@
         <ul class="header-nav ms-auto d-flex align-items-center">
             {{-- Search --}}
             <li class="nav-item d-none d-md-block me-3">
-                <form action="{{ route('barang.semua') }}" method="GET" class="input-group input-group-sm">
-                    <input type="text" name="q" class="form-control" placeholder="Cari barang...">
-                    <button class="btn btn-outline-secondary" type="submit">
+                <form class="d-flex me-3" action="{{ route('search') }}" method="GET">
+                    <input
+                        class="form-control form-control-sm me-2"
+                        type="search"
+                        name="q"
+                        value="{{ request('q') }}"
+                        placeholder="Cari BAST, SP, Pegawai, Penyedia..."
+                        aria-label="Search"
+                    >
+                    <button class="btn btn-sm btn-outline-secondary" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
+                {{-- <form action="{{ route('search') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Cari dokumen, SP, BAST..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form> --}}
+
             </li>
             {{-- Notifications --}}
             <li class="nav-item position-relative me-3 d-none d-md-block">
@@ -35,9 +53,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link py-0 px-2 d-flex align-items-center" href="#" role="button"
                     data-coreui-toggle="dropdown" aria-expanded="false">
-                    <div class="avatar avatar-md me-2">
-                        <img class="avatar-img" src="{{ asset('img/undraw_profile.svg') }}" alt="User">
+                    <div class="avatar avatar-md me-2" style="width: 40px; height: 40px;">
+                        @php $authUser = auth()->user(); @endphp
+                        <img class="avatar-img rounded-circle"
+                             src="{{ $authUser->foto ? asset('storage/' . $authUser->foto) : asset('img/undraw_profile.svg') }}"
+                             alt="User"
+                             style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
+
                     <div class="d-none d-md-block text-start">
                         <div class="fw-semibold small">{{ auth()->user()->name }}</div>
                         <div class="text-muted small">{{ auth()->user()->getRoleNames()->first() ?? '-' }}</div>
@@ -46,9 +69,8 @@
                 <ul class="dropdown-menu dropdown-menu-end pt-0">
                     <li class="dropdown-header bg-light fw-bold text-uppercase">Akun</li>
                     <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
-                        <i class="fas fa-user me-2"></i> Profil
-                    </a></li>
-
+                            <i class="fas fa-user me-2"></i> Profil
+                        </a></li>
                     <li><a class="dropdown-item" href="{{ route('user.edit', auth()->user()->id) }}">
                             <i class="fas fa-cogs me-2"></i> Pengaturan
                         </a></li>

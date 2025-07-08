@@ -9,7 +9,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('roles')->get();
-        return view('user.index', compact('user'));
+        return view('user.index', compact('users'));
+
     }
     public function create()
     {
@@ -20,20 +21,27 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:user',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
             'role' => 'required|exists:roles,name',
+            'foto' => 'nullable|image|max:2048',
         ]);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('user_fotos', 'public');
+            $user->foto = $fotoPath;
+            $user->save();
+        }
         $user->assignRole($request->role);
         return redirect()->route('user.index')->with('success', 'User berhasil ditambah');
     }
     public function edit(User $user)
     {
+        // dd(auth()->user()->getRoleNames());
         // Cegah selain admin mengakses profil orang lain
         if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
             abort(403);
@@ -43,6 +51,14 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
+                \Storage::disk('public')->delete($user->foto);
+            }
+            $user->foto = $request->file('foto')->store('user_fotos', 'public');
+        }
+        $user->save();
         // Hanya admin atau user itu sendiri yang boleh update
         if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
             abort(403, 'Unauthorized action.');
@@ -57,6 +73,13 @@ class UserController extends Controller
         $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
+        }
+        if ($request->hasFile('foto')) {
+            // hapus foto lama
+            if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
+                \Storage::disk('public')->delete($user->foto);
+            }
+            $user->foto = $request->file('foto')->store('user_fotos', 'public');
         }
         $user->save();
         // Hanya admin yang boleh mengubah role

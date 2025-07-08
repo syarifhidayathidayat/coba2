@@ -3,8 +3,13 @@
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Tambah User</h1>
-    <form action="{{ route('user.store') }}" method="POST">
+    <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <div class="form-group">
+            <label for="foto">Foto</label>
+            <input type="file" name="foto" id="foto" class="form-control">
+        </div>
+
         <div class="form-group">
             <label>Nama</label>
             <input type="text" name="name" class="form-control" required>
@@ -30,8 +35,8 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('user.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+        <a href="{{ route('user.index') }}" class="btn btn-secondary mt-3">Kembali</a>
     </form>
 </div>
-@endsection 
+@endsection
