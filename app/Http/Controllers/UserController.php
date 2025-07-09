@@ -1,16 +1,19 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Penyedia;
+
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::with('roles')->get();
         return view('user.index', compact('users'));
-
     }
     public function create()
     {
@@ -25,18 +28,34 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:6',
             'role' => 'required|exists:roles,name',
             'foto' => 'nullable|image|max:2048',
+            // validasi hanya jika role penyedia dipilih
+            'nama_penyedia' => 'required_if:role,Penyedia',
+            'nama_direktur_penyedia' => 'required_if:role,Penyedia',
+            'alamat' => 'required_if:role,Penyedia',
         ]);
+        // Simpan user baru
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        // Upload foto jika ada
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('user_fotos', 'public');
             $user->foto = $fotoPath;
             $user->save();
         }
+        // Beri role ke user
         $user->assignRole($request->role);
+        // Jika role-nya Penyedia → simpan juga ke tabel penyedias
+        if ($request->role === 'Penyedia') {
+            Penyedia::create([
+                'user_id' => $user->id,
+                'nama_penyedia' => $request->nama_penyedia,
+                'nama_direktur_penyedia' => $request->nama_direktur_penyedia,
+                'alamat' => $request->alamat,
+            ]);
+        }
         return redirect()->route('user.index')->with('success', 'User berhasil ditambah');
     }
     public function edit(User $user)

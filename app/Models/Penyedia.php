@@ -26,4 +26,8 @@ class Penyedia extends Model
     {
         return $this->hasMany(Sp::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

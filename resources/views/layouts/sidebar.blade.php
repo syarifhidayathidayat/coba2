@@ -93,5 +93,14 @@
                 @endhasanyrole
             </ul>
         </li>
+        @role('Penyedia|Kasubag')
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('penyedia.profile') ? 'active' : '' }}"
+                    href="{{ route('penyedia.profile') }}">
+                    <i class="fas fa-id-badge nav-icon"></i> Profil Saya
+                </a>
+            </li>
+        @endrole
+
     </ul>
 </div>

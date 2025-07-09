@@ -28,12 +28,13 @@ Route::post('/dashboard/set-tahun', function () {
     return redirect()->route('dashboard');
 })->name('dashboard.setTahun');
 
-// Route::get('/make-admin', function () {
-//     $user = auth()->user();
-//     $user->assignRole('Admin');
-//     return 'Admin role assigned';
-// });
+Route::middleware(['auth', 'role:Kasubag|Penyedia'])->group(function () {
+    Route::get('/penyedia/profile', [\App\Http\Controllers\PenyediaProfileController::class, 'edit'])->name('penyedia.profile');
+    Route::post('/penyedia/profile', [\App\Http\Controllers\PenyediaProfileController::class, 'update'])->name('penyedia.profile.update');
+});
 
+
+// Role mulai from here bro
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::middleware('auth')->group(function () {
