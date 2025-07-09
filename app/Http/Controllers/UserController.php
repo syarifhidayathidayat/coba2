@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Penyedia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -28,26 +29,24 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:6',
             'role' => 'required|exists:roles,name',
             'foto' => 'nullable|image|max:2048',
-            // validasi hanya jika role penyedia dipilih
+            // Validasi khusus jika role Penyedia
             'nama_penyedia' => 'required_if:role,Penyedia',
             'nama_direktur_penyedia' => 'required_if:role,Penyedia',
             'alamat' => 'required_if:role,Penyedia',
         ]);
-        // Simpan user baru
-        $user = User::create([
+        $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
         // Upload foto jika ada
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('user_fotos', 'public');
-            $user->foto = $fotoPath;
-            $user->save();
+            $user->foto = $request->file('foto')->store('user_fotos', 'public');
         }
-        // Beri role ke user
+        $user->save();
+        // Berikan role
         $user->assignRole($request->role);
-        // Jika role-nya Penyedia → simpan juga ke tabel penyedias
+        // Jika role-nya Penyedia, buat entri di tabel penyedias
         if ($request->role === 'Penyedia') {
             Penyedia::create([
                 'user_id' => $user->id,
@@ -60,8 +59,7 @@ class UserController extends Controller
     }
     public function edit(User $user)
     {
-        // dd(auth()->user()->getRoleNames());
-        // Cegah selain admin mengakses profil orang lain
+        // Cegah selain Admin mengakses data orang lain
         if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
             abort(403);
         }
@@ -70,23 +68,16 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
-        if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
-            if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
-                \Storage::disk('public')->delete($user->foto);
-            }
-            $user->foto = $request->file('foto')->store('user_fotos', 'public');
-        }
-        $user->save();
-        // Hanya admin atau user itu sendiri yang boleh update
+        // Akses hanya oleh user itu sendiri atau Admin
         if (auth()->user()->id !== $user->id && !auth()->user()->hasRole('Admin')) {
-            abort(403, 'Unauthorized action.');
+            abort(403);
         }
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required_if:role_enabled,true|exists:roles,name',
             'password' => 'nullable|confirmed|min:6',
+            'foto' => 'nullable|image|max:2048',
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -94,14 +85,12 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
         if ($request->hasFile('foto')) {
-            // hapus foto lama
-            if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
-                \Storage::disk('public')->delete($user->foto);
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+                Storage::disk('public')->delete($user->foto);
             }
             $user->foto = $request->file('foto')->store('user_fotos', 'public');
         }
         $user->save();
-        // Hanya admin yang boleh mengubah role
         if (auth()->user()->hasRole('Admin')) {
             $user->syncRoles([$request->role]);
         }

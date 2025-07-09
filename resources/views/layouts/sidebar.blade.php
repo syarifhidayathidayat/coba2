@@ -93,7 +93,7 @@
                 @endhasanyrole
             </ul>
         </li>
-        @role('Penyedia|Kasubag')
+        @role('Penyedia|Penyedia')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('penyedia.profile') ? 'active' : '' }}"
                     href="{{ route('penyedia.profile') }}">

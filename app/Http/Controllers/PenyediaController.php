@@ -12,12 +12,10 @@ class PenyediaController extends Controller
         $penyedias = Penyedia::all();
         return view('penyedia.index', compact('penyedias'));
     }
-
     public function create()
     {
         return view('penyedia.create');
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -36,8 +34,6 @@ class PenyediaController extends Controller
             'dokumen_ktp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             'dokumen_rekening_koran' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ]);
-
-        // Upload dokumen jika ada
         if ($request->hasFile('dokumen_npwp')) {
             $validated['dokumen_npwp'] = $request->file('dokumen_npwp')->store('dokumen_penyedia', 'public');
         }
@@ -47,16 +43,16 @@ class PenyediaController extends Controller
         if ($request->hasFile('dokumen_rekening_koran')) {
             $validated['dokumen_rekening_koran'] = $request->file('dokumen_rekening_koran')->store('dokumen_penyedia', 'public');
         }
-
+        if (auth()->check() && auth()->user()->hasRole('Penyedia')) {
+            $validated['user_id'] = auth()->id();
+        }
         Penyedia::create($validated);
         return redirect()->route('penyedia.index')->with('success', 'Data penyedia berhasil disimpan.');
     }
-
     public function edit(Penyedia $penyedia)
     {
         return view('penyedia.edit', compact('penyedia'));
     }
-
     public function update(Request $request, Penyedia $penyedia)
     {
         $validated = $request->validate([
@@ -75,8 +71,6 @@ class PenyediaController extends Controller
             'dokumen_ktp' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             'dokumen_rekening_koran' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ]);
-
-        // Upload ulang jika file baru dikirim
         if ($request->hasFile('dokumen_npwp')) {
             $validated['dokumen_npwp'] = $request->file('dokumen_npwp')->store('dokumen_penyedia', 'public');
         }
@@ -86,19 +80,54 @@ class PenyediaController extends Controller
         if ($request->hasFile('dokumen_rekening_koran')) {
             $validated['dokumen_rekening_koran'] = $request->file('dokumen_rekening_koran')->store('dokumen_penyedia', 'public');
         }
-
         $penyedia->update($validated);
         return redirect()->route('penyedia.index')->with('success', 'Data penyedia berhasil diperbarui.');
     }
-
     public function destroy(Penyedia $penyedia)
     {
         $penyedia->delete();
         return redirect()->route('penyedia.index')->with('success', 'Data penyedia berhasil dihapus.');
     }
-
     public function show(Penyedia $penyedia)
     {
         return view('penyedia.show', compact('penyedia'));
+    }
+    public function editProfile()
+    {
+        $penyedia = auth()->user()->penyedia;
+        return view('penyedia.profile', compact('penyedia'));
+    }
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $penyedia = $user->penyedia;
+        if (!$penyedia) {
+            // Kalau belum ada datanya, buat dulu entry-nya
+            $penyedia = new Penyedia(['user_id' => $user->id]);
+        }
+        $data = $request->only([
+            'nama_penyedia',
+            'nama_direktur_penyedia',
+            'alamat',
+            'telepon',
+            'website',
+            'fax',
+            'email',
+            'rekening_bank',
+            'cabang_bank',
+            'rekening_atas_nama',
+            'npwp'
+        ]);
+        if ($request->hasFile('dokumen_npwp')) {
+            $data['dokumen_npwp'] = $request->file('dokumen_npwp')->store('dokumen_penyedia', 'public');
+        }
+        if ($request->hasFile('dokumen_ktp')) {
+            $data['dokumen_ktp'] = $request->file('dokumen_ktp')->store('dokumen_penyedia', 'public');
+        }
+        if ($request->hasFile('dokumen_rekening_koran')) {
+            $data['dokumen_rekening_koran'] = $request->file('dokumen_rekening_koran')->store('dokumen_penyedia', 'public');
+        }
+        $penyedia->fill($data)->save();
+        return redirect()->route('penyedia.profile')->with('success', 'Profil berhasil diperbarui');
     }
 }

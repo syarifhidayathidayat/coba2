@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Penyedia extends Model
 {
     protected $fillable = [
+        'user_id',
         'nama_penyedia',
         'nama_direktur_penyedia',
         'alamat',

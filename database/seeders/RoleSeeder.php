@@ -28,7 +28,7 @@ class RoleSeeder extends Seeder
             'Pejabat-Pengadaan52',
             'Staff',
             'Keuangan',
-            'Kasubag',
+            'Penyedia',
         ];
         foreach ($roles as $role) {
             Role::firstOrCreate(['name' => $role]);
@@ -50,7 +50,7 @@ class RoleSeeder extends Seeder
                 'icon' => 'fas fa-tachometer-alt',
                 'route' => 'dashboard',
                 'order' => 1,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Staff', 'Keuangan', 'Kasubag']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Staff', 'Keuangan', 'Penyedia']
             ],
             [
                 'name' => 'Manajemen Menu',
@@ -71,14 +71,14 @@ class RoleSeeder extends Seeder
                 'icon' => 'fas fa-file-alt',
                 'route' => 'sp.index',
                 'order' => 4,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Kasubag']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
             ],
             [
                 'name' => 'BAST',
                 'icon' => 'fas fa-file-signature',
                 'route' => 'bast.index',
                 'order' => 5,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Kasubag']
+                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
             ],
         ];
 
