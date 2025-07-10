@@ -13,30 +13,35 @@ class BastController extends Controller
 {
     public function index()
     {
+        $tahun = session('tahun', now()->year);
+
         if (auth()->user()->hasRole('Penyedia')) {
             $penyedia = auth()->user()->penyedia;
 
-            // Cek jika belum punya relasi penyedia
             if (!$penyedia) {
                 return back()->with('error', 'Profil penyedia belum lengkap.');
             }
 
-            // Ambil BAST milik penyedia
-            $basts = \App\Models\Bast::whereHas('sp', function ($query) use ($penyedia) {
-                $query->where('penyedia_id', $penyedia->id);
+            $basts = Bast::whereHas('sp', function ($query) use ($penyedia, $tahun) {
+                $query->where('penyedia_id', $penyedia->id)
+                    ->whereYear('tanggal', $tahun);
             })->with('sp')->latest()->get();
         } else {
-            // Role lain bisa lihat semua
-            $basts = \App\Models\Bast::with('sp')->latest()->get();
+            $basts = Bast::whereHas('sp', function ($query) use ($tahun) {
+                $query->whereYear('tanggal', $tahun);
+            })->with('sp')->latest()->get();
         }
 
-        return view('bast.index', compact('basts'));
+        $pageTitle = "Daftar BAST Tahun $tahun";
+        return view('bast.index', compact('basts', 'pageTitle'));
     }
 
     public function create(Sp $sp)
     {
         return view('bast.create', compact('sp'));
     }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -69,22 +74,32 @@ class BastController extends Controller
         return redirect()->route('bast.index')
             ->with('success', 'BAST berhasil dibuat');
     }
+
+
     public function show(Bast $bast)
     {
         return view('bast.show', compact('bast'));
     }
+
+
     public function edit(string $id)
     {
         //
     }
+
+
     public function update(Request $request, string $id)
     {
         //
     }
+
+
     public function destroy(string $id)
     {
         //
     }
+
+
     public function printBast($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -96,6 +111,8 @@ class BastController extends Controller
         $filename = 'BAST-' . str_replace('/', '-', $bast->nomor_bast) . '.pdf';
         return $pdf->stream($filename);
     }
+
+
     public function printBap($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -107,6 +124,8 @@ class BastController extends Controller
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bap) . '.pdf';
         return $pdf->stream($filename);
     }
+
+
     public function printBapem($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -118,6 +137,8 @@ class BastController extends Controller
         $filename = 'BA Pemeriksaan -' . str_replace('/', '-', $bast->nomor_bapem) . '.pdf';
         return $pdf->stream($filename);
     }
+
+
     public function printKwitansi($id)
     {
         $bast = Bast::with(['sp', 'barangs'])->findOrFail($id);
@@ -129,6 +150,8 @@ class BastController extends Controller
         $filename = 'Kwitansi -' . str_replace('/', '-', $bast->nomor_kwitansi) . '.pdf';
         return $pdf->stream($filename);
     }
+
+
     public function printSsp(Bast $bast)
     {
         $bast->load([

@@ -31,6 +31,7 @@
                 <table id="tabel-sp" class="table table-hover table-bordered table-striped w-100">
                     <thead class="table-light">
                         <tr>
+                            <th>No</th>
                             <th>Status</th>
                             <th>Nomor SP</th>
                             <th>Penyedia</th>
@@ -45,6 +46,7 @@
                     <tbody>
                         @foreach ($sps as $sp)
                             <tr>
+                                <td></td>
                                 @php
                                     $color = match ($sp->status_label) {
                                         'SP Dibuat' => 'success',
@@ -125,18 +127,34 @@
 @endsection
 @push('scripts')
     <script>
-        $(function() {
-            $('#tabel-sp').DataTable({
-                responsive: true,
+        $(document).ready(function() {
+            let table = $('#tabel-sp').DataTable({
                 paging: true,
-                ordering: true,
                 searching: true,
+                ordering: true,
+                responsive: true,
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50, 100],
                 order: [
                     [4, 'desc']
-                ],
+                ], // Kolom ke-6 = Tanggal (0-index)
+                columnDefs: [{
+                    targets: 0, // Kolom "No"
+                    searchable: false,
+                    orderable: false,
+                    className: 'text-center'
+                }]
             });
+
+            // Tambahkan event draw agar nomor urut update setiap redraw (sort, search, pagination)
+            table.on('order.dt search.dt draw.dt', function() {
+                table.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function(cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
         });
     </script>
 @endpush

@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
+    Route::post('/set-tahun', [DashboardController::class, 'setTahun'])->name('dashboard.setTahun');
 
     // Route::resource('penyedia', PenyediaController::class);
     Route::get('/penyedia/{penyedia}', [PenyediaController::class, 'show'])->name('penyedia.show');

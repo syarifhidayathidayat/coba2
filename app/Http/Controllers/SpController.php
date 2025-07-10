@@ -25,6 +25,8 @@ class SpController extends Controller
         $pageTitle = 'Semua Surat Pesanan';
         return view('sp.index', compact('sps', 'pageTitle'));
     }
+
+
     public function index52()
     {
         $tahun = session('tahun', now()->year); // Ambil tahun dari session
@@ -33,16 +35,23 @@ class SpController extends Controller
                 ->where('jenis_akun', '52')
                 ->whereYear('tanggal', $tahun)
                 ->doesntHave('bast')
+                ->latest()
                 ->get();
         } else {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '52')
                 ->whereYear('tanggal', $tahun)
+                ->when(request('belum_bast'), function ($query) {
+                    $query->doesntHave('bast');
+                })
+                ->latest()
                 ->get();
         }
         $pageTitle = "Surat Pesanan Akun 52 - Tahun $tahun";
         return view('sp.index', compact('sps', 'pageTitle'));
     }
+
+
     public function index53()
     {
         $tahun = session('tahun', now()->year); // Ambil tahun dari session
@@ -51,35 +60,48 @@ class SpController extends Controller
                 ->where('jenis_akun', '53')
                 ->whereYear('tanggal', $tahun)
                 ->doesntHave('bast')
+                ->latest()
                 ->get();
         } else {
             $sps = Sp::with('penyedia', 'barangs')
                 ->where('jenis_akun', '53')
                 ->whereYear('tanggal', $tahun)
+                ->when(request('belum_bast'), function ($query) {
+                    $query->doesntHave('bast');
+                })
+                ->latest()
                 ->get();
         }
         $pageTitle = "Surat Pesanan Akun 53 - Tahun $tahun";
         return view('sp.index', compact('sps', 'pageTitle'));
     }
+
+
     public function create()
     {
         $penyedias = Penyedia::all();
         $metodes = ['Tender', 'Penunjukan Langsung', 'Pengadaan Langsung', 'E-Purchasing', 'Swakelola'];
         $user = auth()->user();
+        $tahun = session('tahun', now()->year); // Gunakan tahun dari session
+
         if ($user->hasRole('Pejabat-Pengadaan52')) {
             $paketPekerjaan = \App\Models\PaketPekerjaan::where('jenis_akun', '52')
-                ->where('tahun_anggaran', date('Y'))
+                ->where('tahun_anggaran', $tahun)
                 ->get();
         } elseif ($user->hasRole('Pejabat-Pengadaan53')) {
             $paketPekerjaan = \App\Models\PaketPekerjaan::where('jenis_akun', '53')
-                ->where('tahun_anggaran', date('Y'))
+                ->where('tahun_anggaran', $tahun)
                 ->get();
         } else {
-            $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', date('Y'))->get();
+            $paketPekerjaan = \App\Models\PaketPekerjaan::where('tahun_anggaran', $tahun)->get();
         }
+
         $dokumenPemilihan = \App\Models\DokumenPemilihan::latest()->get();
+
         return view('sp.create', compact('penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -100,11 +122,15 @@ class SpController extends Controller
         return redirect()->route('barang.create', ['id' => $sp->id])
             ->with('success', 'Data SP berhasil disimpan. Silakan masukkan detail barang.');
     }
+
+
     public function show($id)
     {
         $sp = Sp::with('barangs')->findOrFail($id);
         return view('sp.show', compact('sp'));
     }
+
+
     public function edit($id)
     {
         $sp = Sp::findOrFail($id);
@@ -120,6 +146,8 @@ class SpController extends Controller
         $dokumenPemilihan = DokumenPemilihan::latest()->get();
         return view('sp.edit', compact('sp', 'penyedias', 'metodes', 'paketPekerjaan', 'dokumenPemilihan'));
     }
+
+
     public function update(Request $request, $id)
     {
         $request->validate([

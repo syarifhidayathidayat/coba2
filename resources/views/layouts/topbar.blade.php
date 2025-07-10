@@ -43,6 +43,30 @@
                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
                 </a>
             </li> --}}
+
+            {{-- Tahun Anggaran --}}
+            <li class="nav-item me-3 d-none d-md-block">
+                <form method="POST" action="{{ route('dashboard.setTahun') }}"
+                    class="d-flex align-items-center bg-primary bg-opacity-10 rounded px-2 py-1 shadow-sm">
+                    @csrf
+                    <input type="hidden" name="redirect_to" value="{{ url()->full() }}">
+                    <label for="tahun" class="form-label me-2 mb-0 text-primary fw-semibold"
+                        style="font-size: 0.875rem;">
+                        <i class="fas fa-calendar-alt me-1"></i> TA
+                    </label>
+                    <select name="tahun" id="tahun"
+                        class="form-select form-select-sm border-primary text-primary fw-bold"
+                        style="width: auto; min-width: 90px;" onchange="this.form.submit()">
+                        @for ($i = now()->year; $i >= 2018; $i--)
+                            <option value="{{ $i }}"
+                                {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                </form>
+            </li>
+
             {{-- User Dropdown --}}
             <li class="nav-item dropdown">
                 <a class="nav-link py-0 px-2 d-flex align-items-center" href="#" role="button"
@@ -74,7 +98,8 @@
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt me-2"></i> Keluar
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf
+                        </form>
                     </li>
                 </ul>
             </li>

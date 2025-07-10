@@ -16,22 +16,6 @@
         </li>
 
 
-        <li class="nav-item mt-3 px-3">
-            <form method="POST" action="{{ route('dashboard.setTahun') }}">
-                @csrf
-                <label for="tahun" class="form-label ">
-                    <i class="fas fa-calendar "></i> Tahun Anggaran
-                </label>
-                <select name="tahun" id="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
-                    @for ($i = now()->year; $i >= 2020; $i--)
-                        <option value="{{ $i }}" {{ session('tahun', now()->year) == $i ? 'selected' : '' }}>
-                            {{ $i }}
-                        </option>
-                    @endfor
-                </select>
-            </form>
-        </li>
-
         {{-- KONTRAK Section --}}
         @hasanyrole('Admin')
             <li class="nav-title">KONTRAK</li>
@@ -40,26 +24,38 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('barang.semua') }}"><i
                         class="fas fa-boxes nav-icon"></i> Semua Barang</a></li>
         @endhasanyrole
+
+
         @hasanyrole('Admin|Pejabat-Pengadaan52|Pejabat-Pengadaan53')
             <li class="nav-item"><a class="nav-link" href="{{ route('dokumen-pemilihan.index') }}"><i
                         class="fas fa-briefcase nav-icon"></i> Dok. Pemilihan</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('paket-pekerjaan.index') }}"><i
                         class="fas fa-briefcase nav-icon"></i> Paket Pekerjaan</a></li>
+        @endhasanyrole
+
+
+        @hasanyrole('Admin|Pejabat-Pengadaan52|Pejabat-Pengadaan53|Penyedia')
             <li class="nav-item"><a class="nav-link" href="{{ route('bast.index') }}"><i
                         class="fas fa-file-alt nav-icon"></i> BAST</a></li>
         @endhasanyrole
+
+
         @hasanyrole('Admin|Pejabat-Pengadaan52')
             <li class="nav-item"><a class="nav-link {{ request()->routeIs('sp.index.52') ? 'active' : '' }}"
                     href="{{ route('sp.index.52') }}">
                     <i class="fas fa-pencil-alt nav-icon"></i> SP Akun 52
                 </a></li>
         @endhasanyrole
+
+
         @hasanyrole('Admin|Pejabat-Pengadaan53')
             <li class="nav-item"><a class="nav-link {{ request()->routeIs('sp.index.53') ? 'active' : '' }}"
                     href="{{ route('sp.index.53') }}">
                     <i class="fas fa-pencil-alt nav-icon"></i> SP Akun 53
                 </a></li>
         @endhasanyrole
+
+
         {{-- USER Section --}}
         @hasanyrole('Admin')
             <li class="nav-title">USER</li>

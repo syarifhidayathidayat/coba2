@@ -86,4 +86,17 @@ class DashboardController extends Controller
             'statusKontrak'
         ));
     }
+
+
+    public function setTahun(Request $request)
+    {
+        $request->validate([
+            'tahun' => 'required|integer|min:2019|max:' . now()->year,
+        ]);
+
+        session(['tahun' => $request->tahun]);
+
+        // Redirect ke halaman sebelumnya jika disediakan, jika tidak ke dashboard
+        return redirect($request->input('redirect_to', route('dashboard')));
+    }
 }
