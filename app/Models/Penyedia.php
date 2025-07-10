@@ -31,4 +31,15 @@ class Penyedia extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function basts()
+    {
+        return $this->hasManyThrough(
+            \App\Models\Bast::class, // model yang dituju
+            \App\Models\Sp::class,   // perantara
+            'penyedia_id',           // foreign key di SP ke Penyedia
+            'sp_id',                 // foreign key di BAST ke SP
+            'id',                    // local key di Penyedia
+            'id'                     // local key di SP
+        );
+    }
 }

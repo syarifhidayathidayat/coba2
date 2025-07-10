@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Sp;
 use App\Models\Penyedia;
 use App\Models\PaketPekerjaan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\DokumenPemilihan;
+
 class SpController extends Controller
 {
     public function index()
@@ -164,5 +167,9 @@ class SpController extends Controller
     {
         $sp = Sp::with(['penyedia', 'barangs'])->findOrFail($id);
         return view('sp.cetak', compact('sp'));
+    }
+    public function penyedia()
+    {
+        return $this->belongsTo(Penyedia::class);
     }
 }

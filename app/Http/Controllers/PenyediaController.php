@@ -95,7 +95,14 @@ class PenyediaController extends Controller
     public function editProfile()
     {
         $penyedia = auth()->user()->penyedia;
-        return view('penyedia.profile', compact('penyedia'));
+        if (!$penyedia) {
+            abort(404, 'Data penyedia belum tersedia.');
+        }
+        // Ambil daftar BAST berdasarkan relasi melalui SP
+        $basts = \App\Models\Bast::whereHas('sp', function ($query) use ($penyedia) {
+            $query->where('penyedia_id', $penyedia->id);
+        })->with('sp')->latest()->get();
+        return view('penyedia.profile', compact('penyedia', 'basts'));
     }
     public function updateProfile(Request $request)
     {
@@ -129,5 +136,15 @@ class PenyediaController extends Controller
         }
         $penyedia->fill($data)->save();
         return redirect()->route('penyedia.profile')->with('success', 'Profil berhasil diperbarui');
+    }
+    public function bastSaya()
+    {
+        $penyedia = auth()->user()->penyedia;
+
+        $basts = \App\Models\Bast::whereHas('sp', function ($query) use ($penyedia) {
+            $query->where('penyedia_id', $penyedia->id);
+        })->with('sp')->latest()->get();
+
+        return view('penyedia.bast.index', compact('basts'));
     }
 }

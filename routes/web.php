@@ -25,11 +25,16 @@ Route::post('/dashboard/set-tahun', function () {
     session(['tahun' => request()->input('tahun')]);
     return redirect()->route('dashboard');
 })->name('dashboard.setTahun');
+
+// Role Penyedia
 Route::middleware(['auth', 'role:Penyedia'])->group(function () {
-    Route::get('/penyedia/profile', [\App\Http\Controllers\PenyediaProfileController::class, 'edit'])->name('penyedia.profile');
-    Route::post('/penyedia/profile', [\App\Http\Controllers\PenyediaProfileController::class, 'update'])->name('penyedia.profile.update');
-    Route::post('/penyedia/profile/update', [PenyediaController::class, 'updateProfile'])->name('penyedia.profile.update');
+    Route::get('/penyedia/profile', [\App\Http\Controllers\PenyediaController::class, 'editProfile'])->name('penyedia.profile');
+    Route::post('/penyedia/profile', [\App\Http\Controllers\PenyediaController::class, 'updateProfile'])->name('penyedia.profile.update');
+    Route::get('/penyedia/bast', [PenyediaBastController::class, 'index'])->name('penyedia.bast.index');
+    Route::get('/penyedia/bast', [PenyediaController::class, 'bastSaya'])->name('penyedia.bast.index');
 });
+
+
 // Role mulai from here bro
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,11 +47,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('penyedia', PenyediaController::class)->parameters([
         'penyedia' => 'penyedia'
     ]);
+
     // Route::resource('penyedia', PenyediaController::class);
     Route::get('/penyedia/{penyedia}', [PenyediaController::class, 'show'])->name('penyedia.show');
+
     // SP berdasarkan akun
     Route::get('/sp/akun52', [SpController::class, 'index52'])->name('sp.index.52');
     Route::get('/sp/akun53', [SpController::class, 'index53'])->name('sp.index.53');
+
     // SP Utama
     Route::resource('sp', SpController::class);
     Route::get('/barang/semua', [BarangController::class, 'indexSemuaBarang'])->name('barang.semua');
@@ -56,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/sp/{id}', [SpController::class, 'show'])->name('sp.show');
     Route::get('/sp/{id}/cetak', [SpController::class, 'cetak'])->name('sp.cetak');
     Route::resource('paket-pekerjaan', PaketPekerjaanController::class);
+
     // BAST
     Route::get('/bast', [BastController::class, 'index'])->name('bast.index');
     Route::get('/bast/create/{sp}', [BastController::class, 'create'])->name('bast.create');
@@ -74,7 +83,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('user', UserController::class);
     });
     Route::get('/search', [SearchController::class, 'index'])->name('search');
-    // Route::resource('users', UserController::class);
     Route::resource('dokumen-pemilihan', DokumenPemilihanController::class);
     Route::get('/dokumen-pemilihan/{id}/cetak-undangan', [DokumenPemilihanController::class, 'cetakUndangan'])->name('dokumen-pemilihan.cetak.undangan');
 });

@@ -1,29 +1,38 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Bast;
 use App\Models\Sp;
 use App\Models\Barang;
 use App\Models\Institusi;
 use Illuminate\Http\Request;
 use PDF;
+
 class BastController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
-        $query = Bast::with(['sp']);
-        if ($user->hasRole('Pejabat-Pengadaan52')) {
-            $query->whereHas('sp', function ($q) {
-                $q->where('jenis_akun', '52');
-            });
-        } elseif ($user->hasRole('Pejabat-Pengadaan53')) {
-            $query->whereHas('sp', function ($q) {
-                $q->where('jenis_akun', '53');
-            });
+        if (auth()->user()->hasRole('Penyedia')) {
+            $penyedia = auth()->user()->penyedia;
+
+            // Cek jika belum punya relasi penyedia
+            if (!$penyedia) {
+                return back()->with('error', 'Profil penyedia belum lengkap.');
+            }
+
+            // Ambil BAST milik penyedia
+            $basts = \App\Models\Bast::whereHas('sp', function ($query) use ($penyedia) {
+                $query->where('penyedia_id', $penyedia->id);
+            })->with('sp')->latest()->get();
+        } else {
+            // Role lain bisa lihat semua
+            $basts = \App\Models\Bast::with('sp')->latest()->get();
         }
-        $basts = $query->latest()->get();
+
         return view('bast.index', compact('basts'));
     }
+
     public function create(Sp $sp)
     {
         return view('bast.create', compact('sp'));

@@ -2,10 +2,20 @@
 @section('title', 'Daftar BAST')
 @section('content')
     <div class="container-fluid">
-        <h3>Daftar BAST</h3>
+        {{-- <h3>Daftar BAST</h3>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+        @endif --}}
+        {{-- <h3>
+            @role('Penyedia')
+                Daftar BAST Saya
+            @else
+                Daftar Semua BAST
+            @endrole
+        </h3> --}}
+        <h3>Daftar BAST {{ auth()->user()->hasRole('Penyedia') ? 'Saya' : '' }}</h3>
+
+
         <div class="card">
             <div class="card-body">
                 <table id="tabel-bast" class="table table-bordered table-hover">
@@ -38,17 +48,17 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <!-- <a href="{{ route('bast.print.bast', $bast->id) }}" class="btn btn-sm btn-primary" target="_blank" title="Cetak BAST">
-                                    <i class="fas fa-print"></i> BAST
-                                </a>
-                                <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-sm btn-info" target="_blank" title="Cetak BAP">
-                                    <i class="fas fa-print"></i> BAP
-                                </a>
-                                <a href="{{ route('bast.print.bapem', $bast->id) }}" class="btn btn-sm btn-success" target="_blank" title="Cetak BAPEM">
-                                    <i class="fas fa-print"></i> BAPEM
-                                </a>
-                                <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-sm btn-warning" target="_blank" title="Cetak Kwitansi">
-                                    <i class="fas fa-print"></i> Kwitansi
-                                </a> -->
+                                            <i class="fas fa-print"></i> BAST
+                                        </a>
+                                        <a href="{{ route('bast.print.bap', $bast->id) }}" class="btn btn-sm btn-info" target="_blank" title="Cetak BAP">
+                                            <i class="fas fa-print"></i> BAP
+                                        </a>
+                                        <a href="{{ route('bast.print.bapem', $bast->id) }}" class="btn btn-sm btn-success" target="_blank" title="Cetak BAPEM">
+                                            <i class="fas fa-print"></i> BAPEM
+                                        </a>
+                                        <a href="{{ route('bast.print.kwitansi', $bast->id) }}" class="btn btn-sm btn-warning" target="_blank" title="Cetak Kwitansi">
+                                            <i class="fas fa-print"></i> Kwitansi
+                                        </a> -->
                                 </td>
                             </tr>
                         @endforeach
