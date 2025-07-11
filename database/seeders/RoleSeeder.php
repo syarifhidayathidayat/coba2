@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
 
         // Create roles
         $roles = [
-            'admin',
+            'Admin',
             'Direktur',
             'PPK',
             'Pejabat-Pengadaan53',
@@ -35,13 +35,13 @@ class RoleSeeder extends Seeder
         }
 
         // Create admin user
-        $admin = User::firstOrCreate([
+        $Admin = User::firstOrCreate([
             'email' => 'admin@admin.com',
         ], [
             'name' => 'Admin',
             'password' => Hash::make('password'),
         ]);
-        $admin->assignRole('admin');
+        $Admin->assignRole('admin');
 
         // Create default menus
         $menus = [
@@ -50,35 +50,35 @@ class RoleSeeder extends Seeder
                 'icon' => 'fas fa-tachometer-alt',
                 'route' => 'dashboard',
                 'order' => 1,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Staff', 'Keuangan', 'Penyedia']
+                'roles' => ['Admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Staff', 'Keuangan', 'Penyedia']
             ],
             [
                 'name' => 'Manajemen Menu',
                 'icon' => 'fas fa-bars',
                 'route' => 'menu.index',
                 'order' => 2,
-                'roles' => ['admin']
+                'roles' => ['Admin']
             ],
             [
                 'name' => 'Manajemen User',
                 'icon' => 'fas fa-users',
                 'route' => 'user.index',
                 'order' => 3,
-                'roles' => ['admin']
+                'roles' => ['Admin']
             ],
             [
                 'name' => 'Surat Perintah',
                 'icon' => 'fas fa-file-alt',
                 'route' => 'sp.index',
                 'order' => 4,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
+                'roles' => ['Admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
             ],
             [
                 'name' => 'BAST',
                 'icon' => 'fas fa-file-signature',
                 'route' => 'bast.index',
                 'order' => 5,
-                'roles' => ['admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
+                'roles' => ['Admin', 'Direktur', 'PPK', 'Pejabat-Pengadaan53', 'Pejabat-Pengadaan52', 'Keuangan', 'Penyedia']
             ],
         ];
 
