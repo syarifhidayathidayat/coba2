@@ -41,7 +41,7 @@ class RoleSeeder extends Seeder
             'name' => 'Admin',
             'password' => Hash::make('password'),
         ]);
-        $Admin->assignRole('admin');
+        $Admin->assignRole('Admin');
 
         // Create default menus
         $menus = [
